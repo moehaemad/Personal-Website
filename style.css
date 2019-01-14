@@ -1,8 +1,50 @@
+html{
+    background-color: aliceblue;
+}
+
 h1 {
     /*font-family: [main font], [fallback font]
     more than one fallback font can be used in case the browser doesn't support one */
     font-family: 'Times New Roman', Times, serif;
+    /*You can use px or rem. "rem" is used to ensure
+    that HTML elements scale in proportion to each other
+    on various web browsers 1rem=16px 2rem=32px ... And 
+    "em" is used in proportion to the parent element.
+    If parent is 20px then the child element with 0.5em=10px */ 
     font-size: 50px;
-    color: red;
-    
+    color: purple;
+    text-align: center;
+    display:block;
+    position: sticky;
+}
+.info{
+    color: purple;
+    /*You can add background-color and background-image with url for the latter */
+    /*You can also change the background-size to control the size */
+    background-color: gray;
+    display: block;
+}
+.fun{
+    color: black;
+    background-image:
+    url("https://physics.aps.org/assets/a7000560-c55b-4334-8152-859b08f952c8/e37_1.png");
+    background-size: cover;
+    border: 5px dashed black;
+    padding: 10px;
+    justify-content: center;
+    display: block;
+} 
+/*You can introduce id in a html tag and have it refer to an attribute in cs that can only
+by used once because the id is unique to the element it's assigned to.
+Id's are more specific than class attribute. Note id > class in order of precedence*/
+
+#description{
+    font-size:0.5em;
+    margin: 2em;
+}
+
+nav li {
+    font-size: 2rem;
+    background-image: url("https://physics.aps.org/assets/a7000560-c55b-4334-8152-859b08f952c8/e37_1.png");
+    padding: 10px;
 }
