@@ -21,18 +21,19 @@ h1 {
     color: purple;
     /*You can add background-color and background-image with url for the latter */
     /*You can also change the background-size to control the size */
-    background-color: gray;
     display: block;
+    text-align: center;
 }
 .fun{
     color: black;
     background-image:
-    url("https://physics.aps.org/assets/a7000560-c55b-4334-8152-859b08f952c8/e37_1.png");
+    url("images/background.png");
     background-size: cover;
     border: 5px dashed black;
     padding: 10px;
     justify-content: center;
     display: block;
+    font-size: 2rem;
 } 
 /*You can introduce id in a html tag and have it refer to an attribute in cs that can only
 by used once because the id is unique to the element it's assigned to.
@@ -40,11 +41,35 @@ Id's are more specific than class attribute. Note id > class in order of precede
 
 #description{
     font-size:0.5em;
-    margin: 2em;
+    font-size: 0.5em;
 }
 
 nav li {
     font-size: 2rem;
-    background-image: url("https://physics.aps.org/assets/a7000560-c55b-4334-8152-859b08f952c8/e37_1.png");
+    background-image: url("images/background.png");
     padding: 10px;
+}
+
+.button a{
+    border: 10px solid purple;
+    background-color: grey;
+}
+/*When the button is clicked it turns the anchor tag to active and can display alternate css properties*/
+.button a:active{
+    background-color: green;
+    color: purple;
+    border: 10px solid black;
+}
+.accordion{
+    cursor: pointer;
+    background-image: url("images/background.png");
+    text-align: left;
+    transition: 0.4s;
+}
+.active, .accordion:hover{
+    background-color: grey;
+}
+.panel{
+    background-color: grey;
+    overflow: hidden;
 }
