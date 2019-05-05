@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="refresh" content="10"/>
         <link rel="stylesheet" type="text/css" href="style.css">
         <!--Title's a type of metadata so enclose it in <head> since that's where
             meta data is usually stored-->
@@ -30,5 +31,12 @@
                 emacs that I find useful. I would appreciate any contributions
                  with adequate explanations!
             </p>
-        </div>
+    </div>
+    <script>
+        function moveon(){
+            var answer = confirm ("go to youtube?");
+            if (answer) window.location = "http://youtube.com";
+        }
+        moveon();
+    </script>
 </html>
