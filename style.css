@@ -1,5 +1,5 @@
 html{
-    background-color: aliceblue;
+    background-color: white;
 }
 
 h1 {
@@ -11,11 +11,36 @@ h1 {
     on various web browsers 1rem=16px 2rem=32px ... And 
     "em" is used in proportion to the parent element.
     If parent is 20px then the child element with 0.5em=10px */ 
-    font-size: 50px;
-    color: purple;
+    font-size: 40px;
+    color: white;
     text-align: center;
-    display:block;
+}
+.navbar{
+    font-size: 30px;
     position: sticky;
+    text-align: left;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.918);
+    color: white;
+    padding: 0;
+    border-top:0;
+}
+
+.navbar ul{
+    padding-left: 1rem;
+}
+
+.navbar li a{
+    text-decoration: none;
+    color: white;
+    padding-right: 10px;
+}
+.navbar li{
+    display: inline;
+    text-decoration: none;
+}
+.navbar li a:hover{
+    background-color: rgba(37, 67, 122, 0.555);
 }
 .info{
     color: purple;
