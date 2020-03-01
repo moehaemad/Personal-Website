@@ -12,18 +12,18 @@
     <div class='navbar'>
         <h1>Muhammad Ali</h1>
         <ul>
-            <li><a id='resume' href='Muhammad Ali.pdf'>Resume</a></li>
-            <li><a href='https://github.com/moehaemad'>Github</a></li>
+            <li><a id='resume' href='Muhammad Ali.pdf' target='_blank'>Resume</a></li>
+            <li><a id='github' href='https://github.com/moehaemad' target='_blank'>Github</a></li>
         </ul>
     </div>
     <body class='main'>
-        <div class='info'>
+        <div class='info' id='certification'>
             <h2>Certification:</h2>
             <ul>
                 <li>Cisco Certified Entry Networking Technician (CCENT)</li>
             </ul>
         </div>
-        <div class='info'>
+        <div class='info' id='languages'>
             <h2>Programming Languages</h2>
             <ul>
                 <li>
@@ -37,9 +37,9 @@
                 </li>
             </ul>
         </div>
-        <div class='info'>
+        <div class='info' id='projects'>
             <h2>Projects</h2>
-            <div class='project'>
+            <div class='project' id='budget-calc'>
                 <h3>
                     <a href='https://github.com/moehaemad/Budget-Calc'>Budget Calculator:</a>
                 </h3>
@@ -48,14 +48,14 @@
                 </p>
                 <img src='resources/TkinterScreen.png'/>
             </div>
-            <div class='project'>
+            <div class='project' id='cgr'>
                 <h3>
-                    <a href='https://github.com/moehaemad/dotfiles'>CGR project:</a>
+                    <a href='https://github.com/moehaemad/CGR-Project'>CGR project:</a>
                 </h3>
                 <p>For my degree, I am required to do a research internship program in which I assist in research for a graduate student. I chose to "intern" for research in gambling at the Centre for Gambling Research at the University of British Columbia and these python files are the statistical analysis I pursued. All of the work I contributed towards and the results are in a paper for which I will upload after I'm done; the report was written in Latex.</p>
-                <iframe src='resources/article_2.pdf'></iframe>
+                <button class='cgr-button' onclick="window.open('https://github.com/moehaemad/CGR-Project')">Open File in Browser</button>
             </div>
-            <div class='project'>
+            <div class='project' id='dotfiles'>
                 <h3>
                     <a href='https://github.com/moehaemad/dotfiles'>Dotfiles:</a>
                 </h3>
@@ -65,4 +65,5 @@
         </div>
 
     </body>
+    <script src='app.js'></script>
 </html>
