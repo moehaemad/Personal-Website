@@ -1,7 +1,15 @@
 $font-text: 'Monospace', 'Times New Roman';
 $font-size: (
-    'h1': 50px,
-    'h2': 40px,
+    'h1': 40px,
+    'h2': 35px,
     'h3': 25px
-)
+);
 
+h1, h2, h3, p {
+    color: white;
+    font-family: $font-text;
+}
+
+h1 {
+    font-size: map-get($font-size, h1);
+}
