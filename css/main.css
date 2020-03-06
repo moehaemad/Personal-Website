@@ -1,0 +1,28 @@
+h1, h2, h3, p {
+  font-family: "Monospace", "Times New Roman";
+  color: white;
+  text-align: left;
+}
+
+h1 {
+  font-size: 40px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 35px;
+  padding-left: 0.25em;
+  margin-bottom: 0;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  border-bottom: 0.3rem;
+  border-bottom-color: #e3c4a8;
+  border-bottom-style: solid;
+}
+
+h3 {
+  font-size: 25px;
+  margin-bottom: 0;
+  padding: 0;
+}
+/*# sourceMappingURL=main.css.map */
