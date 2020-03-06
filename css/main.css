@@ -1,4 +1,4 @@
-h1, h2, h3, p {
+h1, h2, h3, p, a {
   font-family: "Monospace", "Times New Roman";
   color: white;
   text-align: left;
@@ -24,5 +24,57 @@ h3 {
   font-size: 25px;
   margin-bottom: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 50%;
+  height: auto;
+}
+
+.navbar {
+  font-family: "Monospace", "Times New Roman";
+  color: white;
+  text-align: left;
+  font-size: 30px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 0;
+  border-top: 0;
+  margin: 0;
+}
+
+.navbar ul {
+  font-size: 30px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.navbar li {
+  padding-left: 1rem;
+}
+
+.navbar li a {
+  color: white;
+}
+
+.navbar li a:hover {
+  background-color: #479ad1;
+  border-radius: 10%;
+}
+
+.info {
+  color: white;
+  padding: none;
+  margin-top: 0;
+}
+
+.project {
+  padding-left: 5rem;
 }
 /*# sourceMappingURL=main.css.map */

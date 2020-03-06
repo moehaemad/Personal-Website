@@ -4,6 +4,12 @@ $font-size: (
     'h2': 35px,
     'h3': 25px
 );
+$palet: (
+    'primary': white,
+    'highlight': #e3c4a8,
+    'navbar': #226089,
+    'list-anchor': #479ad1
+);
 
 @mixin regular-text {
     font-family: $font-text;
@@ -11,7 +17,7 @@ $font-size: (
     text-align: left;
 }
 
-h1, h2, h3, p {
+h1, h2, h3, p, a {
     @include regular-text;
 }
 
@@ -21,9 +27,60 @@ h1 {
 }
 h2{
     font-size: map-get($font-size, h2);
+    padding-left: 0.25em;
+    margin-bottom: 0;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    border-bottom: 0.3rem;
+    border-bottom-color: map-get($map: $palet, $key: highlight);
+    border-bottom-style: solid;
 }
 h3{
     font-size: map-get($font-size, h3);
     margin-bottom: 0;
     padding: 0;
+}
+a{
+    text-decoration: none;
+}
+img{
+    width: 50%;
+    height: auto;
+}
+
+.navbar{
+    @include regular-text;
+    font-size: 30px;
+    position: sticky;
+    top: 0;
+    background-color: map-get($map: $palet, $key: nav-bar);
+    padding: 0;
+    border-top: 0;
+    margin: 0;
+
+    ul{
+        font-size: 30px;
+        position: sticky;
+        top: 0;
+
+    }
+    li{
+        padding-left: 1rem;
+        a{
+            color: map-get($map: $palet, $key: primary);
+
+            &:hover{
+                background-color: map-get($map: $palet, $key: list-anchor);
+                border-radius: 10%;
+            }
+        }
+    }
+}
+.info{
+    color: map-get($map: $palet, $key: primary);
+    padding: none;
+    margin-top: 0;
+}
+.project{
+    padding-left: 5rem;
 }
