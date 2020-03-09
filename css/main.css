@@ -1,3 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 html {
   background-color: black;
 }
@@ -74,25 +81,5 @@ img {
 .navbar li a:hover {
   background-color: #479ad1;
   border-radius: 10%;
-}
-
-.intro {
-  background: url("../resources/bg.jpg") center top;
-  background-size: cover;
-  text-align: center;
-  color: black;
-  width: 100%;
-  padding-top: 100vh;
-  overflow: hidden;
-}
-
-.info {
-  color: white;
-  padding: none;
-  margin-top: 0;
-}
-
-.project {
-  padding-left: 5rem;
 }
 /*# sourceMappingURL=main.css.map */
