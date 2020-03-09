@@ -3,26 +3,62 @@
 <html>
     <head>
         <!-- <meta http-equiv="refresh" content="10"/> -->
-        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="shortcut icon" type="image/png" href="resources/favicon.png">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
         <!--Title's a type of metadata so enclose it in <head> since that's where
             meta data is usually stored-->
         <title>Muhammad Ali</title>
         <meta charset="utf-8"/>
+        <meta name="viewport"  content="width=device-width, initial-scale=1.0">
     </head>
-    <div class='navbar'>
-        <h1>Muhammad Ali</h1>
-        <ul>
-            <li><a id='resume' href='Muhammad Ali.pdf' target='_blank'>Resume</a></li>
-            <li><a id='github' href='https://github.com/moehaemad' target='_blank'>Github</a></li>
-        </ul>
-    </div>
     <body class='main'>
         <header>
-            <section>
-                <div>Muhammad Ali</div>
-            </section>
+            <div class="main-btn">
+                <span class="menu-btn"></span>
+            </div>
+            <nav class="nav">
+                <ul class="menu-nav">
+                    <li class="menu-nav__item">
+                        <a href="index.html" class="menu-nav__link">
+                            Home
+                        </a>
+                    </li>
+                    <li class="menu-nav__item">
+                        <a href="about.html" class="menu-nav__link">
+                            About
+                        </a>
+                    </li>
+                    <li class="menu-nav__item">
+                        <a href="projects.html" class="menu-nav__link">
+                            Projects
+                        </a>
+                    </li>
+                    <li class="menu-nav__item">
+                        <a href="contacts.html" class="menu-nav__link">
+                            Contact Me
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </header>
+        <main>
+            <section class="home">
+                <h2>Hi, my name is</h2>
+                <h1>
+                    Muhammad <span class="home__name--last">Ali</span>
+                </h1>
+                <h2>
+                    Web Developer
+                </h2>
+                <div class="social-icons">
+                    <a href="#">
+                        <i class="fab fa-linkedin fa-2x">LinkedIn</i>
+                        <i class="fab fa-github-square fa-2x">Github</i>
+                    </a>
+                </div>
+            </section>
+        </main>
         <div class='info' id='certification'>
             <h2>Certification:</h2>
             <ul>
@@ -71,5 +107,6 @@
         </div>
 
     </body>
+    <script src="https://kit.fontawesome.com/69c9a68f44.js" crossorigin="anonymous"></script>
     <script src='app.js'></script>
 </html>
