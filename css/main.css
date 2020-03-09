@@ -1,5 +1,13 @@
+html {
+  background-color: black;
+}
+
+body {
+  margin: 0;
+}
+
 h1, h2, h3, p, a {
-  font-family: "Monospace", "Times New Roman";
+  font-family: "Ubuntu", "Times New Roman";
   color: white;
   text-align: left;
 }
@@ -36,7 +44,7 @@ img {
 }
 
 .navbar {
-  font-family: "Monospace", "Times New Roman";
+  font-family: "Ubuntu", "Times New Roman";
   color: white;
   text-align: left;
   font-size: 30px;
@@ -66,6 +74,16 @@ img {
 .navbar li a:hover {
   background-color: #479ad1;
   border-radius: 10%;
+}
+
+.intro {
+  background: url("../resources/bg.jpg") center top;
+  background-size: cover;
+  text-align: center;
+  color: black;
+  width: 100%;
+  padding-top: 100vh;
+  overflow: hidden;
 }
 
 .info {

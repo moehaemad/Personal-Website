@@ -1,4 +1,4 @@
-$font-text: 'Monospace', 'Times New Roman';
+$font-text: 'Ubuntu', 'Times New Roman';
 $font-size: (
     'h1': 40px,
     'h2': 35px,
@@ -8,7 +8,8 @@ $palet: (
     'primary': white,
     'highlight': #e3c4a8,
     'navbar': #226089,
-    'list-anchor': #479ad1
+    'list-anchor': #479ad1,
+    'background': #0a1d29
 );
 
 @mixin regular-text {
@@ -16,7 +17,13 @@ $palet: (
     color: white;
     text-align: left;
 }
-
+html{
+    // background-color: map-get($map: $palet, $key: background);
+    background-color: black;
+}
+body{
+    margin: 0;
+}
 h1, h2, h3, p, a {
     @include regular-text;
 }
@@ -75,6 +82,16 @@ img{
             }
         }
     }
+}
+
+.intro{
+    background: url('../resources/bg.jpg') center top;
+    background-size: cover;
+    text-align: center;
+    color: black;
+    width: 100%;
+    padding-top: 100vh;
+    overflow: hidden;
 }
 .info{
     color: map-get($map: $palet, $key: primary);
