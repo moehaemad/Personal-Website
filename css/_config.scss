@@ -1,8 +1,13 @@
-$primary-color: black;
+$primary-color: white;
 $secondary-color: #226089;
+
+@mixin anim{
+    transition: all 1s;
+}
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: $primary-color;
 }
