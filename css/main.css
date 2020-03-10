@@ -3,83 +3,188 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  color: white;
 }
 
-html {
-  background-color: black;
+.home {
+  width: 100%;
+  height: 100%;
+  padding-top: 50vh;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  background: url("../resources/bg.jpg") center top;
+  background-size: cover;
+}
+
+.home__name {
+  font-size: 5rem;
+  padding-bottom: 1rem;
+  margin-top: 1 rem;
+  border-bottom: 2px solid white;
+}
+
+.home__name--last {
+  color: #e3c4a8;
+}
+
+.menu-btn {
+  position: absolute;
+  z-index: 1;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.menu-btn__burger {
+  position: absolute;
+  right: 0;
+  top: 0.5rem;
+  width: 28px;
+  height: 3px;
+  background: white;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.menu-btn__burger::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  width: 28px;
+  height: 3px;
+  background: white;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.menu-btn__burger::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  width: 28px;
+  height: 3px;
+  background: white;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.menu-btn__burger.open {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+  background: transparent;
+}
+
+.menu-btn__burger.open::before {
+  -webkit-transform: rotate(45deg) translate(7px, 10px);
+          transform: rotate(45deg) translate(7px, 10px);
+}
+
+.menu-btn__burger.open::after {
+  -webkit-transform: rotate(-45deg) translate(0px, -5px);
+          transform: rotate(-45deg) translate(0px, -5px);
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  opacity: 0.98;
+  visibility: hidden;
+}
+
+.nav.open {
+  visibility: visible;
+}
+
+.nav .menu-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100vh;
+  overflow: scroll;
+  background-color: #226089;
+  list-style-type: none;
+  padding-right: 1rem;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.nav .menu-nav.open {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
 }
 
 body {
-  margin: 0;
-}
-
-h1, h2, h3, p, a {
-  font-family: "Ubuntu", "Times New Roman";
+  background-color: #0a1d29;
   color: white;
-  text-align: left;
+  height: 100vh;
+  font-family: "Ubuntu", "Times New Roman";
 }
 
-h1 {
-  font-size: 40px;
-  margin: 0;
-}
-
-h2 {
-  font-size: 35px;
-  padding-left: 0.25em;
-  margin-bottom: 0;
-  margin-left: 2rem;
-  margin-right: 2rem;
-  border-bottom: 0.3rem;
-  border-bottom-color: #e3c4a8;
-  border-bottom-style: solid;
-}
-
-h3 {
-  font-size: 25px;
-  margin-bottom: 0;
-  padding: 0;
+h1, h2, h3 {
+  font-weight: bold;
+  line-height: 3rem;
 }
 
 a {
+  color: white;
   text-decoration: none;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  padding: 1rem;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+}
+
+main .social-icons {
+  bottom: 1rem;
+  left: 1rem;
+}
+
+main .social-icons a i {
+  padding: 0.5rem;
+  -webkit-transition: color 1s;
+  transition: color 1s;
+}
+
+main .social-icons a i:hover {
+  color: #e3c4a8;
+}
+
+footer {
+  font-size: 1rem;
+  bottom: 0.4 rem;
+  right: 1rem;
+  text-align: center;
+  padding: 1 rem;
+  color: white;
 }
 
 img {
   width: 50%;
   height: auto;
-}
-
-.navbar {
-  font-family: "Ubuntu", "Times New Roman";
-  color: white;
-  text-align: left;
-  font-size: 30px;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  padding: 0;
-  border-top: 0;
-  margin: 0;
-}
-
-.navbar ul {
-  font-size: 30px;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-}
-
-.navbar li {
-  padding-left: 1rem;
-}
-
-.navbar li a {
-  color: white;
-}
-
-.navbar li a:hover {
-  background-color: #479ad1;
-  border-radius: 10%;
 }
 /*# sourceMappingURL=main.css.map */
