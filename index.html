@@ -12,10 +12,10 @@
         <meta charset="utf-8"/>
         <meta name="viewport"  content="width=device-width, initial-scale=1.0">
     </head>
-    <body class='main'>
+    <body>
         <header>
-            <div class="main-btn">
-                <span class="menu-btn"></span>
+            <div class="menu-btn">
+                <span class="menu-btn__burger"></span>
             </div>
             <nav class="nav">
                 <ul class="menu-nav">
@@ -45,27 +45,29 @@
         <main>
             <section class="home">
                 <h2>Hi, my name is</h2>
-                <h1>
+                <h1 class="home__name">
                     Muhammad <span class="home__name--last">Ali</span>
                 </h1>
-                <h2>
-                    Web Developer
-                </h2>
+                <h3>
+                    Aspiring Full Stack Developer
+                </h3>
                 <div class="social-icons">
                     <a href="#">
-                        <i class="fab fa-linkedin fa-2x">LinkedIn</i>
-                        <i class="fab fa-github-square fa-2x">Github</i>
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fab fa-github-square fa-2x"></i>
                     </a>
                 </div>
             </section>
         </main>
-        <div class='info' id='certification'>
+        <section>
             <h2>Certification:</h2>
             <ul>
                 <li>Cisco Certified Entry Networking Technician (CCENT)</li>
             </ul>
-        </div>
-        <div class='info' id='languages'>
+        </section>
+        <div>
             <h2>Programming Languages</h2>
             <ul>
                 <li>
@@ -79,9 +81,9 @@
                 </li>
             </ul>
         </div>
-        <div class='info' id='projects'>
+        <div>
             <h2>Projects</h2>
-            <div class='project' id='budget-calc'>
+            <div>
                 <h3>
                     <a href='https://github.com/moehaemad/Budget-Calc'>Budget Calculator:</a>
                 </h3>
@@ -90,14 +92,14 @@
                 </p>
                 <img src='resources/TkinterScreen.png'/>
             </div>
-            <div class='project' id='cgr'>
+            <div>
                 <h3>
                     <a href='https://github.com/moehaemad/CGR-Project'>CGR project:</a>
                 </h3>
                 <p>For my degree, I am required to do a research internship program in which I assist in research for a graduate student. I chose to "intern" for research in gambling at the Centre for Gambling Research at the University of British Columbia and these python files are the statistical analysis I pursued. All of the work I contributed towards and the results are in a paper for which I will upload after I'm done; the report was written in Latex.</p>
-                <button class='cgr-button' onclick="window.open('https://github.com/moehaemad/CGR-Project')">Open File in Browser</button>
+                <button onclick="window.open('https://github.com/moehaemad/CGR-Project')">Open File in Browser</button>
             </div>
-            <div class='project' id='dotfiles'>
+            <div>
                 <h3>
                     <a href='https://github.com/moehaemad/dotfiles'>Dotfiles:</a>
                 </h3>
@@ -105,7 +107,12 @@
                 <img src='resources/terminalfun.png'/>
             </div>
         </div>
-
+        <footer>
+            <ul class="footer-list">
+                <li class="footer-list__item">Home</li>
+                <li class="footer-list__item">Contact</li>
+            </ul>
+        </footer>
     </body>
     <script src="https://kit.fontawesome.com/69c9a68f44.js" crossorigin="anonymous"></script>
     <script src='app.js'></script>
