@@ -13,7 +13,8 @@ $palet: (
     'emph': #e3c4a8,
     'secondary': #226089,
     'list-anchor': #479ad1,
-    'bg': #0a1d29
+    'bg': #0a1d29,
+    'footer-bg': black
 );
 
 
@@ -51,26 +52,55 @@ main{
 
         a i{
             padding: 0.5rem;
-            // @include anim;
             transition: color 1s;
 
-            &:hover{
+            &:hover {
                 color: map-get($map: $palet, $key: emph);
             }
         }
     }
 }
 
+.container{
+    display: flex;
+    flex-direction: column;
+    div{
+        padding: 1rem;
+    }
+}
+
 footer {
-    font-size: 1rem;
-    bottom: 0.4 rem;
-    right: 1rem;
+    height: 10vh;
+    font-size: 0.25rem;
     text-align: center;
-    padding: 1 rem;
-    color: map-get($map: $palet, $key: primary);
+    display: flex;
+    flex-direction: column;
+    background: map-get($map: $palet, $key: footer-bg);
+    .footer-item{
+        text-align: left;
+        font-size: 0.76rem;
+        padding: .25rem;
+        margin: .25rem;
+    }
 }
 
 img{
     width: 50%;
     height: auto;
+    //add in flex
+    margin-left: 5rem;
 }
+
+// TEMPORARY FOR DEPLOY
+
+h2{
+    margin-left: 1rem;
+}
+h3{
+    margin-left: 2rem;
+}
+
+li, p{
+    margin-left: 3rem;
+}
+
