@@ -1,5 +1,9 @@
-$primary-color: white;
+$primary-color: black;
 $secondary-color: #226089;
+$link-color: white;
+$link-background: orange;
+$line-width: 30px;
+$line-height: 5px;
 
 .menu-btn{
     position: absolute;
@@ -13,8 +17,8 @@ $secondary-color: #226089;
         position: absolute;
         right: 0;
         top: 0.5rem;
-        width: 28px;
-        height: 3px;
+        width: $line-width;
+        height: $line-height;
         background: $primary-color;
         @include anim;
 
@@ -22,8 +26,8 @@ $secondary-color: #226089;
             content: '';
             position: absolute;
             top: -8px;
-            width: 28px;
-            height: 3px;
+            width: $line-width;
+            height: $line-height;
             background: $primary-color;
             @include anim;
         }
@@ -32,8 +36,8 @@ $secondary-color: #226089;
             content: '';
             position: absolute;
             top: 8px;
-            width: 28px;
-            height: 3px;
+            width: $line-width;
+            height: $line-height;
             background: $primary-color;
             @include anim;
         }
@@ -78,5 +82,16 @@ $secondary-color: #226089;
         &.open{
             transform: translateY(0);
         }
+        &__item{
+            color: $link-color;
+            padding: 2rem;
+        }
+        &__link{
+            padding: 1rem;
+            border: 1px solid none;
+            border-radius: 15px;
+            background: $link-background;
+        }
+
     }
 }
