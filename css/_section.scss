@@ -1,0 +1,78 @@
+$background: #daeaf6;
+// $box-color: #c1dcf0;
+$box-color: #e0bd9e;
+$second-box-color: #ce9564;
+
+//no flexbox in mixin
+@mixin box($back){
+    border-radius: 15px;
+    padding: 1rem;
+    margin: 1rem;
+    background: $back;
+}
+
+.skills{
+    @include box($background);
+    display: flex;
+    flex-direction: column;
+    
+    &-programming{
+        padding: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+
+        &__languages{
+            @include box($box-color);
+            flex-direction: row;
+
+            i{
+                margin-left: 3rem;
+                align-items: flex-end;
+            }
+        }
+    }
+    &-certifications{
+        padding: 2rem;
+        &__name{
+            @include box($box-color);
+        }
+    }
+
+}
+
+.projects{
+    @include box($background);
+    &-list{
+        padding: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        h2{
+            flex:1;
+        }
+        h3{
+            a{
+                background: $second-box-color;
+                border: 1px solid none;
+                border-radius: 15px;
+                padding: 1rem;
+            }
+        }
+        &__item{
+            @include anim;
+            @include box($box-color);
+            color: black;
+
+            i:hover{
+                transform: translateY(-10%);
+
+            }
+
+            &__description{
+                padding: 1rem;
+            }
+
+        }
+    }
+}
