@@ -30,7 +30,7 @@
                         </a>
                     </li>
                     <li class="menu-nav__item">
-                        <a href="#" class="menu-nav__link">
+                        <a href="#portfolio" class="menu-nav__link">
                             Projects
                         </a>
                     </li>
@@ -61,51 +61,57 @@
                 </div>
             </section>
         </main>
-        <section>
-            <h2>Certification:</h2>
-            <ul>
-                <li>Cisco Certified Entry Networking Technician (CCENT)</li>
-            </ul>
+        <section class="skills">
+            <div class="skills-programming">
+                <h2>Programming Languages</h2>
+                <div class="skills-programming__languages">
+                    Python <i class="fab fa-python fa-2x"></i>
+                </div>
+                <div class="skills-programming__languages">
+                    Bash <i class="fas fa-terminal fa-2x"></i>
+                </div>
+                <div class="skills-programming__languages">
+                    Git<i class="fab fa-github fa-2x"></i>
+                </div>
+                <div class="skills-programming__languages">
+                    Java (Android)<i class="fab fa-android fa-2x"></i>
+                </div>
+            </div>
+            <div class="skills-certifications">
+                <h2>Certifications</h2>
+                <div class="skills-certifications__name">
+                    Cisco Certified Networking Technician (CCENT)
+                </div>
+            </div>
         </section>
-        <div>
-            <h2>Programming Languages</h2>
-            <ul>
-                <li>
-                    Python (2 years)
-                </li>
-                <li>
-                    Bash (1 year)
-                </li>
-                <li>
-                    Java Android Development (< 1 year)
-                </li>
-            </ul>
-        </div>
-        <div>
-            <h2>Projects</h2>
-            <div>
-                <h3>
-                    <a href='https://github.com/moehaemad/Budget-Calc'>Budget Calculator:</a>
-                </h3>
-                <p>This python implementation will read some financial statement in the form of .csv and perform explanatory analysis. Additionally, it will perform predictive modeling using linear regression to budget in the future.
+
+        <section class="projects" id='portfolio'>
+            <div class="projects-list">
+                <h2>Projects</h2>
+                <div class="projects-list__item">
+                   <h3><a href="https://github.com/moehaemad/Budget-Calc.">Budget-Calc</a></h3> 
+                   <!-- <i class="fas fa-images fa-2x"></i> -->
+                   <p class="projects-list__item__description">
+                    This python implementation will read some financial statement in the form of .csv and perform explanatory analysis. Additionally, it will perform predictive modeling using linear regression to budget in the future.
                     The GUI was incorporated through the Tkinter python package.
+                   </p>
+                </div>
+                <div class="projects-list__item">
+                   <h3><a href="https://github.com/moehaemad/CGR-Project">CGR Project</a></h3>
+                   <p class="projects-list__item__description">
+                    For my degree, I am required to do a research internship program in which I assist in research for a graduate student. I chose to "intern" for research in gambling at the Centre for Gambling Research at the University of British Columbia and these python files are the statistical analysis I pursued. All of the work I contributed towards and the results are in a paper for which I will upload after I'm done; the report was written in Latex.
                 </p>
-                <img src='resources/TkinterScreen.png'/>
+                </div>
+                <div class="projects-list__item">
+                   <h3><a href="https://github.com/moehaemad/dotfiles">DotFiles</a></h3> 
+                   <!-- <i class="fas fa-images fa-2x"></i> -->
+                   <p class="projects-list__item__description">
+                    These are the configuration files for my personal linux machine running the i3 window manager. Some information is excluded because it is personal and not applicable to any other user.
+                </p>
+                </div>
             </div>
-            <div>
-                <h3>
-                    <a href='https://github.com/moehaemad/CGR-Project'>CGR project:</a>
-                </h3>
-                <p>For my degree, I am required to do a research internship program in which I assist in research for a graduate student. I chose to "intern" for research in gambling at the Centre for Gambling Research at the University of British Columbia and these python files are the statistical analysis I pursued. All of the work I contributed towards and the results are in a paper for which I will upload after I'm done; the report was written in Latex.</p>
-            </div>
-            <div>
-                <h3>
-                    <a href='https://github.com/moehaemad/dotfiles'>Dotfiles:</a>
-                </h3>
-                <p>These are the configuration files for my personal linux machine running the i3 window manager. Some information is excluded because it is personal and not applicable to any other user.</p>
-                <img src='resources/terminalfun.png'/>
-            </div>
-        </div>
+        </section>
+
         <footer>
             <div class="footer-item">
                 <a href="index.html">Home</a>
@@ -113,7 +119,7 @@
             <div class="footer-item">
                 <a href="index.html">Contact</a>
             </div>
-            &copy; Copyright 2019
+            &copy; Copyright 2020
         </footer>
     </body>
     <script src="https://kit.fontawesome.com/69c9a68f44.js" crossorigin="anonymous"></script>
