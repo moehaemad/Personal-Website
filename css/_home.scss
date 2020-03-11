@@ -9,12 +9,14 @@ $secondary-color: #e3c4a8;
     text-align: center;
     background: url('../resources/bg.jpg') center top;
     background-size: cover;
+    color: $primary-color;
 
     &__name{
         font-size: 5rem;
         padding-bottom: 1rem;
         margin-top: 1 rem;
         border-bottom: 2px solid $primary-color;
+        
 
         &--last{
             color: $secondary-color;

@@ -1,4 +1,4 @@
-$primary-color: white;
+$text-color: black;
 $secondary-color: #226089;
 
 @mixin anim{
@@ -9,5 +9,4 @@ $secondary-color: #226089;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: $primary-color;
 }
