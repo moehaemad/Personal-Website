@@ -1,6 +1,7 @@
 @import './config.scss';
 @import './home.scss';
 @import './menu.scss';
+@import './section.scss';
 $font-text: 'Ubuntu', 'Times New Roman';
 $z-ind: 2;
 $font-size: (
@@ -10,17 +11,17 @@ $font-size: (
 );
 $palet: (
     'primary': white,
+    'font-color': black,
     'emph': #e3c4a8,
     'secondary': #226089,
     'list-anchor': #479ad1,
-    'bg': #0a1d29,
+    'bg': white,
     'footer-bg': black
 );
 
 
 body{
     background-color: map-get($map: $palet, $key: bg);
-    color: map-get($map: $palet, $key: primary);
     height: 100vh;
     font-family: $font-text;
 }
@@ -30,7 +31,7 @@ h1, h2, h3{
 }
 
 a{
-    color: map-get($map: $palet, $key: primary);
+    color: map-get($map: $palet, $key: font-color);
     text-decoration: none;
 }
 header{
@@ -46,13 +47,13 @@ main{
     width: 100%;
 
     .social-icons{
-        // position: fixed;
         bottom: 1rem;
         left: 1rem;
 
         a i{
             padding: 0.5rem;
             transition: color 1s;
+            color: map-get($map: $palet, $key: primary);
 
             &:hover {
                 color: map-get($map: $palet, $key: emph);
@@ -61,46 +62,29 @@ main{
     }
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    div{
-        padding: 1rem;
-    }
-}
-
 footer {
     height: 10vh;
-    font-size: 0.25rem;
+    font-size: 0.5rem;
     text-align: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
     background: map-get($map: $palet, $key: footer-bg);
+    color: map-get($map: $palet, $key: primary);
     .footer-item{
         text-align: left;
         font-size: 0.76rem;
-        padding: .25rem;
+        padding: .5rem;
         margin: .25rem;
+        a{
+            color: map-get($map: $palet, $key: primary);
+        }
     }
 }
-
 img{
     width: 50%;
     height: auto;
     //add in flex
     margin-left: 5rem;
-}
-
-// TEMPORARY FOR DEPLOY
-
-h2{
-    margin-left: 1rem;
-}
-h3{
-    margin-left: 2rem;
-}
-
-li, p{
-    margin-left: 3rem;
 }
 
