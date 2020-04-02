@@ -12,10 +12,24 @@ class UI{
             pieces: 'num-pieces'
         }
         this.DOMItems = DOMItems;
+        //This is the canvas element that's used in 2 functions which is why it's in the
+            //constructor.
+        this.canvas = document.querySelector(this.DOMItems.game);
     }
 
-    getCanvas(){
-        return document.querySelector(this.DOMItems.game);
+    getCanvasXY(){
+        //set canvas width and height
+        this.canvas.width = (3*window.innerWidth)/4;
+        this.canvas.height = (3*window.innerHeight)/4;
+        //Ludo board is 15x15 matrix so x and y units must reflect that
+        let x = Math.round(this.canvas.width/15);
+        let y = Math.round(this.canvas.height/15);
+        return [x, y];
+    }
+
+    getCtx(){
+        //this is the context in which the MDN Canvas API uses to draw items
+        return this.canvas.getContext('2d');
     }
 
     displayPiecesCount(x){
@@ -24,11 +38,46 @@ class UI{
         x <= 0 ? dom.textContent = "0": dom.textContent = x.toString(); 
     }
 
-    insertControlItem(item){
-        let icon = `<div class="control-option">Move Piece ${item}<i class="fas fa-chess-pawn fa-3x"></i></div>`;
+    setDice(val){
+        //Adds the icon of the dice on the fly by using innerHTML property
+        let icon = `<i class="fas fa-dice-${val} fa-4x"></i>`;
+        document.querySelector(this.DOMItems.dice).innerHTML = icon
+    }
+
+    insertOptionItem(item, message){
+        //This inserts an icon to let player choose how to move each respective piece
+        //Item is the piece number (i.e. 1, 2, etc.) and message is string to move or
+            //add.
+        let icon = `<div class="control-option">${message} ${item}<i class="fas fa-chess-pawn fa-3x"></i></div>`;
         let insert = this.DOMItems.controlBoard;
-        document.querySelector(insert).insertAdjacentHTML('beforebegin', icon);
-        
+        document.querySelector(insert).insertAdjacentHTML('afterbegin', icon);
+    }
+
+    clearControlItems(){
+        //This clears all the options created and sends a promise to handle addding 
+            //options on the fly.
+        return new Promise((resolve, reject) =>{
+            const children = document.querySelectorAll(this.DOMItems.controlOpt);
+            if (children.length === 0){
+                //if no child exists, return a rejection
+                reject('no options available');
+            }
+            //use first child in case there's only 1. if it hasn't returned a rejection,
+                //there should be atleast 1 child node.
+            let parent = children[0].parentNode;
+            //if there are child parents then resolve the promise.
+            resolve(children.forEach(curr => parent.removeChild(curr)));
+        });
+    }
+
+    incrementActivePlayer(active){
+        //Remove the highlight from the current active player
+        document.querySelector(this.DOMItems.activePlayer[active]).classList.toggle('active');
+        //check that the active player is 0<= active <=3
+        active === 3 ? active = 0 : active++;
+        //toggle the incremented active player class for next piece
+        document.querySelector(this.DOMItems.activePlayer[active]).classList.toggle('active');
+        return active;
     }
 
     
@@ -36,27 +85,34 @@ class UI{
 
 class Board{
     constructor(xunit, yunit, ctx){
+        //x and y are the units on the 15x15 Ludo board grid
         this.x = xunit;
         this.y = yunit;
+        //Ctx is the object used to draw images.
         this.ctx = ctx;
-        //each are coordinates of the starting coordinates for each piece
-        //The coordinates are green, red, yellow, blue
+        //The coordinates are indexed green, red, yellow, blue for all objects
+            //all coordinates are in x, y.
+        //each are the starting coordinates for each piece
         this.startCoord = [[1, 6], [8, 1], [13, 8], [6, 13]]
-        //coordinates are in x, y
+        //This is an object of coordinates for each pieces and is subject to change
         this.coord = {
             green: [[1, 1], [1, 4], [4, 1], [4, 4]],
             red: [[10, 1], [10, 4], [13, 1], [13, 4]],
             yellow: [[10, 10], [10, 13], [13, 10], [13, 13]],
             blue: [[1, 10], [1, 13], [4, 10], [4, 13]],
         };
-        this.greenInactive = [[1, 1], [1, 4], [4, 1], [4, 4]];
-        this.redInactive = [[9+1, 1], [9+1, 4], [9+4, 1], [9+4, 4]];
-        this.yellowInactive = [[9+1, 9+1], [9+1, 9+4], [9+4, 9+1], [9+4, 9+4]];
-        this.blueInactive = [[1, 9+1], [1, 9+4], [4, 9+1], [4, 9+4]];
+        //These are the coordinates of the inactive pieces that should be indexed
+            //whenever a player gets eliminated
+        this.inactive = {
+            green: [[1, 1], [1, 4], [4, 1], [4, 4]],
+            red: [[9+1, 1], [9+1, 4], [9+4, 1], [9+4, 4]],
+            yellow: [[9+1, 9+1], [9+1, 9+4], [9+4, 9+1], [9+4, 9+4]],
+            blue: [[1, 9+1], [1, 9+4], [4, 9+1], [4, 9+4]]
+        }
     }
 
     makePiece(color, x, y){
-        //This is the x and y coordinate
+        //This is the x and y coordinate of a piece that's centered around a grid tile
         x = (this.x * x) + (this.x/2);
         y = (this.y * y) + (this.y/2);
         //This is the width and height of each tile
@@ -72,7 +128,10 @@ class Board{
     }
 
     placePiece(color, arr){
+        //it'll place the pieces given an array of coordinates
         for(let i=0; i<=arr.length; i++){
+            //Using the try catch statement because the spread operater threw an error
+                //but still passed the values to makePiece
             try{
                 this.makePiece(color, ...arr[i]);
             }catch(err){
@@ -83,6 +142,7 @@ class Board{
     }
 
     makeRectangle(color, x, y, width = this.x, height = this.y){
+        //adjust the x and y coordinates to scale according to the grid units.
         x = this.x*x;
         y = this.y*y;
         //Make a rectangle with a black border
@@ -94,7 +154,8 @@ class Board{
     }
 
     makePath(x, y, iterations, incDirec, color = 'white'){
-        //Adjust the given x, y coordinates to the 15x15 matrix.
+        //Draw a path with a given starting x and y coordinates, number of tiles to
+            //lay down and in what direction
         for (let i = 0; i <= iterations; i++){
             if (incDirec == 'vertical'){
                 this.makeRectangle(color, x, y + i, this.x, this.y)
@@ -109,13 +170,11 @@ class Board{
     setupBoard(){
         //clear the screen in case of previous drawings
         this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        //Clear screen in case of any previous drawings
         //All main boxes for not playing players is a 6 unti square.
         const bigX = this.x*6;
         const bigY = this.y*6;
         //Make unit calc easier for home square and easier to understand when debugging later.
         const [homeX, homeY] = [3, 3];
-        //TODO: eventually add in image for home
         this.makeRectangle('#004d1a', 0, 0, bigX, bigY);
         this.makeRectangle('#4d0f00', 9, 0, bigX, bigY);
         this.makeRectangle('#00004d', 0, 9, bigX, bigY);
@@ -125,14 +184,17 @@ class Board{
             //The arrays are coordinates for all the paths going from left->right (vertical) and top->bottom (horizontal)
         const verticalPaths = [[6, 0, 5], [7, 0, 5], [8, 0, 5], [6, 9, 5], [7, 9, 5], [8, 9, 5]];
         const horizontalPaths = [[0, 6, 5], [0, 7, 5], [0, 8, 5], [9, 6, 5], [9, 7, 5], [9, 8, 5]];
+        //frist for-loop draws vertical paths and second, horizontal paths
         for (let i=0; i<=verticalPaths.length; i++){
+            //This is the same error in placePiece() of the spread operator throwing a
+                //non-iterable error but still passing the functions.
             try{
                 this.makePath(...verticalPaths[i], 'vertical');
             }catch(err){
                 //Do nothing: the error is ...verticalPaths[i] not iterable but the makePath function still receives the parameters
             }
         }
-        for (let i=0; i<=verticalPaths.length; i++){
+        for (let i=0; i<=horizontalPaths.length; i++){
             try{
                 this.makePath(...horizontalPaths[i], 'horizontal');
             }catch(err){
@@ -167,13 +229,10 @@ class Board{
 
 class Quadrant{
     constructor(x, y){
-        //x and y are coordinates
+        //x and y are integer coordiantes
         this.x = x;
         this.y = y;
-        //these are displacement vectors for each piece in a quadrant
-        //Quad1: green, Quad2: red, Quad3: yellow, & Quad4: blue
-            //The 2nd ex. quad1[2] is the direction of the home path.
-        //has unintended effect of moving pieces backwards.
+        //This is all the illegal values that the pieces can never be drawn in
         this.illegalValues = {
             //the arrays are in x1, y1, x2, y2
             absolute: [[0,0,5,5], [9,0,14,5], [9,9,14,14], [0,9,5,14], [6,6,8,8]],
@@ -182,13 +241,18 @@ class Quadrant{
             yellowBase: [9,7,13,7],
             blueBase: [7,9,7,13]
         };
+        //This map object lists in which way to move a piece i.e. +dx, -dy, +dy etc.
         this.quadrants = new Map();
+        //Using a function to set the values of the Map object
         this.setQuadrants();
+        //The currKey is the value of which path the piece is on; the keys are labeled
+            //clockwise starting from the horizontal path above the blue home.
         this.currKey = 1;
     }
     
     setQuadrants(){
-        //Each 'quadrant if a path as outlined in the Github README.md
+        //Each 'quadrant is a path as outlined in the Github README.md
+            //no path has overlapping tiles and starts from green clockwise to blue area.
         this.quadrants.set(1, '-dx');
         this.quadrants.set(2, '-dy');
         this.quadrants.set(3, '+dx');
@@ -239,6 +303,8 @@ class Quadrant{
     }
 
     isInHome(x, y, base){
+        //This is an extension of isLegal but to check that the piece hasn't been moved
+            //to be drawn on the home base.
         let x1 = base[0];
         let x2 = base[2];
         let y1 = base[1];
@@ -250,16 +316,19 @@ class Quadrant{
     }
     
     isLegal(x,y){
-        //Determine if the move is legal. I.e. you don't want to draw pieces where there's no
-            //path.
+        //Determine if the move is legal. I.e. you don't want to draw pieces where there
+            //is no path to move.
             let toReturn = true;
+            //These are all integer values for comparison
             let x1, x2, y1, y2;
+            //valArr is the illegal values for all pieces
             let valArr = this.illegalValues.absolute;
 
             if (x===-1 || y===-1){
                 toReturn = false;
             }
-
+            //iterate over all the illegal values and check whether the coordinates
+                //fall in them; in which case return false making it illegal.
             for (let i=0; i<= valArr.length -1; i++){
                 x1 = valArr[i][0];
                 x2 = valArr[i][2];
@@ -269,8 +338,9 @@ class Quadrant{
                     toReturn = false;
                 }
             }
-            //check homebase coordinates. this is separate because once a player eliminates
-                //another player, the former illegal homebase colored path becomes legal.
+            //check homebase coordinates. this is separate because once a player
+                //eliminates another player, the former illegal homebase colored path 
+                //becomes legal.
             if (this.isInHome(x,y, this.illegalValues.greenBase)){
                 toReturn = false;
             }else if (this.isInHome(x,y, this.illegalValues.redBase)){
@@ -304,12 +374,13 @@ class Quadrant{
             this.currKey = 1;
             return [x, y]
         }
-        console.log(`TRANSITION FUNCTION: x=${x} y=${y}`);
         this.currKey++;
         return [x, y];
 
     }
+
     changeInDirection (x, y, delta){
+        //helper function to specify which direction coordinates to move the piece to.
         switch(delta){
             case('+dx'):
                 return [x + 1, y];
@@ -322,11 +393,9 @@ class Quadrant{
         }
     }
 
-    moveCoordinates(direc=''){
-        //'quadrant' is a string of displacement vector ex. '+dx'.
-        if (direc === '')
-            direc = this.getQuadrant(this.x, this.y);
-            console.log(`FIRST IF: current key is ${this.currKey}`);
+    moveCoordinates(){
+        //get the direction to move the current coordinates.
+        const direc = this.getQuadrant(this.x, this.y);
 
         //move the coordinates in the direction given by getQuadrant.
             //if [dx, dy] is not valid then change currKey
@@ -335,21 +404,17 @@ class Quadrant{
         if (this.isLegal(dx, dy)){
             this.x = dx;
             this.y = dy;
-            console.log(`SUCCESS: x is ${this.x} and y is ${this.y}`);
         } else{
             //this is where transition to a new quadrant happens
                 //recursive function moved the piece in a loop.
                 //this is because it's boxed in between illegal values.
             [this.x, this.y] = this.transitionQuadrant();
-            console.log(`TRANSITION: unsuccessfull move, x=${this.x} and y=${this.y}`);
-            
         }
-        console.log(`END: direction is ${direc}`);
-        console.log(`END: current key is ${this.currKey}`);
 
     }
 
     getNewCoordinates(){
+        //helper function to return the new coordinates.
         this.moveCoordinates();
         return [this.x, this.y];
     }
@@ -359,66 +424,67 @@ class MainController{
 
     constructor(){
         this.uiCtl = new UI();
-        const [dx, dy] = this.setupCanvas();
+        //units of displacement on the grid
+        const [dx, dy] = this.uiCtl.getCanvasXY();
+        //Canvas API context to draw images.
+        this.ctx = this.uiCtl.getCtx();
         this.boardCtl = new Board(dx, dy, this.ctx);
-        // this.pieces = parseInt(document.getElementById('num-pieces').textContent);
         this.playerPieces = [4, 4, 4, 4];
         this.players = [this.boardCtl.coord.green, this.boardCtl.coord.red, this.boardCtl.coord.yellow,this.boardCtl.coord.blue];
         //First player is always green
         this.activePlayer = 0;
-        this.roll = 0;
-    }
-    
-    incrementActivePlayer(){
-        //Remove the highlight from the current active player
-        document.querySelector(this.uiCtl.DOMItems.activePlayer[this.activePlayer]).classList.toggle('active');
-        this.activePlayer === 3 ? this.activePlayer = 0 : this.activePlayer++;
-        document.querySelector(this.uiCtl.DOMItems.activePlayer[this.activePlayer]).classList.toggle('active');
     }
 
-    movePlayer(roll = this.roll){
+    movePlayer(roll = 1, player=0){
         //piece is the number of pieces ex. 4 left in order to index the coordinates of the active player 
         //  ex. if there are 3 pieces then index the last element (i.e. the piece on board)
             //and move it by default. If theres < 3 pieces available then move the piece
             //indexed at the given element.
-        const piece = this.playerPieces[this.activePlayer];
-        console.log(`the active player is ${this.activePlayer} and piece index is ${piece}`);
-        console.log(`the following is the coordinates of the active player`);
-        console.log(this.players[this.activePlayer]);
-        let x = this.players[this.activePlayer][piece][0];
-        let y = this.players[this.activePlayer][piece][1];
+
+        //x and y are coordinates of the active player indexed at variable 'player' which is 0-3
+        let x = this.players[this.activePlayer][player][0];
+        let y = this.players[this.activePlayer][player][1];
         let quad = new Quadrant(x, y);
-        let [dx, dy] = quad.getNewCoordinates();
-        //change the coordinates of the active player.
-        this.players[this.activePlayer][piece] = [dx, dy];
+        let dx, dy;
+        console.log(`the roll is ${roll}`);
+        for (let i=1; i<=roll; i++){
+            [dx, dy] = quad.getNewCoordinates();
+        }
+        this.players[this.activePlayer][player] = [dx, dy];
         this.boardCtl.setupBoard();
     }
 
-    insertOptions(roll){
+    insertOptions(roll, action){
         //if number of pieces <=3
         //update UI to reflect choices (i.e. move current piece, addPlayer)
         const  item = 4 - this.playerPieces[this.activePlayer];
-        for (let i=1; i<=item; i++){
-            this.uiCtl.insertControlItem(i);
-            document.querySelector(this.uiCtl.DOMItems.controlOpt).addEventListener('click', e => {
-                this.movePlayer();
-            });
+        if (action === 'move'){
+            this.moveOption(item, roll);
+        }
+        if (action === 'add'){
+            this.addOption(item);
         }
         
         //this is the class of the active player
         //move player only if number of pieces <=3. if 4
+    }
 
-        //Returning a promise to do Asynchronous function calls
-        // return new Promise ((resolve, reject) => {
-        //     const  item = 4 - this.playerPieces[this.activePlayer];
-        //     for (let i=1; i<=item; i++){
-        //         this.uiCtl.insertControlItem(i);
-        //         document.querySelector(this.uiCtl.DOMItems.controlOpt).addEventListener('click', e => {
-        //             this.movePlayer();
-        //         });
-        //     }
-        //     resolve ('done');
-        // });
+    moveOption(item, roll){
+        for (let i=1; i<=item; i++){
+            this.uiCtl.insertOptionItem(i, 'Move Piece');
+            document.querySelector(this.uiCtl.DOMItems.controlOpt).addEventListener('click', () => {
+                this.movePlayer(roll, 4 - i);
+                this.uiCtl.clearControlItems();
+            });
+        }
+    }
+
+    addOption(item){
+        this.uiCtl.insertOptionItem(item, 'Add Piece');
+        document.querySelector(this.uiCtl.DOMItems.controlOpt).addEventListener('click', ()=>{
+            this.addPlayer();
+            this.uiCtl.clearControlItems();
+        })
     }
 
     checkElimination(){
@@ -444,18 +510,55 @@ class MainController{
         this.boardCtl.setupBoard();
     }
 
-    setupCanvas(){
-        const canvas = this.uiCtl.getCanvas()
-        //Make Canvas resizeable
-        canvas.width = window.innerWidth - 20;
-        canvas.height = window.innerHeight - 20;
-        const ctx = canvas.getContext('2d');
-        this.ctx = ctx;
+    incrementPlayer(){
+        this.activePlayer = this.uiCtl.incrementActivePlayer(this.activePlayer);
+    }
 
-        //The Ludo game is a 15x15 matrix
-        const xUnit = Math.round(canvas.width/15);
-        const yUnit = Math.round(canvas.height/15);
-        return [xUnit, yUnit];
+    clearOptions(){
+            //this consumes a promise to clear the options everytime the dice is clicked
+        //to prevent overlapping options that are no longer active.
+        this.uiCtl.clearControlItems().then(resolve =>{
+            console.log(`cleard ${resolve}`);
+        }).catch(rejected => null);
+    }
+
+    boardLogic(roll){
+        this.clearOptions();
+        this.incrementPlayer();
+        //this is the number (array) of pieces the active player has
+        const pieces = this.playerPieces[this.activePlayer];
+        const remaining = 4 - pieces;
+        console.log(`the current active player is ${this.activePlayer}`);
+        if (roll === 6){
+            //if you get a 6, depending on the number of pieces already on the board
+                //the following logic is executed.
+            if (pieces === 4){
+                //case 0: if number of pieces is 4 then automatically add player because
+                    //you can't add options for a player not on the board
+                this.insertOptions(roll, 'add');
+            }else if (1 <= pieces && pieces <= 3){
+                //case 1: (roll=6 and pieces <=3) insert option to add player or move
+                this.insertOptions(roll, 'move');
+                this.insertOptions(roll, 'add');
+            }else if (remaining === 0){
+                //case 2: roll a 6 with 0 remaining pieces
+                this.insertOptions(roll, 'move');
+            }
+        }else {
+            //here, you roll any value except 6
+            console.log(`checking 2nd; roll isn't 6`);
+            //check if there are >=1 pieces already out. so 4 - pieces >=1
+                //ex. pieces = 4; no pieces to move so move to incrementing player;
+                //ex. pieces = 3; result is 1 piece on board -> insert options
+            if (remaining >= 1){
+                console.log(`inserting option to move`);
+                console.log(`remaining is ${remaining}`);
+                console.log(`the playerpieces array is `);
+                console.log(this.playerPieces);
+                this.insertOptions(roll, 'move');
+            }
+        }
+        console.log(`END active player is ${this.activePlayer}`);
     }
 
 
@@ -466,28 +569,16 @@ class MainController{
         document.querySelector(domItems.banner).addEventListener('click', e => {
             document.querySelector(domItems.bannerName).classList.toggle('close');
         });
-        //Roll Dice and add player if dice 6
+        //Set an event listener for the dice icon
         document.querySelector(domItems.dice).addEventListener('click', e =>{
+            //array to send the UI class to display font-awesome icons
             const numWord = ['one', 'two', 'three', 'four', 'five', 'six'];
             let roll = Math.round(Math.random()*5);
-            let icon = `<i class="fas fa-dice-${numWord[roll]} fa-4x"></i>`;
-            document.querySelector(domItems.dice).innerHTML = icon
-            if (roll === 6 -1){
-                console.log(`Player ${this.activePlayer} rolled a six, update a piece`);
-                this.addPlayer();
-                this.insertOptions(roll);
-                // this.checkElimination();
-            }else{
-                // this.insertOptions(roll).then(resolved => {
-                //     this.incrementActivePlayer();
-                // });
-
-                this.insertOptions(roll);
-                this.incrementActivePlayer();
-                //increment player after insertOptions has resolved.   
-                // this.incrementActivePlayer();
-            }
-            
+            this.uiCtl.setDice(numWord[roll]);
+            //pass in roll+1 because 0<=roll<=5 in order to index numWord so pass
+                //boardLogic the true value in order to move player properly.
+            this.boardLogic(roll+1);
+            // this.clearOptions();
         })
     }
 
@@ -500,6 +591,3 @@ class MainController{
 mainCtl = new MainController();
 ctx = mainCtl.ctx;
 mainCtl.init();
-// mainCtl.addPlayer();
-// mainCtl.players[0][3] = [6, 9];
-// mainCtl.boardCtl.setupBoard();
