@@ -1,4 +1,7 @@
 # Personal-Website
 
 
-Just hosting on github pages for now with a static website.
+Hosting on Google Cloud Buckets for static webpage
+
+> In future: hosting using Node.js
+
