@@ -3,6 +3,16 @@ $background: #daeaf6;
 $box-color: #e0bd9e;
 $second-box-color: #ce9564;
 
+$fonts-media: (
+    h1: 3rem,
+    title: 1rem,
+    proj_title: 15px,
+    proj_des: 13px,
+    icons: 20px,
+    cert: 15px
+
+);
+
 //no flexbox in mixin
 @mixin box($back){
     border-radius: 15px;
@@ -73,6 +83,50 @@ $second-box-color: #ce9564;
                 padding: 1rem;
             }
 
+        }
+    }
+}
+
+@media only screen and (max-width: 350px){
+    .skills{
+        font-size: map-get($fonts-media, title);
+        text-align: center;
+        &-programming{
+            padding: 0;
+            &__languages{
+                margin: .25rem;
+                font-size: 20px;
+                text-align: left;
+                i{
+                    margin-left: 1rem;
+                    font-size: map-get($fonts-media, icons);
+                }
+            }
+        }
+
+        &-certifications{
+            padding: 1rem;
+            &__name{
+                font-size: map-get($fonts-media, cert);
+            }
+        }
+    }
+
+    .projects{
+        &-list{
+            text-align: center;
+            padding: 0;
+            &__item{
+                padding: .5rem;
+                margin: .5rem;
+                font-size: map-get($fonts-media, title);
+                h3{
+                    font-size: map-get($fonts-media, proj_title);
+                }
+                &__description{
+                    font-size: map-get($fonts-media, proj_des);
+                }
+            }
         }
     }
 }
