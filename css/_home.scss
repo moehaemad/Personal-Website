@@ -14,12 +14,28 @@ $secondary-color: #e3c4a8;
     &__name{
         font-size: 5rem;
         padding-bottom: 1rem;
-        margin-top: 1 rem;
-        border-bottom: 2px solid $primary-color;
-        
+        margin-top: 1 rem; 
 
         &--last{
             color: $secondary-color;
+        }
+    }
+
+    .line{
+        border: 2px solid $primary-color;
+        margin-left: 2.5rem;
+        margin-right: 2.5rem;
+    }
+}
+
+
+@media only screen and (max-width: 550px){
+    .home{
+        h2{
+            font-size: 1rem;
+        }
+        &__name{
+            font-size: 2rem;
         }
     }
 }
