@@ -9,7 +9,8 @@ $fonts-media: (
     proj_title: 15px,
     proj_des: 13px,
     icons: 20px,
-    cert: 15px
+    cert: 15px,
+    icon_text: 15px
 
 );
 
@@ -21,31 +22,49 @@ $fonts-media: (
     background: $back;
 }
 
+@mixin poppin($where){
+    @if $where == 'out'{
+        transform: scale(1.05, 1.05);
+    }@else if $where == 'in'{
+        transform: scale(.95, .95);
+    }
+    transition: all .25s ease-in-out;
+}
+
 .skills{
     @include box($background);
-    display: flex;
-    flex-direction: column;
+    text-align: center;
+    // display: flex;
+    // flex-direction: column;
     
     &-programming{
         padding: 2rem;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-
         &__languages{
-            @include box($box-color);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             flex-direction: row;
-
-            i{
-                margin-left: 3rem;
-                align-items: flex-end;
+            &__item{
+                display:flex;
+                @include box($box-color);
+                margin: .5rem;
+                i{
+                    padding-left: 5rem;
+                    align-self: flex-end;
+                }
+            &:hover{
+                @include poppin('out');
+            }
             }
         }
     }
     &-certifications{
+        display: flex;
+        flex-direction: column;
         padding: 2rem;
         &__name{
             @include box($box-color);
+            justify-content: center;
         }
     }
 
@@ -55,30 +74,27 @@ $fonts-media: (
     @include box($background);
     &-list{
         padding: 2rem;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
+        // display: flex;
+        // flex-wrap: wrap;
         h2{
             flex:1;
         }
-        h3{
-            a{
-                background: $second-box-color;
-                border: 1px solid none;
-                border-radius: 15px;
-                padding: 1rem;
-            }
-        }
         &__item{
-            @include anim;
+            display: flex;
+            // flex-wrap: wrap;
+            flex-direction: row;
             @include box($box-color);
             color: black;
-
-            i:hover{
-                transform: translateY(-10%);
-
+            a{
+                // line-height: 2rem;
+                font-weight: bold;
+                font-size: 1.17em;
+                @include box($second-box-color);
+                margin: 0;
+                &:hover{
+                    @include poppin('out');
+                }
             }
-
             &__description{
                 padding: 1rem;
             }
@@ -87,15 +103,16 @@ $fonts-media: (
     }
 }
 
-@media only screen and (max-width: 350px){
+//phone query using iphone6/7/8 dimensions
+@media only screen and (max-width: 400px){
     .skills{
         font-size: map-get($fonts-media, title);
         text-align: center;
         &-programming{
             padding: 0;
-            &__languages{
+            &__languages__item{
                 margin: .25rem;
-                font-size: 20px;
+                font-size: map-get($fonts-media, icon_text);
                 text-align: left;
                 i{
                     margin-left: 1rem;
