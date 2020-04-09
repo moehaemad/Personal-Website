@@ -136,6 +136,7 @@ $fonts-media: (
             &__item{
                 padding: .5rem;
                 margin: .5rem;
+                flex-direction: column;
                 font-size: map-get($fonts-media, title);
                 h3{
                     font-size: map-get($fonts-media, proj_title);
