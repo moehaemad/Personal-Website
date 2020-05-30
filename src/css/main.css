@@ -13,7 +13,7 @@
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
-  background: url("../resources/bg.jpg") center top;
+  background: url("../images/bg.jpg") center top;
   background-size: cover;
   color: white;
 }
