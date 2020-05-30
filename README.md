@@ -1,7 +1,5 @@
 # Personal-Website
 
 
-Hosting on Google Cloud Buckets for static webpage
-
-> In future: hosting using Node.js
-
+Hosting on AWS EC2 Elastic Beanstalk instance with a Relational Database Integration.
+>note: the main page is a static website itself but projects included within it require node.js and a database.
