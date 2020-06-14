@@ -30,11 +30,6 @@
                         </a>
                     </li>
                     <li class="menu-nav__item">
-                        <a href="#" class="menu-nav__link">
-                            About
-                        </a>
-                    </li>
-                    <li class="menu-nav__item">
                         <a href="#portfolio" class="menu-nav__link">
                             Projects
                         </a>
@@ -54,7 +49,7 @@
                     Muhammad <span class="home__name--last">Ali</span>
                 </h1>
                 <h3>
-                    Aspiring Full Stack Developer
+                    Yes, like the boxer!
                 </h3>
                 <div class="line"></div>
                 <div class="social-icons">
@@ -67,6 +62,16 @@
                 </div>
             </section>
         </main>
+        <section class="about-me">
+            <div class="about-me__description">
+                <p>
+                    Hello, I am a recent B.Sc. graduate from the University of British Columbia. I have a background in Web development with aspirations to continue as a full stack engineer; I also fiddle around with infrastructure which explains my certification.
+                </p>
+                <p class="website">
+                    Aside: This website is hosted on AWS EC2 taking advantage of the Elastic Beanstalk configurations and PostgreSQL Relational Database Service (RDS). I have configured my own personal environment to make the compute engine more efficient and am currently avoiding adding a load balancer because of the added cost which is also why the RDS is attached to this applications instance instead of being on a Virtual Private Cloud (VPC).
+                </p>
+            </div>
+        </section>
         <section class="skills">
             <div class="skills-programming">
                 <h2>Programming Languages</h2>
@@ -89,6 +94,12 @@
                     <div class="skills-programming__languages__item">
                         Java (Android)<i class="fab fa-android fa-2x"></i>
                     </div>
+                    <div class="skills-programming__languages__item">
+                        NodeJs (NPM)<i class="fab fa-node fa-2x"></i>
+                    </div>
+                    <div class="skills-programming__languages__item">
+                        React<i class="fab fa-react fa-2x"></i>
+                    </div>
                 </div>
             </div>
             <div class="skills-certifications">
@@ -103,8 +114,13 @@
             <div class="projects-list">
                 <h2>Projects</h2>
                 <div class="projects-list__item">
+                    <a href="https://github.com/moehaemad/simple-generator-app">Simple Generator React App</a>
+                    <p class="projects-list__item__description">
+                     This is a ...
+                 </p>
+                 </div>
+                <div class="projects-list__item">
                     <a href="./LudoGame/ludo.html">Ludo Game Web App</a>
-                    <!-- <a href="#">Ludo Game Web App</a> -->
                     <p class="projects-list__item__description">
                      This project is a ES6 implementation of the popular board game 'Ludo'. It uses module-like programming implemented via Classes, with a sequence call architecture shown on the github page. It uses the native Canvas API offered by the Mozilla Developer Network with a sequential call for the animation instead of the animation loop offered by the API. Additionally, it uses Asynchronous programming by handling promises given by functions that require an un-sequential (asynchronous) call.
                  </p>
