@@ -9,6 +9,8 @@ $fonts-media: (
     proj_title: 15px,
     proj_des: 13px,
     icons: 20px,
+    about: 20px,
+    about-aisde: 13px,
     cert: 15px,
     icon_text: 15px
 
@@ -32,7 +34,7 @@ $fonts-media: (
 }
 
 .skills{
-    @include box($background);
+    // @include box($background);
     text-align: center;
     // display: flex;
     // flex-direction: column;
@@ -70,8 +72,38 @@ $fonts-media: (
 
 }
 
+.about-me{
+    // @include box($background);
+    &-title{
+        // font-size: map-get($fonts-media, h1);
+        // font-weight: bold;
+        padding-top: 1rem;
+        text-align: center;
+        align-self: center;
+    }
+    &-description{
+        padding: 0 2rem 2rem 2rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        font-size: map-get($fonts-media, proj_des);
+
+        &__website{
+            // font-size: map-get($fonts-media, proj_title);
+            font-size: map-get($fonts-media, about);
+        }
+
+        &__aside{
+            font-size: map-get($fonts-media, about-aisde);
+            padding: 5px 2rem 0 2rem;
+            opacity: 0.7;
+        }
+    }
+    
+}
+
 .projects{
-    @include box($background);
+    // @include box($background);
     &-list{
         padding: 2rem;
         // display: flex;
