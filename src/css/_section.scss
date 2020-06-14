@@ -46,7 +46,6 @@ $fonts-media: (
         // font-weight: bold;
         padding-top: 1rem;
         text-align: center;
-        align-self: center;
     }
     &-description{
         padding: 0 2rem 2rem 2rem;
@@ -112,6 +111,7 @@ $fonts-media: (
     // @include box($background);
     background: linear-gradient(map-get($background-gradient, blue), map-get($background-gradient, plain));
     &-list{
+        text-align: center;
         padding: 2rem;
         // display: flex;
         // flex-wrap: wrap;
@@ -138,6 +138,31 @@ $fonts-media: (
                 padding: 1rem;
             }
 
+        }
+    }
+}
+
+.contact-me{
+    // display: flex;
+    background: map-get($background-gradient, plain);
+    &-title{
+        text-align: center;
+        padding-top: 1rem;
+    }
+
+    &-description{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 2rem 2rem 2rem;
+        font-size: map-get($fonts-media, about);
+        & *{
+            align-self: center;
+            width: 50rem;
+        }
+        & .email-message{
+            height: 10rem;
+            width: 50rem;
         }
     }
 }

@@ -164,9 +164,6 @@
 .about-me-title {
   padding-top: 1rem;
   text-align: center;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
 }
 
 .about-me-description {
@@ -268,6 +265,7 @@
 }
 
 .projects-list {
+  text-align: center;
   padding: 2rem;
 }
 
@@ -311,6 +309,42 @@
 
 .projects-list__item__description {
   padding: 1rem;
+}
+
+.contact-me {
+  background: #F8F9FA;
+}
+
+.contact-me-title {
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.contact-me-description {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 2rem 2rem 2rem;
+  font-size: 20px;
+}
+
+.contact-me-description * {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  width: 50rem;
+}
+
+.contact-me-description .email-message {
+  height: 10rem;
+  width: 50rem;
 }
 
 @media only screen and (max-width: 400px) {

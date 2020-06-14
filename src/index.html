@@ -158,19 +158,25 @@
                 Contact Me
             </h2>
             <div class="contact-me-description">
-                <label>Email: <input atype="email" name="" id=""></label>
-                <label>Name (& position): <input atype="text" name="" id=""></label>
-                <label>Message: <input atype="text" name="" id=""></label>
-                
+                <label for="contact-email">Email: </label>
+                <input atype="email" id="contact-email" placeholder="something-arbitrary@gmail.com">
+                <label>Name (& position): </label>
+                <input atype="text" id="contact-name" placeholder="something-meaningful, I am">
+                <label>Message: </label> 
+                <!-- <input class="email-message" atype="text" id="contact-message" placeholder="You're hired sir!"> -->
+                <textarea class="email-message" id="contact-message" cols="30" rows="10"></textarea>
             </div>
         </section>
 
         <footer>
             <div class="footer-item">
-                <a href="index.html">Home</a>
+                <a href="#" onClick="(function(){window.moveTo(0,0)})">Home</a>
             </div>
             <div class="footer-item">
-                <a href="index.html">Contact</a>
+                <a href="https://www.linkedin.com/in/muhammad-a-curr/">Github</a>
+            </div>
+            <div class="footer-item">
+                <a href="https://github.com/moehaemad/">Linkedin</a>
             </div>
             &copy; Copyright 2020
         </footer>
