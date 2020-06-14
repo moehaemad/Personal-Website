@@ -1,4 +1,8 @@
-$background: #daeaf6;
+$background-gradient: (
+    plain: #F8F9FA,
+    blue: #45626A,
+    blue-rgba: rgba(69, 98, 106, 1)
+);
 // $box-color: #c1dcf0;
 $box-color: #e0bd9e;
 $second-box-color: #ce9564;
@@ -33,12 +37,44 @@ $fonts-media: (
     transition: all .25s ease-in-out;
 }
 
+.about-me{
+    // @include box($background);
+    // background: url('../images/bg_section.jpg');
+    background-color: map-get($background-gradient, plain);
+    &-title{
+        // font-size: map-get($fonts-media, h1);
+        // font-weight: bold;
+        padding-top: 1rem;
+        text-align: center;
+        align-self: center;
+    }
+    &-description{
+        padding: 0 2rem 2rem 2rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        font-size: map-get($fonts-media, proj_des);
+
+        &__website{
+            // font-size: map-get($fonts-media, proj_title);
+            font-size: map-get($fonts-media, about);
+        }
+
+        &__aside{
+            font-size: map-get($fonts-media, about-aisde);
+            padding: 5px 2rem 0 2rem;
+            opacity: 0.7;
+        }
+    }
+    
+}
+
 .skills{
     // @include box($background);
     text-align: center;
     // display: flex;
     // flex-direction: column;
-    
+    background-image: linear-gradient(map-get($background-gradient, plain), map-get($background-gradient, blue));
     &-programming{
         padding: 2rem;
         &__languages{
@@ -72,38 +108,9 @@ $fonts-media: (
 
 }
 
-.about-me{
-    // @include box($background);
-    &-title{
-        // font-size: map-get($fonts-media, h1);
-        // font-weight: bold;
-        padding-top: 1rem;
-        text-align: center;
-        align-self: center;
-    }
-    &-description{
-        padding: 0 2rem 2rem 2rem;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        font-size: map-get($fonts-media, proj_des);
-
-        &__website{
-            // font-size: map-get($fonts-media, proj_title);
-            font-size: map-get($fonts-media, about);
-        }
-
-        &__aside{
-            font-size: map-get($fonts-media, about-aisde);
-            padding: 5px 2rem 0 2rem;
-            opacity: 0.7;
-        }
-    }
-    
-}
-
 .projects{
     // @include box($background);
+    background: linear-gradient(map-get($background-gradient, blue), map-get($background-gradient, plain));
     &-list{
         padding: 2rem;
         // display: flex;
