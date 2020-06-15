@@ -105,16 +105,20 @@ $fonts-media: (
         }
     }
     &-certifications{
+        padding: 2rem;
         h2{
             font-size: map-get($fonts-media, section_title);
             text-decoration: underline;
         }
-        display: flex;
-        flex-direction: column;
-        padding: 2rem;
-        &__name{
-            @include box($box-color);
+        &-list{
+            display: flex;
+            flex-direction: row;
             justify-content: center;
+            padding: 2rem;
+            &__name{
+                @include box($box-color);
+                justify-content: center;
+            }
         }
     }
 

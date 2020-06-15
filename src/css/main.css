@@ -249,13 +249,6 @@
 }
 
 .skills-certifications {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   padding: 2rem;
 }
 
@@ -264,7 +257,21 @@
   text-decoration: underline;
 }
 
-.skills-certifications__name {
+.skills-certifications-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 2rem;
+}
+
+.skills-certifications-list__name {
   border-radius: 15px;
   padding: 1rem;
   margin: 1rem;
