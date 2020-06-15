@@ -161,6 +161,10 @@
   background-color: #F8F9FA;
 }
 
+.about-me h2 {
+  font-size: 2rem;
+}
+
 .about-me-title {
   padding-top: 1rem;
   text-align: center;
@@ -197,6 +201,10 @@
 
 .skills-programming {
   padding: 2rem;
+}
+
+.skills-programming h2 {
+  font-size: 2rem;
 }
 
 .skills-programming__languages {
@@ -249,6 +257,10 @@
   padding: 2rem;
 }
 
+.skills-certifications h2 {
+  font-size: 2rem;
+}
+
 .skills-certifications__name {
   border-radius: 15px;
   padding: 1rem;
@@ -260,8 +272,9 @@
 }
 
 .projects {
-  background: -webkit-gradient(linear, left top, left bottom, from(#45626A), to(#F8F9FA));
-  background: linear-gradient(#45626A, #F8F9FA);
+  background: -webkit-gradient(linear, left top, left bottom, from(#45626A));
+  background: linear-gradient(#45626A);
+  padding: 2rem;
 }
 
 .projects-list {
@@ -273,6 +286,7 @@
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  font-size: 2.5rem;
 }
 
 .projects-list__item {
@@ -312,15 +326,18 @@
 }
 
 .contact-me {
-  background: #F8F9FA;
+  background: -webkit-gradient(linear, left top, left bottom, from(#45626A), to(#F8F9FA));
+  background: linear-gradient(#45626A, #F8F9FA);
 }
 
 .contact-me-title {
   text-align: center;
   padding-top: 1rem;
+  font-size: 2rem;
 }
 
 .contact-me-description {
+  padding: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -347,9 +364,8 @@
   width: 50rem;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
   .skills {
-    font-size: 1rem;
     text-align: center;
   }
   .skills-programming {
@@ -376,7 +392,6 @@
   }
   .projects-list__item {
     padding: .5rem;
-    margin: .5rem;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -388,6 +403,21 @@
   }
   .projects-list__item__description {
     font-size: 13px;
+  }
+  .contact-me-description * {
+    width: 15rem;
+  }
+  .contact-me-description .email-message {
+    width: 15rem;
+  }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 850px) {
+  .contact-me-description * {
+    width: 30rem;
+  }
+  .contact-me-description .email-message {
+    width: 30rem;
   }
 }
 

@@ -10,6 +10,7 @@ $second-box-color: #ce9564;
 $fonts-media: (
     h1: 3rem,
     title: 1rem,
+    section_title: 2rem,
     proj_title: 15px,
     proj_des: 13px,
     icons: 20px,
@@ -41,6 +42,9 @@ $fonts-media: (
     // @include box($background);
     // background: url('../images/bg_section.jpg');
     background-color: map-get($background-gradient, plain);
+    h2{
+        font-size: map-get($fonts-media, section_title);
+    }
     &-title{
         // font-size: map-get($fonts-media, h1);
         // font-weight: bold;
@@ -76,6 +80,9 @@ $fonts-media: (
     background-image: linear-gradient(map-get($background-gradient, plain), map-get($background-gradient, blue));
     &-programming{
         padding: 2rem;
+        h2{
+            font-size: map-get($fonts-media, section_title);
+        }
         &__languages{
             display: flex;
             flex-wrap: wrap;
@@ -96,6 +103,9 @@ $fonts-media: (
         }
     }
     &-certifications{
+        h2{
+            font-size: map-get($fonts-media, section_title);
+        }
         display: flex;
         flex-direction: column;
         padding: 2rem;
@@ -109,7 +119,9 @@ $fonts-media: (
 
 .projects{
     // @include box($background);
-    background: linear-gradient(map-get($background-gradient, blue), map-get($background-gradient, plain));
+    // background: linear-gradient(map-get($background-gradient, blue), map-get($background-gradient, plain));
+    background: linear-gradient(map-get($background-gradient, blue));
+    padding: 2rem;
     &-list{
         text-align: center;
         padding: 2rem;
@@ -117,6 +129,7 @@ $fonts-media: (
         // flex-wrap: wrap;
         h2{
             flex:1;
+            font-size: map-get($fonts-media, section_title) + .5rem;
         }
         &__item{
             display: flex;
@@ -144,13 +157,16 @@ $fonts-media: (
 
 .contact-me{
     // display: flex;
-    background: map-get($background-gradient, plain);
+    // background: map-get($background-gradient, plain);
+    background: linear-gradient(map-get($background-gradient, blue), map-get($background-gradient, plain));
     &-title{
         text-align: center;
         padding-top: 1rem;
+        font-size: map-get($fonts-media, section_title);
     }
 
     &-description{
+        padding: 2rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -168,9 +184,8 @@ $fonts-media: (
 }
 
 //phone query using iphone6/7/8 dimensions
-@media only screen and (max-width: 400px){
+@media only screen and (max-width: 500px){
     .skills{
-        font-size: map-get($fonts-media, title);
         text-align: center;
         &-programming{
             padding: 0;
@@ -199,7 +214,7 @@ $fonts-media: (
             padding: 0;
             &__item{
                 padding: .5rem;
-                margin: .5rem;
+                // margin: .5rem;
                 flex-direction: column;
                 font-size: map-get($fonts-media, title);
                 h3{
@@ -208,6 +223,30 @@ $fonts-media: (
                 &__description{
                     font-size: map-get($fonts-media, proj_des);
                 }
+            }
+        }
+    }
+
+    .contact-me{
+        &-description{
+            & *{
+                width: 15rem;
+            }
+            & .email-message{
+                width: 15rem;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 850px){
+    .contact-me{
+        &-description{
+            & *{
+                width: 30rem;
+            }
+            & .email-message{
+                width: 30rem;
             }
         }
     }
