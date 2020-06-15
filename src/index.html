@@ -20,7 +20,7 @@
             <nav class="nav">
                 <ul class="menu-nav">
                     <li class="menu-nav__item">
-                        <a href="index.html" class="menu-nav__link">
+                        <a href="index.html" class="menu-nav__link" onClick="(toggleMenu(); window.moveTo(0,0);">
                             Home
                         </a>
                     </li>
@@ -29,13 +29,13 @@
                             Ludo Game
                         </a>
                     </li>
-                    <li class="menu-nav__item">
+                    <li class="menu-nav__item" onClick="toggleMenu()">
                         <a href="#portfolio" class="menu-nav__link">
                             Projects
                         </a>
                     </li>
                     <li class="menu-nav__item">
-                        <a href="#" class="menu-nav__link">
+                        <a href="#contact" class="menu-nav__link" onClick="toggleMenu()">
                             Contact Me
                         </a>
                     </li>
@@ -153,7 +153,7 @@
                 </div>
             </div>
         </section>
-        <section class="contact-me">
+        <section class="contact-me" id="contact">
             <h2 class="contact-me-title">
                 Contact Me
             </h2>
@@ -165,6 +165,7 @@
                 <label>Message: </label> 
                 <!-- <input class="email-message" atype="text" id="contact-message" placeholder="You're hired sir!"> -->
                 <textarea class="email-message" id="contact-message" cols="30" rows="10" placeholder="You're hired!"></textarea>
+                <button type="submit" id="contact-send" class="submit">Send Email</button>
             </div>
         </section>
 

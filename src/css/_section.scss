@@ -44,6 +44,7 @@ $fonts-media: (
     background-color: map-get($background-gradient, plain);
     h2{
         font-size: map-get($fonts-media, section_title);
+        text-decoration: underline;
     }
     &-title{
         // font-size: map-get($fonts-media, h1);
@@ -82,6 +83,7 @@ $fonts-media: (
         padding: 2rem;
         h2{
             font-size: map-get($fonts-media, section_title);
+            text-decoration: underline;
         }
         &__languages{
             display: flex;
@@ -105,6 +107,7 @@ $fonts-media: (
     &-certifications{
         h2{
             font-size: map-get($fonts-media, section_title);
+            text-decoration: underline;
         }
         display: flex;
         flex-direction: column;
@@ -130,6 +133,7 @@ $fonts-media: (
         h2{
             flex:1;
             font-size: map-get($fonts-media, section_title) + .5rem;
+            text-decoration: underline;
         }
         &__item{
             display: flex;
@@ -163,6 +167,7 @@ $fonts-media: (
         text-align: center;
         padding-top: 1rem;
         font-size: map-get($fonts-media, section_title);
+        text-decoration: underline;
     }
 
     &-description{
@@ -179,6 +184,14 @@ $fonts-media: (
         & .email-message{
             height: 10rem;
             width: 50rem;
+        }
+        & .submit{
+            background-color: $box-color;
+            border-radius: 15px;
+            margin-top: 1rem;
+            padding: 1rem 0 1rem 0;
+            width: 25rem;
+            height: 3rem;
         }
     }
 }
@@ -235,6 +248,9 @@ $fonts-media: (
             & .email-message{
                 width: 15rem;
             }
+            & .submit{
+                width: 7rem;
+            }
         }
     }
 }
@@ -247,6 +263,9 @@ $fonts-media: (
             }
             & .email-message{
                 width: 30rem;
+            }
+            & .submit{
+                width: 15rem;
             }
         }
     }

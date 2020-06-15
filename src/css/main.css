@@ -163,6 +163,7 @@
 
 .about-me h2 {
   font-size: 2rem;
+  text-decoration: underline;
 }
 
 .about-me-title {
@@ -205,6 +206,7 @@
 
 .skills-programming h2 {
   font-size: 2rem;
+  text-decoration: underline;
 }
 
 .skills-programming__languages {
@@ -259,6 +261,7 @@
 
 .skills-certifications h2 {
   font-size: 2rem;
+  text-decoration: underline;
 }
 
 .skills-certifications__name {
@@ -287,6 +290,7 @@
       -ms-flex: 1;
           flex: 1;
   font-size: 2.5rem;
+  text-decoration: underline;
 }
 
 .projects-list__item {
@@ -334,6 +338,7 @@
   text-align: center;
   padding-top: 1rem;
   font-size: 2rem;
+  text-decoration: underline;
 }
 
 .contact-me-description {
@@ -362,6 +367,15 @@
 .contact-me-description .email-message {
   height: 10rem;
   width: 50rem;
+}
+
+.contact-me-description .submit {
+  background-color: #e0bd9e;
+  border-radius: 15px;
+  margin-top: 1rem;
+  padding: 1rem 0 1rem 0;
+  width: 25rem;
+  height: 3rem;
 }
 
 @media only screen and (max-width: 500px) {
@@ -410,6 +424,9 @@
   .contact-me-description .email-message {
     width: 15rem;
   }
+  .contact-me-description .submit {
+    width: 7rem;
+  }
 }
 
 @media only screen and (min-width: 500px) and (max-width: 850px) {
@@ -418,6 +435,9 @@
   }
   .contact-me-description .email-message {
     width: 30rem;
+  }
+  .contact-me-description .submit {
+    width: 15rem;
   }
 }
 
