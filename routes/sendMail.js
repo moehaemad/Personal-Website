@@ -20,9 +20,10 @@ sendMailRouter.post('/', req => {
         subject: "Henlo",
         html: "<h1> THIS POST IS IMPORTANT... sike</h1>"
     }
-    transporter.sendMail(mail, err=>{
-        if (err) console.log(err);
-    })
+    // transporter.sendMail(mail, err=>{
+    //     if (err) console.log(err);
+    // })
+    console.log(mail);
 });
 
 sendMailRouter.get('/',(req, res) => {
