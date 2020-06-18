@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express()
+const sendMailRouter = require('./routes/sendMail');
 
 
 app.use(express.static(__dirname + '/src/'))
@@ -10,8 +11,7 @@ app.get('/', (req, res) =>{
     res.render(index);
 })
 
-// app.use('views', (req, res) => {
+app.use('/sendMail', sendMailRouter);
 
-// })
 
 module.exports = app;
