@@ -25,8 +25,8 @@ sendMailRouter.post('/', req => {
     })
 });
 
-sendMailRouter.get('/',req => {
-    return 'asadsd';
+sendMailRouter.get('/',(req, res) => {
+    res.send('sup');
 })
 
 
