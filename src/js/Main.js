@@ -41,9 +41,14 @@ function toggleMenu(){
 menuBtn.addEventListener('click', toggleMenu);
 
 document.getElementById('contact-send').addEventListener('click', async e => {
-    const email = document.getElementById('contact-email').value;
-    const name = document.getElementById('contact-name').value;
-    const subject = document.getElementById('contact-message').value;
+    let email = document.getElementById('contact-email').value;
+    let name = document.getElementById('contact-name').value;
+    let subject = document.getElementById('contact-message').value;
+
+    if (email === "" || name === "" || subject === ""){
+        return null;
+    };
 
     let mailResponse = await axios.post('/sendMail', {email, name, subject});
+    console.log(mailResponse);
 });

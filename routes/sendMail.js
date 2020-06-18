@@ -15,15 +15,15 @@ let transporter = nodemailer.createTransport({
 
 sendMailRouter.post('/', (req, res) => {
     let mail = {
-        // from: `from "WAAAZUP" <${process.env.NODEMAILER_EMAIL}>`,
-        from: 'from "' + req.body.name + '" <' + process.env.NODEMAILER_EMAIL + '>',
+        from: '"' +req.body.name + '" <' + process.env.NODEMAILER_EMAIL + '>',
         to: process.env.WORK_EMAIL,
-        subject: req.body.subject,
-        html: "<h1> EMAIL: " + req.body.email + "</h1>" + "<br/>" + req.subject
+        subject: "Website: " + req.body.name,
+        html: "<h3> EMAIL: " + req.body.email + "</h3>" + "<br/>" + req.body.subject
     }
-    // transporter.sendMail(mail, err=>{
-    //     if (err) console.log(err);
-    // })
+    res.send({status: 'Success'});
+    transporter.sendMail(mail, err=>{
+        if (err) console.log(err);
+    })
 });
 
 sendMailRouter.get('/',(req, res) => {
