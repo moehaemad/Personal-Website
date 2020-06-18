@@ -27,7 +27,7 @@ sendMailRouter.post('/', (req, res) => {
 });
 
 sendMailRouter.get('/',(req, res) => {
-    res.send('sup');
+    res.send('suasdasdp');
 })
 
 
