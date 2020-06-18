@@ -26,7 +26,7 @@ sendMailRouter.post('/', req => {
 });
 
 sendMailRouter.get('/',req => {
-    console.log('in get request')
+    return 'asadsd';
 })
 
 

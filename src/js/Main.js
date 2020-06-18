@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 var UImodule = (function(){
     return{
         DOMvalues:{
@@ -38,4 +40,7 @@ function toggleMenu(){
 
 menuBtn.addEventListener('click', toggleMenu);
 
-// menuItem.addEventListener('click', toggleMenu);
+document.getElementById('contact-send').addEventListener('click', async e => {
+    let mailResponse = await axios.get('/sendMail');
+    console.log(mailResponse);
+});
