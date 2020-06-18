@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express()
 const sendMailRouter = require('./routes/sendMail');
+const bodyParser = require('body-parser');
 
-
+app.use(bodyParser.json());
 app.use(express.static(__dirname + '/dist/'))
 console.log(__dirname)
 app.get('/', (req, res) =>{

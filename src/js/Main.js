@@ -40,18 +40,10 @@ function toggleMenu(){
 
 menuBtn.addEventListener('click', toggleMenu);
 
-// document.getElementById('contact-send').addEventListener('click', async e => {
-//     let mailResponse = await axios.post('/sendMail');
-//     console.log(mailResponse);
-// });
-
-document.getElementById('contact-send').addEventListener('click', e=>{
+document.getElementById('contact-send').addEventListener('click', async e => {
     const email = document.getElementById('contact-email').value;
     const name = document.getElementById('contact-name').value;
     const subject = document.getElementById('contact-message').value;
-    // if (email === "" || name === "" || subject === "") window.alert('Please finish filling form')
-    console.log(e.target.parentNode.childNodes);
-    console.log(email);
-    console.log(name);
-    console.log(subject);
-})
+
+    let mailResponse = await axios.post('/sendMail', {email, name, subject});
+});

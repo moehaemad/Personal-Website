@@ -162,16 +162,15 @@
             <h2 class="contact-me-title">
                 Contact Me
             </h2>
-            <div class="contact-me-description">
+            <form class="contact-me-description">
                 <label for="contact-email">Email: </label>
-                <input atype="email" id="contact-email" placeholder="something-arbitrary@gmail.com">
+                <input atype="email" id="contact-email" placeholder="something-arbitrary@gmail.com" required>
                 <label>Name (& position): </label>
-                <input atype="text" id="contact-name" placeholder="something-meaningful, I am">
+                <input atype="text" id="contact-name" placeholder="something-meaningful, I am" required>
                 <label>Message: </label> 
-                <!-- <input class="email-message" atype="text" id="contact-message" placeholder="You're hired sir!"> -->
-                <textarea class="email-message" id="contact-message" cols="30" rows="10" placeholder="You're hired!"></textarea>
-                <button type="submit" id="contact-send" class="submit">Send Email</button>
-            </div>
+                <textarea class="email-message" id="contact-message" cols="30" rows="10" placeholder="You're hired!" required></textarea>
+                <input class="submit" id="contact-send" type="submit" value="Send Email">
+            </form>
         </section>
 
         <footer>
