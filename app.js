@@ -2,14 +2,20 @@ const express = require('express');
 const app = express()
 const sendMailRouter = require('./routes/sendMail');
 const bodyParser = require('body-parser');
+const ludoRouter = require ('./routes/ludoGame');
+const morgan = require('morgan');
+const path = require('path');
 
+
+// TO DEBUG: DEBUG=express:* node server.js
+
+app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/dist/'))
-console.log(__dirname)
+app.use('/LudoGame', ludoRouter);
+app.use('/', express.static(path.join(__dirname, '/dist/')))
+
 app.get('/', (req, res) =>{
-    // res.send('Hello World to the Express JS app');
-    // res.render('src/public/index');
-    res.render(index);
+    res.sendFile(index);
 })
 
 app.use('/sendMail', sendMailRouter);
