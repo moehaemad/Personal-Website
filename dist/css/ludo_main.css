@@ -114,7 +114,7 @@ body {
   width: 100%;
   display: -ms-grid;
   display: grid;
-  background: url("../resources/bg.jpg") center top;
+  background: url("../images/ludo_bg.jpg") center top;
   background-size: cover;
   color: black;
   -webkit-text-emphasis: 600;
