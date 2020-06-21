@@ -146,7 +146,6 @@ class Board{
 
     placePiece(color, arr){
         //it'll place the pieces given an array of coordinates
-
         arr.forEach((val, ind) => {
             try{
                 //x=val[0] and y=val[1]
@@ -257,12 +256,15 @@ class Quadrant{
         //This is all the illegal values that the pieces can never be drawn in
         this.illegalValues = {
             //the arrays are in x1, y1, x2, y2
+            // The arrays inside 'absolute' are of green, red, yellow, and blue player tiles
+                // the last array in 'absolute' is of the home
             absolute: [[0,0,5,5], [9,0,14,5], [9,9,14,14], [0,9,5,14], [6,6,8,8]],
             green: false,
             red: false,
             yellow: false,
             blue: false
         };
+        this.player = 'unknown';
         //This map object lists in which way to move a piece i.e. +dx, -dy, +dy etc.
         this.quadrants = new Map();
         //Using a function to set the values of the Map object
@@ -326,16 +328,7 @@ class Quadrant{
             this.currKey = 12;
         }
 
-        // if (x==0 && y==7){
-        //     this.currKey = 13;
-        // }else if (x==7 && y==0){
-        //     this.currKey = 14;
-        // }else if (x==14 && y==7){
-        //     this.currKey = 15;
-        // }else if (x==7 && y==14){
-        //     this.currKey = 16;
-        // }
-        console.log(`the current key is ${this.currKey}`);
+        if (this.illegalValues[this.player]) this.goHome(x, y);
         return this.quadrants.get(this.currKey);
     }
     
@@ -372,6 +365,7 @@ class Quadrant{
             //red->yellow (8,5) key=6
             //yellow->blue (9,8) key=9
             //blue->green (6,9) key=12
+        let increment = true;
         let x = this.x;
         let y = this.y;
         if (this.currKey===3 && x===5 && y===6){
@@ -383,14 +377,10 @@ class Quadrant{
         }else if (this.currKey===12 && x===6 && y===9){
             [x, y] = [x-1, y-1];
             this.currKey = 1;
-            return [x, y]
-        }else if (this.currKey===2 && this.illegalValues.green && x==0 && y==7){
-            [x, y] = [x+1, y];
-            this.currKey = 13;
+            increment=false;
         }
-        this.currKey++;
+        if (increment) this.currKey++;
         return [x, y];
-
     }
 
     changeInDirection (x, y, delta){
@@ -407,6 +397,45 @@ class Quadrant{
         }
     }
 
+    removeHomeRules(){
+        // TODO: remove the restrictions for only the active Player and not others
+        const toInsert = [[6,6,6,6], [8,6,8,6], [8,8,8,8], [6,8,6,8]];
+        // Before inserting, check for multiple entries
+        let absolute = this.illegalValues.absolute;
+        // Change the values of absoluteIllegal as long as multiple entries don't exist.
+        let insertBool = false;
+        // check for [6,6,8,8] which makes the whole homeBase illegal
+        let homeValue = [6,6,8,8];
+        // Search the absolute values for the homeBase values
+        absolute.forEach(el => {
+            // Use the string compare value since 2D arrays can't be compared without
+                // implementing a prototype
+            if (el.toString() === homeValue.toString()){
+                insertBool = true;
+            }
+        });
+        if (insertBool){
+            this.illegalValues.absolute.pop();
+            this.illegalValues.absolute.push(...toInsert);
+        }
+
+    }
+
+    goHome(x, y){
+        // add player specification to only move to their respective home tiles
+        if (this.illegalValues[this.player]) this.removeHomeRules();
+
+        if (0<=x && x<=5 && y==7 && this.player === "green"){
+            this.currKey = 13;
+        }else if (x===7 && 0<=y && y<=5 && this.player === "red"){
+            this.currKey = 14;
+        }else if (9<=x && x<=14 && y===7 && this.player === "yellow"){
+            this.currKey = 15;
+        }else if (x===7 && 9<=y && y<=14 && this.player === "blue"){
+            this.currKey = 16;
+        } 
+    }
+
     moveCoordinates(){
         //get the direction to move the current coordinates.
         const direc = this.getQuadrant(this.x, this.y);
@@ -418,19 +447,33 @@ class Quadrant{
         if (this.isLegal(dx, dy)){
             this.x = dx;
             this.y = dy;
-        } else{
+        }else{
             //this is where transition to a new quadrant happens
                 //recursive function moved the piece in a loop.
                 //this is because it's boxed in between illegal values.
             [this.x, this.y] = this.transitionQuadrant();
         }
-
     }
 
     getNewCoordinates(){
         //helper function to return the new coordinates.
         this.moveCoordinates();
         return [this.x, this.y];
+    }
+
+    checkWon (){
+        let [x, y] = [this.x, this.y];
+        if (x === 6 && y === 7){
+            return true;
+        }else if (x === 7 && y==6){
+            return true;
+        }else if (x === 8 && y === 7){
+            return true;
+        }else if (x === 7 && y === 8){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 
@@ -444,10 +487,13 @@ class MainController{
         this.ctx = this.uiCtl.getCtx();
         this.boardCtl = new Board(dx, dy, this.ctx);
         this.playerPieces = [4, 4, 4, 4];
+        this.wonPieces = [0, 0, 0, 0];
         this.players = [this.boardCtl.coord.green, this.boardCtl.coord.red, this.boardCtl.coord.yellow,this.boardCtl.coord.blue];
         //First player is always green
         this.activePlayer = 0;
         this.quad = new Quadrant(-1, -1);
+        // For debugging
+        this.diceRoll=2;
     }
 
     getActiveName(index = undefined){
@@ -456,30 +502,31 @@ class MainController{
         return playerColor[this.activePlayer];
     }
 
-    movePlayer(roll = 1, player=0){
-        //piece is the number of pieces ex. 4 left in order to index the coordinates of the active player 
-        //  ex. if there are 3 pieces then index the last element (i.e. the piece on board)
-            //and move it by default. If theres < 3 pieces available then move the piece
-            //indexed at the given element.
-
-        //x and y are coordinates of the active player indexed at variable 'player' which is 0-3
-        let x = this.players[this.activePlayer][player][0];
-        let y = this.players[this.activePlayer][player][1];
-        this.quad.x = x;
-        this.quad.y = y;
-        let dx, dy;
-        for (let i=1; i<=roll; i++){
-            [dx, dy] = this.quad.getNewCoordinates();
-        }
-        this.players[this.activePlayer][player] = [dx, dy];
-        this.boardCtl.setupBoard();
-        this.checkElimination();
+    removeWonPlayer(ind){
+        console.log(`In removeWonPlayer function with index ${ind}`);
+        // Remove(pop) the active player from the array of players
+        // let playerArr = this.players[this.activePlayer];
+        let index = this.getActiveName(this.activePlayer);
+        let playerArr = this.boardCtl.coord[index];
+        playerArr = playerArr.splice(ind, 1);
+        this.boardCtl.coord[index] = playerArr;
+        // this.players[this.activePlayer] = playerArr.splice(ind, 1);
+        console.log(this.players[this.activePlayer]);
+        // Decrease number of pieces since the player has won and add it to count of
+            // pieces that've already won. Don't decrease number of Player pieces just
+            // add to number of won pieces because it'll already be decremented in adding.
+        // this.playerPieces[this.activePlayer]--;
+        this.wonPieces[this.activePlayer]++;
     }
 
     insertOptions(roll, action){
         //if number of pieces <=3
         //update UI to reflect choices (i.e. move current piece, addPlayer)
-        const  item = 4 - this.playerPieces[this.activePlayer];
+        const  item = (4 - this.wonPieces[this.activePlayer]) - this.playerPieces[this.activePlayer];
+        if (this.activePlayer === 3){
+            console.log(`the number of pieces is ${item}`);
+            console.log(`won pieces=${this.wonPieces[this.activePlayer]} and remaining pieces=${this.playerPieces[this.activePlayer]}`);
+        }
         if (action === 'move'){
             this.moveOption(item, roll);
         }
@@ -495,10 +542,40 @@ class MainController{
         for (let i=1; i<=item; i++){
             this.uiCtl.insertOptionItem(i, 'Move Piece');
             document.querySelector(this.uiCtl.DOMItems.controlOpt).addEventListener('click', () => {
+                console.log(`the value passed to roll as 'item' is ${4 - i}`);
                 this.movePlayer(roll, 4 - i);
                 this.uiCtl.clearControlItems();
             });
         }
+        // Check if the player has won
+    }
+
+    movePlayer(roll = 1, player=0){
+        // Player is the piece to be indexed in the cooridnates object from the Board
+            // class.
+        //piece is the number of pieces ex. 4 left in order to index the coordinates of the active player 
+        //  ex. if there are 3 pieces then index the last element (i.e. the piece on board)
+            //and move it by default. If theres < 3 pieces available then move the piece
+            //indexed at the given element.
+
+        //x and y are coordinates of the active player indexed at variable 'player' which is 0-3
+        let x = this.players[this.activePlayer][player][0];
+        let y = this.players[this.activePlayer][player][1];
+        this.quad.x = x;
+        this.quad.y = y;
+        let dx, dy;
+        
+        for (let i=1; i<=roll; i++){
+            [dx, dy] = this.quad.getNewCoordinates();
+            if (this.quad.checkWon()) this.removeWonPlayer(player);
+        }
+        let index = this.getActiveName(this.activePlayer);
+        console.log(`moving the following indexed player ${index}`);
+        console.log(`the player value is ${player}`);
+        console.log(this.boardCtl.coord[index][player]);
+        this.boardCtl.coord[index][player] = [dx, dy];
+        this.boardCtl.setupBoard();
+        this.checkElimination();
     }
 
     addOption(item){
@@ -507,6 +584,31 @@ class MainController{
             this.addPlayer();
             this.uiCtl.clearControlItems();
         })
+    }
+
+    changeBoardObj(player, index=3){
+        return 0;
+    }
+
+    
+    addPlayer(){
+        //Check if no pieces are on board
+            //If none -> add onto board
+            //If 1 >= pieces >= 3  ask player to add a piece onto the board or move pieces on board
+            //If 6 ask player to move piece on board
+
+        //Decrease the number of pieces from UI
+        this.playerPieces[this.activePlayer]--;
+        let pieces = this.playerPieces[this.activePlayer];
+        this.uiCtl.displayPiecesCount(pieces);
+        //Draw the board with a piece on the starting line
+        let startCoord = this.boardCtl.startCoord[this.activePlayer];
+
+        // possible bug when referencing this.players as way to boardCtl instance.
+        let index = this.getActiveName(this.activePlayer);
+        this.boardCtl.coord[index][pieces] = startCoord;
+        this.boardCtl.setupBoard();
+        this.checkElimination();
     }
 
     getOtherPlayers(active){
@@ -530,20 +632,21 @@ class MainController{
             //players respective coordinates to those from the corresponding inactive
             //coordinates.
             //ex. change coord.green[indElim] = inactive.green[indElim]
-        this.players[player][indElim] = this.boardCtl.inactive[toChange][indElim];
+        let index = this.getActiveName(this.activePlayer);
+        this.boardCtl.coord[index][player][indElim] = this.boardCtl.inactive[toChange][indElim];
+        // this.players[player][indElim] = this.boardCtl.inactive[toChange][indElim];
         //redraw the board to reflect change.
         this.boardCtl.setupBoard();
     }
 
     compareActiveOther(activeArr, otherArr){
-        //returns the index where the values are the same
-        for (let i=0; i<activeArr.length; i++){
-            if (activeArr[i][0] === otherArr[i][0] && activeArr[i][1] === otherArr[i][1]){
-                //didn't want to implement a prototype function for Arrays to compare the
-                    // two arrays because this takes less code.
-                return i;
-            }
-        }
+        // Deal with arrays that are not of the same length
+            // forEach activeArr compare with each element in the otherArray
+        activeArr.forEach((val, ind) => {
+            otherArr.forEach((otherVal, otherInd) => {
+                if (val[0] === otherVal[0] && val[1] === otherVal[1]) return ind;
+            });
+        })
     }
 
     checkElimination(){
@@ -563,6 +666,8 @@ class MainController{
         let ind, player;
         let res =-1;
         for (let i of other){
+            //this.players isn't being mutated in the compareActiveOther function
+                //so I don't have to pass the actual reference.
             res = this.compareActiveOther(activeArr, this.players[i]);
             if (res !== undefined){
                 //if we don't get an undefined from compareActiveOther -> eliminate player
@@ -580,38 +685,20 @@ class MainController{
         }
     }
 
-    addPlayer(){
-        //Check if no pieces are on board
-            //If none -> add onto board
-            //If 1 >= pieces >= 3  ask player to add a piece onto the board or move pieces on board
-            //If 6 ask player to move piece on board
-
-        //Decrease the number of pieces from UI
-        this.playerPieces[this.activePlayer]--;
-        let pieces = this.playerPieces[this.activePlayer];
-        this.uiCtl.displayPiecesCount(pieces);
-        //Draw the board with a piece on the starting line
-        let startCoord = this.boardCtl.startCoord[this.activePlayer]
-        this.players[this.activePlayer][pieces] = startCoord;
-        this.boardCtl.setupBoard();
-        this.checkElimination();
-    }
-
     clearOptions(){
             //this consumes a promise to clear the options everytime the dice is clicked
         //to prevent overlapping options that are no longer active.
-        this.uiCtl.clearControlItems().then(resolve =>{
-            console.log(`cleard ${resolve}`);
-        }).catch(rejected => null);
+        this.uiCtl.clearControlItems().then(resolve =>null).catch(rejected => null);
     }
 
     boardLogic(roll){
         this.clearOptions();
-        //increment the active player in the UI
+        //increment the active player in the UI and change class variable
         this.activePlayer = this.uiCtl.incrementActivePlayer(this.activePlayer);
+        this.quad.player = this.getActiveName(this.activePlayer);
         //this is the number (array) of pieces the active player has
         const pieces = this.playerPieces[this.activePlayer];
-        const remaining = 4 - pieces;
+        const remaining = (4 - this.wonPieces[this.activePlayer]) - pieces;
         if (roll === 6){
             //if you get a 6, depending on the number of pieces already on the board
                 //the following logic is executed.
@@ -633,6 +720,7 @@ class MainController{
                 //ex. pieces = 4; no pieces to move so move to incrementing player;
                 //ex. pieces = 3; result is 1 piece on board -> insert options
             if (remaining >= 1){
+                console.log(`the remaining number of pieces is ${remaining}`);
                 this.insertOptions(roll, 'move');
             }
         }
@@ -668,10 +756,10 @@ class MainController{
             //array to send the UI class to display font-awesome icons
             const numWord = ['one', 'two', 'three', 'four', 'five', 'six'];
             let roll = Math.round(Math.random()*5);
+            roll = this.diceRoll;
             this.uiCtl.setDice(numWord[roll]);
             //pass in roll+1 because 0<=roll<=5 in order to index numWord so pass
                 //boardLogic the true value in order to move player properly.
-            console.log(this.quad);
             this.boardLogic(roll+1);
             // this.clearOptions();
         })
@@ -686,3 +774,11 @@ class MainController{
 mainCtl = new MainController();
 ctx = mainCtl.ctx;
 mainCtl.init();
+
+mainCtl.addPlayer();
+mainCtl.boardCtl.coord.green[3] = [0,7];
+mainCtl.quad.illegalValues.yellow = true;
+mainCtl.quad.illegalValues.green = true;
+mainCtl.diceRoll = 5;
+// mainCtl.quad.illegalValues['green'] = true;
+mainCtl.boardCtl.setupBoard();
