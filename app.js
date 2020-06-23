@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const ludoRouter = require ('./routes/ludoGame');
 const morgan = require('morgan');
 const path = require('path');
+const simpleGeneratorRouter = require('./routes/simpleGenerator');
 
 
 // TO DEBUG: DEBUG=express:* node server.js
@@ -13,7 +14,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use('/LudoGame', ludoRouter);
 app.use('/', express.static(path.join(__dirname, '/dist/')))
-
+app.use('/SimpleGenerator', simpleGeneratorRouter);
 app.get('/', (req, res) =>{
     res.sendFile(index);
 })
