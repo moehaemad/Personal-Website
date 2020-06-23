@@ -1,10 +1,14 @@
 const express = require('express');
-const SimpleGeneratorRouter = express.Router();
+const simpleGeneratorRouter = express.Router();
 const path = require('path');
 
 
-SimpleGeneratorRouter.get('/', (req, res) =>{
-    res.send('Wazzup');
+simpleGeneratorRouter.use('/js/', express.static(path.join(__dirname, '../dist/js')));
+
+
+simpleGeneratorRouter.get('/', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../dist/') + 'simple_generator.html');
+    // res.send('Hello');
 })
 
-module.exports = SimpleGeneratorRouter;
+module.exports = simpleGeneratorRouter;

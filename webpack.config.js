@@ -24,6 +24,9 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        extensions: [".js", ".jsx"]
+    },
     plugins: [
         new htmlWebpackPlugin ({
             // it's ../ because the path for this configuration is to the js directory in output.

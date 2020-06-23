@@ -1,4 +1,12 @@
 import axios from 'axios';
+import ReactDom from 'react-dom';
+import React from 'react';
+import App from '../SimpleGenerator/index';
+
+ReactDom.render(
+    <App/>,
+    document.getElementById('root')
+);
 
 var UImodule = (function(){
     return{
