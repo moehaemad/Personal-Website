@@ -16,7 +16,7 @@ app.use('/LudoGame', ludoRouter);
 app.use('/', express.static(path.join(__dirname, '/dist/')))
 app.use('/SimpleGenerator', simpleGeneratorRouter);
 app.get('/', (req, res) =>{
-    res.sendFile(index);
+    res.sendFile(path.join('./dist/') + 'index.hljs-template-variable');
 })
 
 app.use('/sendMail', sendMailRouter);

@@ -1,0 +1,50 @@
+.Output {
+/* 
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center; */
+    align-self: center;
+    margin: 1rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    background: none;
+    background-color: lightblue;
+    border: 2px solid black;
+    /* width: 10rem; */
+}
+
+.Output *{
+    background: none;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    margin: 20px;
+}
+
+.Title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.Options *{
+    display: flex;
+    flex-direction: row;
+    margin: 3px;
+    vertical-align: center;
+    text-align: center;
+}
+.Options label {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.Close {
+    
+    background: red;
+    weight:bold;
+    padding: 5px;
+    margin-left: 10px;
+}
