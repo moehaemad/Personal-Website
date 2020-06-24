@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import './App.css';
 import Logo from '../Components/Logo'
 import Generator from '../Components/Generator/Generator';
 import Axios from 'axios';

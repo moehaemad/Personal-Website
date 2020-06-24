@@ -3,10 +3,14 @@ import ReactDom from 'react-dom';
 import React from 'react';
 import App from '../SimpleGenerator/Containers/App';
 
-ReactDom.render(
-    <App/>,
-    document.getElementById('root')
-);
+try {
+    ReactDom.render(
+        <App/>,
+        document.getElementById('root')
+    );
+}catch(e){
+    console.log(`everything's fine, no react module available`);
+}
 
 var UImodule = (function(){
     return{
@@ -47,6 +51,7 @@ function toggleMenu(){
 }
 
 menuBtn.addEventListener('click', toggleMenu);
+document.getElementById('front-page').addEventListener('click', toggleMenu);
 
 document.getElementById('contact-send').addEventListener('click', async e => {
     let email = document.getElementById('contact-email').value;
