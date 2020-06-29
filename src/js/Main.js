@@ -52,6 +52,7 @@ function toggleMenu(){
 
 menuBtn.addEventListener('click', toggleMenu);
 document.getElementById('front-page').addEventListener('click', toggleMenu);
+// document.querySelector('.menu-nav__link').addEventListener('click', toggleMenu);
 
 document.getElementById('contact-send').addEventListener('click', async e => {
     let email = document.getElementById('contact-email').value;

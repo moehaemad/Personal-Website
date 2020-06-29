@@ -2,7 +2,6 @@ import React from 'react';
 import './Generator.css';
 
 const RanNum = (props) => {
-    // const [state, setState] = React.useState(0);
     const [state, setState] = React.useState({open: false});
 
     let values = {
@@ -51,17 +50,16 @@ const RanNum = (props) => {
     }
 
     return (
-        <div className="Output">
-            <div className="Title">
+        <div className='Output'>
+            <div className='Title'>
                 <h2>
                     Random Number
                 </h2>
-                <button className="Close" onClick={toggleWindow}>{state.open ? 'X' : 'O'}</button>
+                <button className='Close' onClick={toggleWindow}>{state.open ? 'X' : 'O'}</button>
             </div>
             {state.open ? options() : null}
         </div>
     );
 
 }
-
 export default RanNum;
