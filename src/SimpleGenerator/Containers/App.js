@@ -12,12 +12,20 @@ class App extends Component{
     btn: 'start'
   }
 
+  // askPg = async () => {
+  //   await Axios.get('/SimpleGenerator/user?');
+  // }
+
+
   render(){
     return(
       <div className="App">
         <Logo/>
         <button onClick={() => !this.state.show ? this.setState({show: true, btn: 'End'}) : this.setState({show:false, btn: 'Start'})}>{this.state.btn}</button>
         {this.state.show ? <Generator/> : null}
+        <button>
+          Account:
+        </button>
       </div>
     );
   }

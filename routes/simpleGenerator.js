@@ -1,6 +1,9 @@
 const express = require('express');
 const simpleGeneratorRouter = express.Router();
 const path = require('path');
+const {query} = require('../db/index');
+
+// This route is for /SimpleGenerator/
 
 
 simpleGeneratorRouter.use('/js/', express.static(path.join(__dirname, '../dist/js')));
@@ -16,6 +19,12 @@ simpleGeneratorRouter.use('/react-assets', express.static(path.join(__dirname, "
 simpleGeneratorRouter.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, '../dist/') + 'simple_generator.html');
     // res.send('Hello');
+})
+
+simpleGeneratorRouter.get('/user?', async (req, res) => {
+    console.log(`the response is ...`);
+    const user = await query();
+    console.log(user);
 })
 
 module.exports = simpleGeneratorRouter;
