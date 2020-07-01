@@ -1,7 +1,6 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 
-
 module.exports = {
     entry: './src/js/Main.js',
     output: {
@@ -15,7 +14,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: "babel-loader",
                 options: {
-                    presets: ["@babel/env"]
+                    presets: ["@babel/env", "@babel/preset-react"]
                 }
             },
             {

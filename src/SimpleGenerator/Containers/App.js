@@ -9,12 +9,22 @@ class App extends Component{
 
   state = {
     show: false,
-    btn: 'start'
+    btn: 'start',
+    databaseReq: false
   }
 
-  // askPg = async () => {
-  //   await Axios.get('/SimpleGenerator/user?');
-  // }
+  async componentDidMount(){
+
+    // Axios.get('/SimpleGenerator/user?').then(res =>{
+    //   console.log(res);
+    // });
+    // if (this.state.databaseReq){
+    //   const response = await Axios.get('/SimpleGenerator/user?');
+    //   console.log(response);
+    // }
+    console.log(this.state);
+    // await Axios.get('/SimpleGenerator/user?');
+  }
 
 
   render(){
@@ -23,7 +33,7 @@ class App extends Component{
         <Logo/>
         <button onClick={() => !this.state.show ? this.setState({show: true, btn: 'End'}) : this.setState({show:false, btn: 'Start'})}>{this.state.btn}</button>
         {this.state.show ? <Generator/> : null}
-        <button>
+        <button onClick={this.setState({databaseReq: true})}>
           Account:
         </button>
       </div>

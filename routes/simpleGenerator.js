@@ -21,10 +21,12 @@ simpleGeneratorRouter.get('/', (req, res) =>{
     // res.send('Hello');
 })
 
-simpleGeneratorRouter.get('/user?', async (req, res) => {
-    console.log(`the response is ...`);
-    const user = await query();
-    console.log(user);
+simpleGeneratorRouter.get('/user?', async (req, res, next) => {
+    // console.log(`the response is ...`);
+    // const user = await query();
+    console.log(`in get request`);
+    res.send('hello')
+    
 })
 
 module.exports = simpleGeneratorRouter;

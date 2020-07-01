@@ -9,7 +9,8 @@ try {
         document.getElementById('root')
     );
 }catch(e){
-    console.log(`everything's fine, no react module available`);
+    console.log(`everything's fine, no react module available error is`);
+    console.log(e);
 }
 
 var UImodule = (function(){
