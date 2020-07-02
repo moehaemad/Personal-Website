@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './Generator.css';
+import '../Section.css';
 import RanNum from './RanNum';
 import RanString from './RanString';
 

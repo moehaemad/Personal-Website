@@ -3,14 +3,14 @@ const app = express()
 const sendMailRouter = require('./routes/sendMail');
 const bodyParser = require('body-parser');
 const ludoRouter = require ('./routes/ludoGame');
-const morgan = require('morgan');
+const logger = require('morgan');
 const path = require('path');
 const simpleGeneratorRouter = require('./routes/simpleGenerator');
 
 
 // TO DEBUG: DEBUG=express:* node server.js
 
-app.use(morgan('dev'));
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use('/LudoGame', ludoRouter);
 app.use('/', express.static(path.join(__dirname, '/dist/')))

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Generator.css';
+import '../Section.css';
 
 const RanNum = (props) => {
     const [state, setState] = React.useState({open: false});

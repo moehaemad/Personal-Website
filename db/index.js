@@ -13,12 +13,12 @@ const {Client} = require('pg');
 
 module.exports = ({
     query: async () => {
-        // const client = new Client();
-        // await client.connect();
-        // return client.query('select * from weather', (err, res) => {
+        const client = new Client();
+        await client.connect();
+        // return client.query('select * from weather;', (err, res) => {
         //     if (err) console.log(err);
-        //     console.log(res.rows[0]);
+        //     return res.rows;
         // });
-        return 0;
+        return client.query('select * from login;');
     }
 })
