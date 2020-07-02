@@ -18,7 +18,13 @@ $palet: (
     'bg': white,
     'footer-bg': black
 );
-
+@mixin footerItem(){
+    padding: .5rem;
+    margin: .25rem;
+    a{
+        color: map-get($map: $palet, $key: primary);
+    }
+}
 
 body{
     background-color: map-get($map: $palet, $key: bg);
@@ -62,22 +68,37 @@ main{
     }
 }
 
-footer {
+footer{
     font-size: .75rem;
     text-align: center;
+    background: map-get($map: $palet, $key: footer-bg);
+    color: map-get($map: $palet, $key: primary);
+    padding: .5rem;
+    // padding-bottom: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: map-get($map: $palet, $key: footer-bg);
-    color: map-get($map: $palet, $key: primary);
-    .footer-item{
-        padding: .5rem;
-        margin: .25rem;
-        a{
-            color: map-get($map: $palet, $key: primary);
+    .footer-div{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        &__home{
+            @include footerItem();
+        }
+        &-column{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding-left: 1.5rem;
+            &__item{
+                @include footerItem();
+            }
         }
     }
-    padding-bottom: .5rem;
+    p{
+        padding: .5rem;
+    }
+
 }
 img{
     width: 50%;
