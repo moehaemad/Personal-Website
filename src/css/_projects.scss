@@ -1,0 +1,76 @@
+$background-gradient: (
+    plain: #F8F9FA,
+    blue: #45626A,
+    blue-rgba: rgba(69, 98, 106, 1)
+);
+// $box-color: #c1dcf0;
+$box-color: #e0bd9e;
+$second-box-color: #ce9564;
+
+$fonts-media: (
+    title: 1rem,
+    section_title: 2rem,
+    proj_title: 15px,
+    proj_des: 13px
+);
+
+//no flexbox in mixin
+@mixin box($back){
+    border-radius: 15px;
+    padding: 1rem;
+    margin: 1rem;
+    background: $back;
+}
+
+.projects{
+    background: linear-gradient(map-get($background-gradient, blue));
+    padding: 2rem;
+    &-list{
+        text-align: center;
+        padding: 2rem;
+        h2{
+            flex:1;
+            font-size: map-get($fonts-media, section_title) + .5rem;
+            text-decoration: underline;
+        }
+        &__item{
+            display: flex;
+            flex-direction: row;
+            @include box($box-color);
+            color: black;
+            a{
+                font-weight: bold;
+                font-size: 1.17em;
+                @include box($second-box-color);
+                margin: 0;
+            }
+            &__description{
+                padding: 1rem;
+            }
+
+        }
+    }
+}
+
+//phone query using iphone6/7/8 dimensions
+@media only screen and (max-width: 500px){
+
+    .projects{
+        &-list{
+            text-align: center;
+            padding: 0;
+            &__item{
+                padding: .5rem;
+                // margin: .5rem;
+                flex-direction: column;
+                font-size: map-get($fonts-media, title);
+                h3{
+                    font-size: map-get($fonts-media, proj_title);
+                }
+                &__description{
+                    font-size: map-get($fonts-media, proj_des);
+                }
+            }
+        }
+    }
+}

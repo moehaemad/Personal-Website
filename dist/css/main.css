@@ -281,61 +281,6 @@
           justify-content: center;
 }
 
-.projects {
-  background: -webkit-gradient(linear, left top, left bottom, from(#45626A));
-  background: linear-gradient(#45626A);
-  padding: 2rem;
-}
-
-.projects-list {
-  text-align: center;
-  padding: 2rem;
-}
-
-.projects-list h2 {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  font-size: 2.5rem;
-  text-decoration: underline;
-}
-
-.projects-list__item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  border-radius: 15px;
-  padding: 1rem;
-  margin: 1rem;
-  background: #e0bd9e;
-  color: black;
-}
-
-.projects-list__item a {
-  font-weight: bold;
-  font-size: 1.17em;
-  border-radius: 15px;
-  padding: 1rem;
-  margin: 1rem;
-  background: #ce9564;
-  margin: 0;
-}
-
-.projects-list__item a:hover {
-  -webkit-transform: scale(1.05, 1.05);
-          transform: scale(1.05, 1.05);
-  -webkit-transition: all .25s ease-in-out;
-  transition: all .25s ease-in-out;
-}
-
-.projects-list__item__description {
-  padding: 1rem;
-}
-
 .contact-me {
   background: -webkit-gradient(linear, left top, left bottom, from(#45626A), to(#F8F9FA));
   background: linear-gradient(#45626A, #F8F9FA);
@@ -407,24 +352,6 @@
   .skills-certifications__name {
     font-size: 15px;
   }
-  .projects-list {
-    text-align: center;
-    padding: 0;
-  }
-  .projects-list__item {
-    padding: .5rem;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    font-size: 1rem;
-  }
-  .projects-list__item h3 {
-    font-size: 15px;
-  }
-  .projects-list__item__description {
-    font-size: 13px;
-  }
   .contact-me-description * {
     width: 15rem;
   }
@@ -445,6 +372,75 @@
   }
   .contact-me-description .submit {
     width: 15rem;
+  }
+}
+
+.projects {
+  background: -webkit-gradient(linear, left top, left bottom, from(#45626A));
+  background: linear-gradient(#45626A);
+  padding: 2rem;
+}
+
+.projects-list {
+  text-align: center;
+  padding: 2rem;
+}
+
+.projects-list h2 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-size: 2.5rem;
+  text-decoration: underline;
+}
+
+.projects-list__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border-radius: 15px;
+  padding: 1rem;
+  margin: 1rem;
+  background: #e0bd9e;
+  color: black;
+}
+
+.projects-list__item a {
+  font-weight: bold;
+  font-size: 1.17em;
+  border-radius: 15px;
+  padding: 1rem;
+  margin: 1rem;
+  background: #ce9564;
+  margin: 0;
+}
+
+.projects-list__item__description {
+  padding: 1rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .projects-list {
+    text-align: center;
+    padding: 0;
+  }
+  .projects-list__item {
+    padding: .5rem;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    font-size: 1rem;
+  }
+  .projects-list__item h3 {
+    font-size: 15px;
+  }
+  .projects-list__item__description {
+    font-size: 13px;
   }
 }
 

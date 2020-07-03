@@ -124,45 +124,6 @@ $fonts-media: (
 
 }
 
-.projects{
-    // @include box($background);
-    // background: linear-gradient(map-get($background-gradient, blue), map-get($background-gradient, plain));
-    background: linear-gradient(map-get($background-gradient, blue));
-    padding: 2rem;
-    &-list{
-        text-align: center;
-        padding: 2rem;
-        // display: flex;
-        // flex-wrap: wrap;
-        h2{
-            flex:1;
-            font-size: map-get($fonts-media, section_title) + .5rem;
-            text-decoration: underline;
-        }
-        &__item{
-            display: flex;
-            // flex-wrap: wrap;
-            flex-direction: row;
-            @include box($box-color);
-            color: black;
-            a{
-                // line-height: 2rem;
-                font-weight: bold;
-                font-size: 1.17em;
-                @include box($second-box-color);
-                margin: 0;
-                &:hover{
-                    @include poppin('out');
-                }
-            }
-            &__description{
-                padding: 1rem;
-            }
-
-        }
-    }
-}
-
 .contact-me{
     // display: flex;
     // background: map-get($background-gradient, plain);
@@ -221,25 +182,6 @@ $fonts-media: (
             padding: 1rem;
             &__name{
                 font-size: map-get($fonts-media, cert);
-            }
-        }
-    }
-
-    .projects{
-        &-list{
-            text-align: center;
-            padding: 0;
-            &__item{
-                padding: .5rem;
-                // margin: .5rem;
-                flex-direction: column;
-                font-size: map-get($fonts-media, title);
-                h3{
-                    font-size: map-get($fonts-media, proj_title);
-                }
-                &__description{
-                    font-size: map-get($fonts-media, proj_des);
-                }
             }
         }
     }
