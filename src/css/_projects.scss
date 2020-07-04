@@ -6,6 +6,7 @@ $background-gradient: (
 // $box-color: #c1dcf0;
 $box-color: #e0bd9e;
 $second-box-color: #ce9564;
+$project-bgcolor: rgba(224, 189, 158, .8);
 
 $fonts-media: (
     title: 1rem,
@@ -18,36 +19,82 @@ $fonts-media: (
 @mixin box($back){
     border-radius: 15px;
     padding: 1rem;
-    margin: 1rem;
+    margin: 1%;
     background: $back;
 }
 
-.projects{
+.portfolio{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     background: linear-gradient(map-get($background-gradient, blue));
-    padding: 2rem;
-    &-list{
-        text-align: center;
-        padding: 2rem;
-        h2{
-            flex:1;
-            font-size: map-get($fonts-media, section_title) + .5rem;
-            text-decoration: underline;
-        }
-        &__item{
-            display: flex;
+    // padding: 1.5rem;
+    h2{
+        align-self: center;
+        font-size: map-get($fonts-media, section_title) + .5rem;
+        text-decoration: underline;
+    }
+    .projects{
+        // display: flex;
+        // text-align: center;
+        // padding: .5rem;
+        // flex-wrap: wrap;
+        &-list{
+            // max-width: 30%;
+            // flex: 22%;
+            display: grid;
+            text-align: center;
             flex-direction: row;
-            @include box($box-color);
-            color: black;
-            a{
-                font-weight: bold;
-                font-size: 1.17em;
-                @include box($second-box-color);
-                margin: 0;
-            }
-            &__description{
+            padding: .5rem;
+            flex-wrap: wrap;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            max-width: 100%;
+            &__item{
+                // flex-direction: row;
+                // justify-content: center;
                 padding: 1rem;
+                color: black;
+                position: relative;
+                max-width: 95vw;
+                overflow: hidden;
+                .display{
+                    object-fit: cover;
+                    margin-left: 0;
+                    min-width: 100%;
+                    min-height: 100%;
+                }
+                .item__overlay{
+                    opacity: 0;
+                    top: 50%;
+                    position: absolute;
+                    width: 100%;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                    font-size: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    background-color: $project-bgcolor;
+                    transition-duration: 700ms;
+                    // transition: ease-in-out;
+                    transition-property: opacity;
+                    &:hover{
+                        opacity: 1;
+                    }
+                    a{
+                        font-weight: bold;
+                        font-size: 1rem;
+                        margin: 0;
+                    }
+                    &__description{
+                        padding: 1rem;
+                    }
+                }
+    
             }
-
         }
     }
 }
@@ -55,7 +102,7 @@ $fonts-media: (
 //phone query using iphone6/7/8 dimensions
 @media only screen and (max-width: 500px){
 
-    .projects{
+    .portfolio{
         &-list{
             text-align: center;
             padding: 0;
