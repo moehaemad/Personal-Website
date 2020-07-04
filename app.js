@@ -13,7 +13,8 @@ const simpleGeneratorRouter = require('./routes/simpleGenerator');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use('/LudoGame', ludoRouter);
-app.use('/', express.static(path.join(__dirname, '/dist/')))
+app.use('/', express.static(path.join(__dirname, './dist/')));
+app.use('/css/', express.static(path.join(__dirname, './dist/css')));
 app.use('/SimpleGenerator', simpleGeneratorRouter);
 app.get('/cgr', (req, res) => {
     res.download(path.join('./dist/') + 'images/cgrgambling.pdf');

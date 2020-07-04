@@ -24,6 +24,7 @@ $fonts-media: (
 }
 
 .portfolio{
+    z-index: 3;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -37,6 +38,7 @@ $fonts-media: (
     .projects-list{
         // max-width: 30%;
         // flex: 22%;
+        z-index: 4;
         display: grid;
         text-align: center;
         flex-direction: row;
@@ -47,6 +49,7 @@ $fonts-media: (
         &__item{
             // flex-direction: row;
             // justify-content: center;
+            z-index: 5;
             padding: 1rem;
             color: black;
             position: relative;
@@ -59,6 +62,7 @@ $fonts-media: (
                 min-height: 100%;
             }
             .item__overlay{
+                z-index: 6;
                 opacity: 0;
                 top: 50%;
                 position: absolute;

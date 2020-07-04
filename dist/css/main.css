@@ -45,7 +45,7 @@
 
 .menu-btn {
   position: absolute;
-  z-index: 1;
+  z-index: 12;
   right: 1rem;
   top: 1rem;
   cursor: pointer;
@@ -54,6 +54,7 @@
 }
 
 .menu-btn__burger {
+  z-index: 12;
   position: absolute;
   right: 0;
   top: 0.5rem;
@@ -65,6 +66,7 @@
 }
 
 .menu-btn__burger::before {
+  z-index: 12;
   content: '';
   position: absolute;
   top: -8px;
@@ -76,6 +78,7 @@
 }
 
 .menu-btn__burger::after {
+  z-index: 12;
   content: '';
   position: absolute;
   top: 8px;
@@ -87,6 +90,7 @@
 }
 
 .menu-btn__burger.open {
+  z-index: 12;
   -webkit-transform: rotate(360deg);
           transform: rotate(360deg);
   background: transparent;
@@ -103,6 +107,7 @@
 }
 
 .nav {
+  z-index: 11;
   position: fixed;
   top: 0;
   left: 0;
@@ -116,6 +121,7 @@
 }
 
 .nav .menu-nav {
+  z-index: 12;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -376,6 +382,7 @@
 }
 
 .portfolio {
+  z-index: 3;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -399,6 +406,7 @@
 }
 
 .portfolio .projects-list {
+  z-index: 4;
   display: -ms-grid;
   display: grid;
   text-align: center;
@@ -415,6 +423,7 @@
 }
 
 .portfolio .projects-list__item {
+  z-index: 5;
   padding: 1rem;
   color: black;
   position: relative;
@@ -431,6 +440,7 @@
 }
 
 .portfolio .projects-list__item .item__overlay {
+  z-index: 6;
   opacity: 0;
   top: 50%;
   position: absolute;
