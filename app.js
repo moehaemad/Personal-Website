@@ -15,6 +15,9 @@ app.use(bodyParser.json());
 app.use('/LudoGame', ludoRouter);
 app.use('/', express.static(path.join(__dirname, '/dist/')))
 app.use('/SimpleGenerator', simpleGeneratorRouter);
+app.get('/cgr', (req, res) => {
+    res.download(path.join('./dist/') + 'images/cgrgambling.pdf');
+});
 app.get('/', (req, res) =>{
     res.sendFile(path.join('./dist/') + 'index.hljs-template-variable');
 })
