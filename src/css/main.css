@@ -386,8 +386,8 @@
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
-  background: -webkit-gradient(linear, left top, left bottom, from(#45626A));
-  background: linear-gradient(#45626A);
+  background: -webkit-gradient(linear, left top, left bottom, from(#45626a));
+  background: linear-gradient(#45626a);
 }
 
 .portfolio h2 {
@@ -462,10 +462,30 @@
   opacity: 1;
 }
 
-.portfolio .projects-list__item .item__overlay a {
+.portfolio .projects-list__item .item__overlay .title {
   font-weight: bold;
-  font-size: 1rem;
-  margin: 0;
+  font-size: 2rem;
+  margin: 0 5rem 0 5rem;
+  border-radius: 9px;
+  border: 1px black solid;
+}
+
+.portfolio .projects-list__item .item__overlay .icons {
+  padding: 1rem;
+}
+
+.portfolio .projects-list__item .item__overlay .icons a {
+  margin: 0 .5rem 0 .5rem;
+}
+
+.portfolio .projects-list__item .item__overlay .icons a i {
+  -webkit-transition: color 500ms;
+  transition: color 500ms;
+  color: black;
+}
+
+.portfolio .projects-list__item .item__overlay .icons a i:hover {
+  color: #149eb1;
 }
 
 .portfolio .projects-list__item .item__overlay__description {
