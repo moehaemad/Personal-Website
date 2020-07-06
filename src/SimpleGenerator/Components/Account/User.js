@@ -10,13 +10,16 @@ class User extends Component {
     }
 
     toggleWindow = () => {
-        return this.state.open ? this.setState({open: false}) : this.setState({open: true});
+        return this.state.open ? this.setState({askPg: false, open: false}) : this.setState({askPg: true, open: true});
     }
 
     componentDidUpdate(prevProps, prevState){
         if (this.state.askPg){
-            Axios.get('')
-            console.log(`aosdasd`);
+            Axios.get('/SimpleGenerator/user?').then(
+                res => console.log(res)
+            ).catch(err => {
+                console.log(err);
+            });
         }
     }
 

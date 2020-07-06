@@ -16,14 +16,14 @@ class App extends Component{
     toShow: ''
   }
 
-  componentDidUpdate(prevProps, prevState){
+  // componentDidUpdate(prevProps, prevState){
 
-    if (this.state.databaseReq){
-      Axios.get('/SimpleGenerator/user?').then(
-        res => {console.log(res)}
-      ).catch(err => console.log(err));
-    }
-  }
+  //   if (this.state.databaseReq){
+  //     Axios.get('/SimpleGenerator/user?').then(
+  //       res => {console.log(res)}
+  //     ).catch(err => console.log(err));
+  //   }
+  // }
 
   // toggle(stateItem, message){
   //   const value = this.state[stateItem];

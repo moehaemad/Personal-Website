@@ -12,7 +12,6 @@ simpleGeneratorRouter.use('/js/', express.static(path.join(__dirname, '../dist/j
 simpleGeneratorRouter.use('/react-assets', express.static(path.join(__dirname, "../dist/react-assets")));
 
 
-
 simpleGeneratorRouter.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, '../dist/') + 'simple_generator.html');
 })

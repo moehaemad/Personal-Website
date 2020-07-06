@@ -10,7 +10,6 @@ const {Client} = require('pg');
 // }
 
 
-
 module.exports = ({
     query: async () => {
         const client = new Client();
@@ -19,6 +18,7 @@ module.exports = ({
         //     if (err) console.log(err);
         //     return res.rows;
         // });
+        const toReturn = client.query('select * form login');
         return client.query('select * from login;');
     }
 })
