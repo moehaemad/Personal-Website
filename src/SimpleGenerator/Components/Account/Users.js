@@ -5,25 +5,37 @@ import Axios from 'axios';
 class Users extends Component {
     state = {
         open: false,
-        askPg: false
+        askPg: false,
+        query: ['not yet updated']
     }
 
-    async componentDidMount(prevProps, prevState){
-        // const pgQuery = Axios.get('/SimpleGenerator/user?').then(
-        //     res => console.log(res)
-        // ).catch(err => {
-        //     console.log(err);
-        // });
-        const pgQuery = await Axios.get('/SimpleGenerator/user?');
-        this.setState({query: pgQuery.data.query});
-        console.log(pgQuery)
+    componentDidMount(prevProps, prevState){
+        Axios.get('/SimpleGenerator/user?').then(
+            res => {
+                this.setState({query: res.data.query});
+            }
+        ).catch(err => {
+            console.log(err);
+        });
+    }
+
+    listQuery = () => {
+        const query = this.state.query;
+        // let query=['asdasd','another', 'whatever'];
+        let result = query.map(el => {
+            return <p>{el.name}</p>
+        })
+        return result;
     }
 
 
     render() {
+
+        const something = this.listQuery();
         return (
             <div>
-                listing
+                {/* {this.listQuery} */}
+                {something}
             </div>
         );
 

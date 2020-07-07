@@ -1,14 +1,4 @@
 const {Client} = require('pg');
-// Connects to local user to the 'practice' database setup
-    //login info taken from environment variables set by dotenv
-
-// await client.connect();
-
-// const setClient = async () => {
-//     const client = new Client();
-//     return await client.connect();
-// }
-
 const dbUser = {
     dev: true,
     localuser: process.env.DEVUSER,
@@ -42,7 +32,7 @@ module.exports = ({
         }
         let toReturn;
         try{
-            client.connect();
+            await client.connect();
             toReturn = await client.query('select * from login;');
             await client.end();
         }catch(e){
