@@ -15,6 +15,7 @@ class User extends Component {
 
     componentDidUpdate(prevProps, prevState){
         if (this.state.askPg){
+            console.log('in the component update ');
             Axios.get('/SimpleGenerator/user?').then(
                 res => console.log(res)
             ).catch(err => {

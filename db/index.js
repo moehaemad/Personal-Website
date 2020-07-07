@@ -9,16 +9,46 @@ const {Client} = require('pg');
 //     return await client.connect();
 // }
 
+const dbUser = {
+    dev: true,
+    localuser: process.env.DEVUSER,
+    localpass: process.env.DEVPASS,
+    localdb: process.env.DEVDB,
+    awsUser: process.env.PGUSER,
+    awsPass: process.env.PDPASSWORD,
+    awsDb: process.env.PGDATABASE,
+    awsHost: process.env.PGHOST
+}
+
 
 module.exports = ({
     query: async () => {
-        const client = new Client();
-        await client.connect();
-        // return client.query('select * from weather;', (err, res) => {
-        //     if (err) console.log(err);
-        //     return res.rows;
-        // });
-        const toReturn = client.query('select * form login');
-        return client.query('select * from login;');
+        let client;
+        if (dbUser.dev) {
+            client = new Client({
+                user: dbUser.localuser,
+                database: dbUser.localdb,
+                host: 'localhost',
+                password: dbUser.localpass
+            });
+        }else{
+            client = new Client({
+                user: dbUser.awsUser,
+                database: dbUser.awsDb,
+                password: dbUser.awsPass,
+                host: dbUser.PGHOST,
+                port: 5432
+            });
+        }
+        let toReturn;
+        try{
+            client.connect();
+            toReturn = await client.query('select * from login;');
+            await client.end();
+        }catch(e){
+            console.log(`Error connecting to database: ${e}`);
+        }
+
+        return toReturn;
     }
 })
