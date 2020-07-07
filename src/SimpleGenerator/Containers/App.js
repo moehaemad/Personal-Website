@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Logo from '../Components/Logo'
 import Generator from '../Components/Generator/Generator';
-import Account from '../Components/Account/User';
-import Axios from 'axios';
+import Account from '../Components/Account/Account';
 
 class App extends Component{
 
@@ -15,23 +14,6 @@ class App extends Component{
     databaseReq: false,
     toShow: ''
   }
-
-  // componentDidUpdate(prevProps, prevState){
-
-  //   if (this.state.databaseReq){
-  //     Axios.get('/SimpleGenerator/user?').then(
-  //       res => {console.log(res)}
-  //     ).catch(err => console.log(err));
-  //   }
-  // }
-
-  // toggle(stateItem, message){
-  //   const value = this.state[stateItem];
-  //   // if (!value){
-
-  //   // }
-  //   return !value ? this.setState
-  // }
 
 
   render(){

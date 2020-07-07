@@ -20,8 +20,8 @@ app.get('/cgr', (req, res) => {
     res.download(path.join('./dist/') + 'images/cgrgambling.pdf');
 });
 app.get('/', (req, res) =>{
-    res.sendFile(path.join('./dist/') + 'index.hljs-template-variable');
-})
+    res.sendFile(path.join('./dist/') + 'index.html');
+});
 
 app.use('/sendMail', sendMailRouter);
 
