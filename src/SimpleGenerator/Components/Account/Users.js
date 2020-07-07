@@ -10,9 +10,17 @@ class Users extends Component {
     }
 
     componentDidMount(prevProps, prevState){
-        Axios.get('/SimpleGenerator/user?').then(
+        // Axios.get('/SimpleGenerator/user?').then(
+        //     res => {
+        //         this.setState({query: res.data.query});
+        //         console.log(res);
+        //     }
+        // ).catch(err => {
+        //     console.log(err);
+        // });
+        Axios.get('/SimpleGenerator/rest/' + this.props.user, {pass: this.props.pass}).then(
             res => {
-                this.setState({query: res.data.query});
+                // this.setState({query: res.data.query});
                 console.log(res);
             }
         ).catch(err => {
@@ -42,6 +50,8 @@ class Users extends Component {
             <div>
                 {/* {this.listQuery} */}
                 {something}
+                {this.props.user}
+                {this.props.pass}
             </div>
         );
 

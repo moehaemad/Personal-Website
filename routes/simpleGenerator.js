@@ -16,20 +16,17 @@ simpleGeneratorRouter.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, '../dist/') + 'simple_generator.html');
 })
 
-simpleGeneratorRouter.get('/user?', async (req, res) => {
-    // await query((errQuery, resQuery) => {
-    //     res.json({something: resQuery, other: errQuery});
-    // });
+simpleGeneratorRouter.get('/rest/:user', async (req, res, next)=>{
+    console.log('worked with ' + req.params.user);
     let data;
     try{
-        data = await query();
+        data = await query(req.params.user);
         res.json({query: data.rows});
     }catch(e){
-        console.log(`error is ${e}`);
+        console.log('an error occured with query in GET');
+        res.json({query: 'error with query'});
     }
-    // const data = await query();
-    // console.log(data);
-    
+    next();
 })
 
 module.exports = simpleGeneratorRouter;

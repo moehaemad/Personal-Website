@@ -12,7 +12,7 @@ const dbUser = {
 
 
 module.exports = ({
-    query: async () => {
+    query: async (user) => {
         let client;
         if (dbUser.dev) {
             client = new Client({
@@ -33,7 +33,7 @@ module.exports = ({
         let toReturn;
         try{
             await client.connect();
-            toReturn = await client.query('select * from login;');
+            toReturn = await client.query(`select * from login where name = '${user}'`);
             await client.end();
         }catch(e){
             console.log(`Error connecting to database: ${e}`);
