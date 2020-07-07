@@ -6,7 +6,9 @@ import User from './Users';
 class Account extends Component {
     state = {
         open: false,
-        showUser: false
+        showUser: false,
+        user: null,
+        pass: null
     }
 
     togglewindow = () => this.state.open ? this.setState({open: false}) : this.setState({open: true});
@@ -14,11 +16,16 @@ class Account extends Component {
     getUser = () => {
         let showUser = !this.state.showUser;
         this.setState({showUser: showUser});
-    }    
+    }
+    passUserInfo = (e) => {
+        e.preventDefault();
+        let showUser = !this.state.showUser;
+        this.setState({showUser: showUser});
+    }
     
     render(){
-
-        let showUser = this.state.showUser;
+        const setUser = (e) => this.setState({user: e.target.value});
+        const setPass = (e) => this.setState({pass: e.target.value});
         return (
             <div className="Output">
                 <div className="Title">
@@ -27,11 +34,13 @@ class Account extends Component {
                     </h2>
                 </div>
                 <div>
-                <input type="text" placeholder="username"/>
-                <input type="text" placeholder="password"/>
-                <button onClick={this.getUser}>Submit</button>
+                    <form onSubmit={this.passUserInfo}>
+                        <input type="text" placeholder="username" required onChange={setUser}/>
+                        <input type="text" placeholder="password" required onChange={setPass}/>
+                        <button type="submit">Submit</button>
+                    </form>
                 </div>
-                {this.state.showUser ? <User/> : null}
+                {this.state.showUser ? <User user={this.state.user} pass={this.state.pass}/> : null}
             </div>
         );
     }

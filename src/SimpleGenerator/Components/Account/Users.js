@@ -13,6 +13,7 @@ class Users extends Component {
         Axios.get('/SimpleGenerator/user?').then(
             res => {
                 this.setState({query: res.data.query});
+                console.log(res);
             }
         ).catch(err => {
             console.log(err);
@@ -22,9 +23,14 @@ class Users extends Component {
     listQuery = () => {
         const query = this.state.query;
         // let query=['asdasd','another', 'whatever'];
-        let result = query.map(el => {
-            return <p>{el.name}</p>
-        })
+        // let result = query.map(el => {
+        //     return <p>{el.name}</p>
+        // });
+        let result = (
+            <div>
+                <p>User: {this.state.query[0].name}</p>
+            </div>
+        );
         return result;
     }
 
