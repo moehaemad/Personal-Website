@@ -17,7 +17,6 @@ simpleGeneratorRouter.get('/', (req, res) =>{
 })
 
 simpleGeneratorRouter.get('/rest/:user', async (req, res, next)=>{
-    console.log('worked with ' + req.params.user);
     let data;
     try{
         data = await query(req.params.user);

@@ -36,7 +36,7 @@ class Account extends Component {
                 <div>
                     <form onSubmit={this.passUserInfo}>
                         <input type="text" placeholder="username" required onChange={setUser}/>
-                        <input type="text" placeholder="password" required onChange={setPass}/>
+                        <input type="password" placeholder="password" required onChange={setPass}/>
                         <button type="submit">Submit</button>
                     </form>
                 </div>

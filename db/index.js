@@ -33,7 +33,7 @@ module.exports = ({
         let toReturn;
         try{
             await client.connect();
-            toReturn = await client.query(`select * from login where name = '${user}'`);
+            toReturn = await client.query(`select name, rannumber, ranstring from login where name = '${user}'`);
             await client.end();
         }catch(e){
             console.log(`Error connecting to database: ${e}`);
