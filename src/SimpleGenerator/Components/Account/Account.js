@@ -19,6 +19,7 @@ class Account extends Component {
     }
     passUserInfo = (e) => {
         e.preventDefault();
+        // TODO: do not allow for option to close, once opnened, it remains open
         let showUser = !this.state.showUser;
         this.setState({showUser: showUser});
     }

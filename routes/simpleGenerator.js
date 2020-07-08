@@ -16,7 +16,7 @@ simpleGeneratorRouter.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, '../dist/') + 'simple_generator.html');
 })
 
-simpleGeneratorRouter.get('/rest/:user', async (req, res, next)=>{
+simpleGeneratorRouter.get('/:user', async (req, res, next)=>{
     let data;
     try{
         data = await query(req.params.user);

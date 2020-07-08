@@ -7,11 +7,12 @@ class Users extends Component {
     state = {
         open: false,
         askPg: false,
-        query: ['not yet updated']
+        query: ['not yet updated'],
+        toDelete: {table: null, value: null}
     }
 
     componentDidMount(prevProps, prevState){
-        Axios.get('/SimpleGenerator/rest/' + this.props.user, {pass: this.props.pass}).then(
+        Axios.get('/SimpleGenerator/' + this.props.user, {pass: this.props.pass}).then(
             res => {
                 this.setState({query: res.data.query});
                 console.log(res);
@@ -29,7 +30,7 @@ class Users extends Component {
         // });
         let result = (
             <div>
-                <p>User: {this.state.query[0].name}</p>
+                <p>User: {this.state.query[0].username}</p>
             </div>
         );
         return result;
@@ -41,7 +42,6 @@ class Users extends Component {
         const something = this.listQuery();
         return (
             <div>
-                {/* {this.listQuery} */}
                 {something}
                 <div className="GenList">
                     <div className="GenItemClose">X</div>
