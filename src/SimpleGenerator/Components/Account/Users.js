@@ -8,18 +8,22 @@ class Users extends Component {
         open: false,
         askPg: false,
         query: ['not yet updated'],
-        toDelete: {table: null, value: null}
+        toDelete: {table: null, value: null},
+        user: ''
     }
 
     componentDidMount(prevProps, prevState){
-        Axios.get('/SimpleGenerator/' + this.props.user, {pass: this.props.pass}).then(
-            res => {
-                this.setState({query: res.data.query});
-                console.log(res);
-            }
-        ).catch(err => {
-            console.log(err);
-        });
+        if (this.state.user.length === 0){
+            // {pass: this.props.pass}
+            Axios.get('/SimpleGenerator/' + this.props.user).then(
+                res => {
+                    this.setState({query: res.data.query});
+                    console.log(res);
+                }
+            ).catch(err => {
+                console.log(err);
+            });
+        }
     }
 
     listQuery = () => {
