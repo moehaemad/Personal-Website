@@ -31,14 +31,39 @@ pool.on('error', (err, client)=>{
     console.error('unexpected error on idle client', err);
 });
 
-const confirmUser = (req, res, body) => {
+const confirmUser = (req, res) => {
     try{
         pool.query(`select username from login where username = '${req.params.user}' and pass = '${req.params.pass}'`, (err, resolved) => {
         if (err) throw err;
-        res.status(200).json({query: resolved.rows});
+        res.status(200).json({user: resolved.rows});
     });
     }catch(err){
-        console.log('error with pool query');
+        console.log('error in confirmUser with pool query');
     }
 };
-module.exports = {confirmUser};
+
+const getValues = (req, res) => {
+    try{
+        // NOTE: Req.param.type is one of Num or String
+        const type = req.params.type;
+        pool.query (`select ${type} from rand${type} where ${type}user = '${req.params.user}'`, (err, resolved) => {
+            if(err) throw err;
+            res.status(200).json({value: resolved.rows});
+        });
+    }catch (err){
+        console.log('error in getValues with pool query');
+    }
+}
+
+const createUser = (req, res) => {
+    try{
+        pool.query(`insert into login values ('${req.params.user}', '${req.params.pass}')`, (err, resolved) => {
+            if (err) throw err;
+            console.log(resolved);
+        })
+    }catch(err){
+        console.log('error in createUser with pool query');
+    }
+}
+
+module.exports = {confirmUser, getValues};

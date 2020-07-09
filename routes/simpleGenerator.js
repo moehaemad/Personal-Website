@@ -1,7 +1,7 @@
 const express = require('express');
 const simpleGeneratorRouter = express.Router();
 const path = require('path');
-const {confirmUser} = require('../db/index');
+const Db = require('../db/index');
 
 // This route is for /SimpleGenerator/
 
@@ -16,12 +16,16 @@ simpleGeneratorRouter.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, '../dist/') + 'simple_generator.html');
 })
 
-simpleGeneratorRouter.get('/:user/:pass', (req, res) => confirmUser(req, res, req.body));
+simpleGeneratorRouter.get('/:user/:pass', (req, res) => Db.confirmUser(req, res));
 
 
-simpleGeneratorRouter.post('/', (req, res, next) => {
+simpleGeneratorRouter.get('/randValues/:user/:type', (req, res) => Db.getValues(req, res));
+
+
+simpleGeneratorRouter.post('/createUser', (req, res, next) => {
     console.log(req.body);
     res.json({body: req.body});
+
     next()
 });
 

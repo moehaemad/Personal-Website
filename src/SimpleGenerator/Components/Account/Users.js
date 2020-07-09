@@ -7,49 +7,53 @@ class Users extends Component {
     state = {
         open: false,
         askPg: false,
-        query: ['not yet updated'],
+        query: [],
         toDelete: {table: null, value: null},
         user: ''
     }
 
     async componentDidMount(prevProps, prevState){
-        if (this.state.user.length === 0){
-            // {pass: this.props.pass}
-            // Axios.get('/SimpleGenerator/' + this.props.user + '/' + this.props.pass).then(
-            //     res => {
-            //         this.setState({query: res.data.query});
-            //         console.log(res);
-            //     }
-            // ).catch(err => {
-            //     console.log(err);
-            // });
+        if (this.state.user === ""){
             try{
                 const res = await Axios.get('/SimpleGenerator/' + this.props.user + '/' + this.props.pass);
-                console.log(`res is `);
-                console.log(res);
-                if (res.data.query.length === 0){
-                    this.setState({query: [{username: 'user not found'}]});
+                if (res.data.user.length === 0){
+                    this.setState({user: "user not found"});
                 }else{
-                    this.setState({query: res.data.query});
+                    this.setState({user: res.data.user[0].username});
                 }
             }catch(err){
                 window.alert('user does not exit');
             }
         }
+        if (this.state.query.length === 0){
+            try{
+                const resString = await Axios.get('/SimpleGenerator/randValues/'+this.props.user +'/string');
+                const resNum = await Axios.get('/SimpleGenerator/randValues/'+this.props.user +'/num');
+                let queryCopy = [...this.state.query];
+                queryCopy.push(...resString.data.value.map(el => el.string), ...resNum.data.value.map(el=> el.num));
+                this.setState({query: queryCopy});
+            }catch(err){
+                console.log(err);
+            }
+        }
     }
 
     listQuery = () => {
-        const query = this.state.query;
         // let query=['asdasd','another', 'whatever'];
         // let result = query.map(el => {
         //     return <p>{el.name}</p>
         // });
         let result = (
             <div>
-                <p>User: {this.state.query[0].username}</p>
+                <p>User: {this.state.user}</p>
+                {/* <p>User: asd</p> */}
             </div>
         );
         return result;
+    }
+
+    valueList = () => {
+        
     }
 
 
