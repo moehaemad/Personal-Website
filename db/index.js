@@ -9,23 +9,31 @@ const dbUser = {
     awsDb: process.env.PGDATABASE,
     awsHost: process.env.PGHOST
 }
-let pool;
-if (dbUser.dev) {
-    pool = new Pool({
-        user: dbUser.localuser,
-        database: dbUser.localdb,
-        host: 'localhost',
-        password: dbUser.localpass
-    });
-}else{
-    pool = new Pool({
-        user: dbUser.awsUser,
-        database: dbUser.awsDb,
-        password: dbUser.awsPass,
-        host: dbUser.PGHOST,
-        port: 5432
-    });
-}
+// let pool;
+// if (dbUser.dev) {
+//     pool = new Pool({
+//         user: dbUser.localuser,
+//         database: dbUser.localdb,
+//         host: 'localhost',
+//         password: dbUser.localpass
+//     });
+// }else{
+//     pool = new Pool({
+//         user: dbUser.awsUser,
+//         database: dbUser.awsDb,
+//         password: dbUser.awsPass,
+//         host: dbUser.PGHOST,
+//         port: 5432
+//     });
+// }
+
+const pool = new Pool({
+            user: dbUser.awsUser,
+            database: dbUser.awsDb,
+            password: dbUser.awsPass,
+            host: dbUser.PGHOST,
+            port: 5432
+        });
 
 pool.on('error', (err, client)=>{
     console.error('unexpected error on idle client', err);
