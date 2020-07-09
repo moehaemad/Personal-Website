@@ -16,17 +16,12 @@ simpleGeneratorRouter.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, '../dist/') + 'simple_generator.html');
 })
 
-simpleGeneratorRouter.get('/:user/:pass', (req, res) => Db.confirmUser(req, res));
+simpleGeneratorRouter.get('/:user/:pass', Db.confirmUser);
 
 
-simpleGeneratorRouter.get('/randValues/:user/:type', (req, res) => Db.getValues(req, res));
+simpleGeneratorRouter.get('/randValues/:user/:type', Db.getValues);
 
 
-simpleGeneratorRouter.post('/createUser', (req, res, next) => {
-    console.log(req.body);
-    res.json({body: req.body});
-
-    next()
-});
+simpleGeneratorRouter.post('/createUser', Db.createUser);
 
 module.exports = simpleGeneratorRouter;

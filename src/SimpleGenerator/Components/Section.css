@@ -64,3 +64,15 @@ button {
     padding: .5rem;
     border-radius: 5px;
 }
+
+.Progress{
+    text-align: center;
+    font-weight: bold;
+    padding: .5rem;
+}
+.Progress .Failed{
+    background: maroon;
+}
+.Progress .Success{
+    background: #00d318;
+}

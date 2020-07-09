@@ -57,13 +57,20 @@ const getValues = (req, res) => {
 
 const createUser = (req, res) => {
     try{
-        pool.query(`insert into login values ('${req.params.user}', '${req.params.pass}')`, (err, resolved) => {
-            if (err) throw err;
-            console.log(resolved);
+        pool.query(`insert into login values ('${req.body.user}', '${req.body.pass}')`, (err, resolved) => {
+            if (err){
+                res.status(200).json({didAccept: false});
+            }else{
+                res.status(200).json({didAccept: true});
+            }
+            // if (err) throw err;
+            // console.log(resolved);
+            // res.status(200).json({didAccept: true});
         })
     }catch(err){
         console.log('error in createUser with pool query');
+        // res.status(200).json({didAccept: false});
     }
 }
 
-module.exports = {confirmUser, getValues};
+module.exports = {confirmUser, getValues, createUser};
