@@ -12,17 +12,29 @@ class Users extends Component {
         user: ''
     }
 
-    componentDidMount(prevProps, prevState){
+    async componentDidMount(prevProps, prevState){
         if (this.state.user.length === 0){
             // {pass: this.props.pass}
-            Axios.get('/SimpleGenerator/' + this.props.user).then(
-                res => {
+            // Axios.get('/SimpleGenerator/' + this.props.user + '/' + this.props.pass).then(
+            //     res => {
+            //         this.setState({query: res.data.query});
+            //         console.log(res);
+            //     }
+            // ).catch(err => {
+            //     console.log(err);
+            // });
+            try{
+                const res = await Axios.get('/SimpleGenerator/' + this.props.user + '/' + this.props.pass);
+                console.log(`res is `);
+                console.log(res);
+                if (res.data.query.length === 0){
+                    this.setState({query: [{username: 'user not found'}]});
+                }else{
                     this.setState({query: res.data.query});
-                    console.log(res);
                 }
-            ).catch(err => {
-                console.log(err);
-            });
+            }catch(err){
+                window.alert('user does not exit');
+            }
         }
     }
 

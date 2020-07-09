@@ -31,11 +31,14 @@ pool.on('error', (err, client)=>{
     console.error('unexpected error on idle client', err);
 });
 
-const confirmUser = (req, res) => {
-    pool.query(`select username from login where username = '${req.params.user}'`, (err, resolved) => {
+const confirmUser = (req, res, body) => {
+    try{
+        pool.query(`select username from login where username = '${req.params.user}' and pass = '${req.params.pass}'`, (err, resolved) => {
         if (err) throw err;
         res.status(200).json({query: resolved.rows});
     });
+    }catch(err){
+        console.log('error with pool query');
+    }
 };
-
 module.exports = {confirmUser};

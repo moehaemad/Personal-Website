@@ -16,6 +16,13 @@ simpleGeneratorRouter.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, '../dist/') + 'simple_generator.html');
 })
 
-simpleGeneratorRouter.get('/:user', confirmUser);
+simpleGeneratorRouter.get('/:user/:pass', (req, res) => confirmUser(req, res, req.body));
+
+
+simpleGeneratorRouter.post('/', (req, res, next) => {
+    console.log(req.body);
+    res.json({body: req.body});
+    next()
+});
 
 module.exports = simpleGeneratorRouter;

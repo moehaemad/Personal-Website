@@ -26,9 +26,5 @@ sendMailRouter.post('/', (req, res) => {
     })
 });
 
-sendMailRouter.get('/',(req, res) => {
-    res.send('suasdasdp');
-})
-
 
 module.exports = sendMailRouter;
