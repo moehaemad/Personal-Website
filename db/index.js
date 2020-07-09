@@ -1,6 +1,6 @@
 const {Pool} = require('pg');
 const dbUser = {
-    dev: true,
+    dev: process.env.ISDEV,
     localuser: process.env.DEVUSER,
     localpass: process.env.DEVPASS,
     localdb: process.env.DEVDB,
