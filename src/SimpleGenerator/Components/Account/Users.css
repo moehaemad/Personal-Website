@@ -1,7 +1,7 @@
 .GenList{
     text-align: center;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     flex-direction: row;
     /* overflow: hide; */
     border: solid black 1px;

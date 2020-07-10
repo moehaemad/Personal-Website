@@ -76,3 +76,18 @@ button {
 .Progress .Success{
     background: #00d318;
 }
+
+.toInsert{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 1rem;
+}
+
+.toInsert p{
+    padding-right: 1rem;
+}
+
+.toInsert button{
+    margin: 8px;
+    padding: 1rem;
+}
