@@ -7,15 +7,17 @@ class UserValue extends Component{
         shouldInsert: false,
         insertValue: '',
         num: -1,
-        string: ''
+        string: '',
+        type: ''
     }
 
     async componentDidUpdate(){
         if (this.state.shouldInsert){
             try{
-                const toSend = {type: 'String', user: this.props.user, value: this.state.string}
-                const res = axios.post('/SimpleGenerator/insertValue', toSend);
+                const toSend = {type: this.state.type, user: this.props.user, value: this.state.string}
+                const res = await axios.post('/SimpleGenerator/insertValue', toSend);
                 console.log(res);
+                this.setState({shouldInsert: false});
             }catch(err){
                 window.alert('Cannot insert values')
             }
@@ -28,7 +30,7 @@ class UserValue extends Component{
         // if the value to be inserted is not a number store in string property of state, otherwise in num.
 
         // Use String of Number of insertVal because NaN === NaN returns false
-        String(Number(insertVal)) === 'NaN' ? this.setState({shouldInsert: true, string: insertVal}) : this.setState({shouldInsert: true, num: Number(insertVal)});
+        String(Number(insertVal)) === 'NaN' ? this.setState({shouldInsert: true, string: insertVal, type: 'String'}) : this.setState({shouldInsert: true, num: Number(insertVal), type: 'Num'});
     }
 
     render(){

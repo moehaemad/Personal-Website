@@ -1,6 +1,6 @@
 const {Pool} = require('pg');
 const dbUser = {
-    dev: true,
+    dev: false,
     localuser: process.env.DEVUSER,
     localpass: process.env.DEVPASS,
     localdb: process.env.DEVDB,
@@ -17,7 +17,7 @@ if (dbUser.dev) {
         host: 'localhost',
         password: dbUser.localpass
     });
-}else{
+}else if (!dbUser.dev){
     pool = new Pool({
         user: dbUser.awsUser,
         database: dbUser.awsDb,
