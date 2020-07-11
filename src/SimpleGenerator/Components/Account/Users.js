@@ -18,11 +18,11 @@ class Users extends Component {
         // str: the type of table to delete from
         // ind: the index at which to remove the query
         const tableName = String(Number(str)) === 'NaN' ? 'String' : 'Num';
+        // Make copy of state query in order to prevent changing state inadvertently
         let copyQuery = this.state.query.map(el => el);
-        // copyQuery.forEach((el, ind, arr) => {
-        //     if (arr[ind] === str)
-        // })
+        // Delete the value from the copy of state query
         copyQuery.splice(copyQuery.indexOf(str), 1);
+        // change state deleteVal to give to HTTP DELETE
         const deleteVal = {table: tableName, value: str}
         this.setState({toDelete: deleteVal, query: copyQuery});
     }
@@ -63,27 +63,22 @@ class Users extends Component {
         if (diffLength && canDelete){
             // if there was a delete in the state query and have values to pass to HTTP DELETE
             try{
-                // const res = await Axios.delete('/SimpleGenerator/deleteValue', {
-                //     type: this.state.toDelete.table, 
-                //     value: this.state.toDelete.value, 
-                //     user: this.props.user
-                // });
+                // 1) perform HTTP DELETE to remove from the respective table.
                 const res = await Axios.delete(`/SimpleGenerator/deleteValue/${this.props.user}/${this.state.toDelete.table}/${this.state.toDelete.value}`);
-                
-                console.log(res);
+                // 2) update state toDelete to null so that another request isn't sent accidently
+                this.setState({toDelete: {table: null, value: null}});
+                if (!res.data.didAccept){
+                    window.alert(`error deleting ${this.state.toDelete.value}`);
+                }
             }catch (err){
                 window.alert('error deleting the value');
             }
-            // 1) perform HTTP DELETE to remove from the respective table.
-            // 2) update the current output of the tables in the state query
-            // 3) update state toDelete to null so that another request isn't sent accidently
         }
     }
 
     render() {
         // const something = this.listQuery();
         const genList = () => this.state.query.map((el, ind) => <GenList key={ind} data={el}/>);
-        console.log(genList());
         return (
             <div>
                 <div>

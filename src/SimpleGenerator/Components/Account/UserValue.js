@@ -14,12 +14,13 @@ class UserValue extends Component{
     async componentDidUpdate(){
         if (this.state.shouldInsert){
             try{
-                const toSend = {type: this.state.type, user: this.props.user, value: this.state.string}
+                let insertValue;
+                this.state.type === "String" ? insertValue = this.state.string : insertValue = this.state.num;
+                const toSend = {type: this.state.type, user: this.props.user, value: insertValue}
                 const res = await axios.post('/SimpleGenerator/insertValue', toSend);
-                console.log(res);
                 this.setState({shouldInsert: false});
             }catch(err){
-                window.alert('Cannot insert values')
+                window.alert('Cannot insert values');
             }
         }
     }
