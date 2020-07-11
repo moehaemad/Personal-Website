@@ -96,7 +96,7 @@ const insertValue = (req, res) => {
 
 const deleteValue = (req, res) => {
     try{
-        pool.query(`delete from rand${req.body.type} where ${req.body.type}user='${req.body.user}' and ${req.body.type}='${req.body.value}'`, (err) => {
+        pool.query(`delete from rand${req.params.type} where ${req.params.type}user='${req.params.user}' and ${req.params.type}='${req.params.value}'`, (err) => {
             if (err){
                 res.status(200).json({didAccept: false});
             }else{

@@ -62,6 +62,18 @@ class Users extends Component {
         const diffLength = this.state.query.length !== prevState.query.length;
         if (diffLength && canDelete){
             // if there was a delete in the state query and have values to pass to HTTP DELETE
+            try{
+                // const res = await Axios.delete('/SimpleGenerator/deleteValue', {
+                //     type: this.state.toDelete.table, 
+                //     value: this.state.toDelete.value, 
+                //     user: this.props.user
+                // });
+                const res = await Axios.delete(`/SimpleGenerator/deleteValue/${this.props.user}/${this.state.toDelete.table}/${this.state.toDelete.value}`);
+                
+                console.log(res);
+            }catch (err){
+                window.alert('error deleting the value');
+            }
             // 1) perform HTTP DELETE to remove from the respective table.
             // 2) update the current output of the tables in the state query
             // 3) update state toDelete to null so that another request isn't sent accidently

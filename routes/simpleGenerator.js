@@ -26,6 +26,7 @@ simpleGeneratorRouter.post('/createUser', Db.createUser);
 
 simpleGeneratorRouter.post('/insertValue', Db.insertValue);
 
-simpleGeneratorRouter.post('/deleteValue', Db.deleteValue);
+simpleGeneratorRouter.delete('/deleteValue/:user/:type/:value', Db.deleteValue);
+
 
 module.exports = simpleGeneratorRouter;
