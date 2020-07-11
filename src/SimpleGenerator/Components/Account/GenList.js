@@ -4,7 +4,7 @@ import '../Section.css';
 const GenList = (props) => {
     return(
         <div className="GenList">
-            <div className="GenItemClose">X</div>
+            <div className="GenItemClose" onClick={props.deleteHandler}>X</div>
             <div>{props.data}</div>
         </div>
     );
