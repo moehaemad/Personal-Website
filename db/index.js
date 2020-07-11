@@ -94,4 +94,18 @@ const insertValue = (req, res) => {
     }
 }
 
-module.exports = {confirmUser, getValues, createUser, insertValue};
+const deleteValue = (req, res) => {
+    try{
+        pool.query(`delete from rand${req.body.type} where ${req.body.type}user='${req.body.user}' and ${req.body.type}='${req.body.value}'`, (err) => {
+            if (err){
+                res.status(200).json({didAccept: false});
+            }else{
+                res.status(200).json({didAccept: true});
+            }
+        })
+    }catch(err){
+        console.log(`error in deleteValue with pool query`);
+    }
+}
+
+module.exports = {confirmUser, getValues, createUser, insertValue, deleteValue};
