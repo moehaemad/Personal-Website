@@ -77,12 +77,21 @@ class Users extends Component {
         }
         if (this.state.updateValue.sendToDb){
             try{
-                console.log(`in the sendToDb val`);
-                // PUT request needs 
-                const res = await Axios.put('/SimpleGenerator/updateValue', {type: 'String', ind: 1, value: 'asdasd'});
-                console.log(res);
+                // PUT request needs type, value, user, and indValue
+                let copyQuery = this.state.query.map(el => el);
+                const putData = {
+                    type: this.state.updateValue.type,
+                    value: this.state.updateValue.value,
+                    user: this.props.user,
+                    indValue: copyQuery[this.state.updateValue.index]
+                }
+                const res = await Axios.put('/SimpleGenerator/updateValue', putData);
+                if (res.data.didAccept) copyQuery[this.state.updateValue.index] = putData.value;;
                 // update state query property to indicate successful update to user
-                this.setState({updateValue: {type: null, index: null, value: null, sendToDb: false}});
+                this.setState({
+                    query: copyQuery,
+                    updateValue: {type: null, index: null, value: null, sendToDb: false}
+                });
             }catch (err){
                 window.alert(`error updating value to database`);
             }
@@ -102,6 +111,7 @@ class Users extends Component {
                     <p>User: {this.state.user}</p>
                     {this.state.user !== 'user not found' ? <UserValue user={this.state.user}/> : null}
                 </div>
+                <p style={{textDecoration: 'underline', fontWeight: 'bold'}}>Click on text to update values!</p>
                 {this.state.query.map((el, ind) => <GenList key={ind} data={el} deleteHandler={() => this.setDelete(el, ind)} updateHandler={changeUpdateValues} keyProp={ind}/>)}
             </div>
         );

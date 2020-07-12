@@ -28,6 +28,6 @@ simpleGeneratorRouter.post('/insertValue', Db.insertValue);
 
 simpleGeneratorRouter.delete('/deleteValue/:user/:type/:value', Db.deleteValue);
 
-simpleGeneratorRouter.put('/deleteValue', Db.updateValue);
+simpleGeneratorRouter.put('/updateValue', Db.updateValue);
 
 module.exports = simpleGeneratorRouter;
