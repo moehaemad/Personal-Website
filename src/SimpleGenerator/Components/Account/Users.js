@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../Section.css';
 import './Users.css';
 import Axios from 'axios';
-import GenList from './GenList';
+import GenList, {updateValue} from './GenList';
 import UserValue from './UserValue';
 
 class Users extends Component {
