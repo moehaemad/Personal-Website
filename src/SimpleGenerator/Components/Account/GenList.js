@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import '../Section.css';
 
-export const updateValue = {type: null, index: null, value: null};
-
 const GenList = (props) => {
     const [state, setState] = useState({edit: false});
 
     const inputHandler = (e) => {
-        console.log(e.target.type);
         let canEdit = state.edit;
         if (e.target.type === 'textarea'){
             canEdit = false;
@@ -15,18 +12,25 @@ const GenList = (props) => {
         setState({edit: !canEdit});
     }
 
-    exportUpdate = (e) =>{
+    const exportUpdate = (e) =>{
         // take change from text field
+        let valEntered = e.target.value;
         // determine the input type
-        // take
+        const valType = String(Number(valEntered)) === 'NaN' ? 'String' : 'Num';
+        // Export the proper value for updating database
+        valType === 'String' ? null : Number(valEntered);
+        // Since this is functional component, edit property needs to be written redundantly
+        const editState = state.edit;
+        setState({edit: editState, type: valType, value: valEntered});
+
     }
 
     const showText = (
         <div className="toInsert">
-            <textarea cols="30" rows="10">
+            <textarea cols="30" rows="10" onChange={exportUpdate}>
                 {props.data}
             </textarea>
-            <button onClick={inputHandler}>Insert</button>
+            <button onClick={()=>props.updateHandler(state.type, props.keyProp, state.value)}>Insert</button>
         </div>
     );
     return (
@@ -39,5 +43,4 @@ const GenList = (props) => {
     );
 }
 
-// export default GenList;
 export default GenList;

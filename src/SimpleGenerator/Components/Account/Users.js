@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../Section.css';
 import './Users.css';
 import Axios from 'axios';
-import GenList, {updateValue} from './GenList';
+import GenList from './GenList';
 import UserValue from './UserValue';
 
 class Users extends Component {
@@ -11,7 +11,8 @@ class Users extends Component {
         askPg: false,
         query: [],
         toDelete: {table: null, value: null},
-        user: ''
+        user: '',
+        updateValue: {type: null, index: null, value: null, sendToDb: false}
     }
 
     setDelete = (str) => {
@@ -74,19 +75,30 @@ class Users extends Component {
                 window.alert('error deleting the value');
             }
         }
+        if (this.state.sendToDb){
+            try{
+                console.log(`in the sendToDb val`);
+                this.setState({updateValue: {type: null, index: null, value: null, sendToDb: false}});
+            }catch (err){
+                window.alert(`error updating value to database`);
+            }
+        }
     }
 
     render() {
-        // const something = this.listQuery();
-        const genList = () => this.state.query.map((el, ind) => <GenList key={ind} data={el}/>);
+        const changeUpdateValues = (fnType, ind, val) => {
+            console.log('in changeUpdateValues');
+            console.log(`the values are type: ${fnType}, ind: ${ind}, val: ${val}`);
+            this.setState({updateValue: {type: fnType, index: ind, value: val, sendToDb: true}})
+            // Update state property updateValue
+        }
         return (
             <div>
                 <div>
                     <p>User: {this.state.user}</p>
                     {this.state.user !== 'user not found' ? <UserValue user={this.state.user}/> : null}
                 </div>
-                {/* {this.state.query.map((el, ind) => <GenList key={ind} data={el}/>)} */}
-                {this.state.query.map((el, ind) => <GenList key={ind} data={el} deleteHandler={(e) => this.setDelete(el, ind)}/>)}
+                {this.state.query.map((el, ind) => <GenList key={ind} data={el} deleteHandler={() => this.setDelete(el, ind)} updateHandler={changeUpdateValues} keyProp={ind}/>)}
             </div>
         );
 
