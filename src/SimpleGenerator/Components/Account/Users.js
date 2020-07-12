@@ -75,9 +75,13 @@ class Users extends Component {
                 window.alert('error deleting the value');
             }
         }
-        if (this.state.sendToDb){
+        if (this.state.updateValue.sendToDb){
             try{
                 console.log(`in the sendToDb val`);
+                // PUT request needs 
+                const res = await Axios.put('/SimpleGenerator/updateValue', {type: 'String', ind: 1, value: 'asdasd'});
+                console.log(res);
+                // update state query property to indicate successful update to user
                 this.setState({updateValue: {type: null, index: null, value: null, sendToDb: false}});
             }catch (err){
                 window.alert(`error updating value to database`);
@@ -89,8 +93,8 @@ class Users extends Component {
         const changeUpdateValues = (fnType, ind, val) => {
             console.log('in changeUpdateValues');
             console.log(`the values are type: ${fnType}, ind: ${ind}, val: ${val}`);
-            this.setState({updateValue: {type: fnType, index: ind, value: val, sendToDb: true}})
             // Update state property updateValue
+            this.setState({updateValue: {type: fnType, index: ind, value: val, sendToDb: true}})
         }
         return (
             <div>

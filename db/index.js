@@ -108,4 +108,20 @@ const deleteValue = (req, res) => {
     }
 }
 
-module.exports = {confirmUser, getValues, createUser, insertValue, deleteValue};
+const updateValue = (req, res) => {
+    try{
+        pool.query(`update rand${req.body.type} set ${req.body.type}=${req.body.value} ${req.body.type}user='${req.body.user}' where ${req.body.type}=${req.body.indValue} and ${req.body.type}user='${req.body.user}'`, (err) => {
+            if (err){
+                res.status(200).json({didAccept: false});
+            }else{
+                res.status(200).json({didAccept: true});
+            }
+            
+        });
+    }catch(err){
+        // need type, value, user, and indexvalue of previous entry
+        console.log(`error in updateValue with pool query`);
+    }
+}
+
+module.exports = {confirmUser, getValues, createUser, insertValue, deleteValue, updateValue};
