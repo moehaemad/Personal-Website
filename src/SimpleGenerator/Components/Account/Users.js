@@ -101,11 +101,7 @@ class Users extends Component {
                 window.alert(`error updating value to database`);
             }
         }
-        if (this.state.shouldInsert){
-            // let insertValue;
-            // This was originally for type checking but is taken care of in handler
-            // this.state.type === "Num" ? insertValue = Number(this.state.insertData.value) : insertValue = this.state.insertData.value;
-            
+        if (this.state.shouldInsert){           
             try {
                 const toSend = {
                     type: this.state.insertData.type,
@@ -114,7 +110,12 @@ class Users extends Component {
                 }
                 const res = await Axios.post('/SimpleGenerator/insertValue', toSend);
                 console.log(res);
-                this.setState({shouldInsert: false});
+                if (res.data.didAccept){
+                    const copyQuery = this.state.query;
+                    copyQuery.push(toSend.value);
+                    this.setState({shouldInsert: false, query: copyQuery});
+                }else this.setState({shouldInsert: false});
+                
             }catch (err){
                 window.alert('Cannot insert value');
                 console.log(err);
@@ -129,9 +130,7 @@ class Users extends Component {
         }
         const insertHandler = (val) => {
             var insertObj;
-            console.log(typeof(val));
             if (typeof(val) === "string"){
-                console.log('in right place');
                 insertObj = {
                     type: "String",
                     value: val
@@ -142,7 +141,6 @@ class Users extends Component {
                     value: Number(val)
                 };
             }
-            console.log(insertObj);
             this.setState({shouldInsert: true, insertData: insertObj});
         }
         return (
