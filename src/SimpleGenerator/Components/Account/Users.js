@@ -12,7 +12,12 @@ class Users extends Component {
         query: [],
         toDelete: {table: null, value: null},
         user: '',
-        updateValue: {type: null, index: null, value: null, sendToDb: false}
+        updateValue: {type: null, index: null, value: null, sendToDb: false},
+        shouldInsert: false,
+        insertData: {
+            type: '',
+            value: ''
+        }
     }
 
     setDelete = (str) => {
@@ -96,20 +101,55 @@ class Users extends Component {
                 window.alert(`error updating value to database`);
             }
         }
+        if (this.state.shouldInsert){
+            // let insertValue;
+            // This was originally for type checking but is taken care of in handler
+            // this.state.type === "Num" ? insertValue = Number(this.state.insertData.value) : insertValue = this.state.insertData.value;
+            
+            try {
+                const toSend = {
+                    type: this.state.insertData.type,
+                    value: this.state.insertData.value,
+                    user: this.state.user
+                }
+                const res = await Axios.post('/SimpleGenerator/insertValue', toSend);
+                console.log(res);
+                this.setState({shouldInsert: false});
+            }catch (err){
+                window.alert('Cannot insert value');
+                console.log(err);
+            }
+        }
     }
 
     render() {
         const changeUpdateValues = (fnType, ind, val) => {
-            console.log('in changeUpdateValues');
-            console.log(`the values are type: ${fnType}, ind: ${ind}, val: ${val}`);
             // Update state property updateValue
             this.setState({updateValue: {type: fnType, index: ind, value: val, sendToDb: true}})
+        }
+        const insertHandler = (val) => {
+            var insertObj;
+            console.log(typeof(val));
+            if (typeof(val) === "string"){
+                console.log('in right place');
+                insertObj = {
+                    type: "String",
+                    value: val
+                };
+            }else if (typeof(val) === "number") {
+                insertObj = {
+                    type: "Number",
+                    value: Number(val)
+                };
+            }
+            console.log(insertObj);
+            this.setState({shouldInsert: true, insertData: insertObj});
         }
         return (
             <div>
                 <div>
                     <p>User: {this.state.user}</p>
-                    {this.state.user !== 'user not found' ? <UserValue user={this.state.user}/> : null}
+                    {this.state.user !== 'user not found' ? <UserValue user={this.state.user} insertHandler={insertHandler} /> : null}
                 </div>
                 <p style={{textDecoration: 'underline', fontWeight: 'bold'}}>Click on text to update values!</p>
                 {this.state.query.map((el, ind) => <GenList key={ind} data={el} deleteHandler={() => this.setDelete(el, ind)} updateHandler={changeUpdateValues} keyProp={ind}/>)}
