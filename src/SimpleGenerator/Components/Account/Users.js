@@ -109,16 +109,14 @@ class Users extends Component {
                     user: this.state.user
                 }
                 const res = await Axios.post('/SimpleGenerator/insertValue', toSend);
-                console.log(res);
                 if (res.data.didAccept){
                     const copyQuery = this.state.query;
                     copyQuery.push(toSend.value);
                     this.setState({shouldInsert: false, query: copyQuery});
                 }else this.setState({shouldInsert: false});
-                
+
             }catch (err){
                 window.alert('Cannot insert value');
-                console.log(err);
             }
         }
     }

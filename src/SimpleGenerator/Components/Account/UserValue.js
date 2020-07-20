@@ -1,26 +1,22 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 // This component is to insert values into the database with the respective user
 
-class UserValue extends Component{
-    state = {
+const UserValue = (props) => {
+    const [state, setState] = useState({
         insertValue: '',
         num: -1,
         string: ''
-    }
+    });
+    // the state hook requires a complete re-iteration of the state properties instead of overwriting, hence state.num & state.string.
+    const toInsert = (e) => setState({insertValue: e.target.value, num: state.num, string: state.string});
 
-
-    render(){
-        const toInsert = (e) => this.setState({insertValue: e.target.value});
-
-        return (
-            <div className="toInsert">
-                <p>Insert:</p>
-                <input type="text" onChange={toInsert}/>
-                <button onClick={() => this.props.insertHandler(this.state.insertValue)}>Insert</button>
-            </div>
-        );
-    };
+    return (
+        <div className="toInsert">
+            <p>Insert:</p>
+            <input type="text" onChange={toInsert}/>
+            <button onClick={() => props.insertHandler(state.insertValue)}>Insert</button>
+        </div>
+    );
 }
 
 export default UserValue;
