@@ -14,16 +14,21 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use('/', express.static(path.join(__dirname, './dist/')));
 app.use('/css/', express.static(path.join(__dirname, './dist/css')));
-app.use('/LudoGame', ludoRouter);
-app.use('/SimpleGenerator', simpleGeneratorRouter);
+app.use(['/LudoGame', '/ludogame'], ludoRouter);
+app.use(['/SimpleGenerator', '/simplegen', '/simplegenerator'], simpleGeneratorRouter);
 app.use('/sendMail', sendMailRouter);
 
-app.get('/cgr', (req, res) => {
+app.get(['/workextension', '/WorkExt', '/workext'], (req, res) => res.redirect('https://github.com/moehaemad/WorkExtension'));
+app.get(['/BudgetCalculator', '/budgetcalculator', '/budgetcalc', '/BudgetCalc'], (req, res) => res.redirect('https://github.com/moehaemad/Budget-Calc.'));
+
+app.get(['/cgr', '/CGR'], (req, res) => {
+    if (req.path === '/CGR') res.redirect('https://github.com/moehaemad/CGR-Project');
     res.download(path.join('./dist/') + 'images/cgrgambling.pdf');
 });
 app.get('/', (req, res) =>{
     res.sendFile(path.join('./dist/') + 'index.html');
 });
+
 
 
 
