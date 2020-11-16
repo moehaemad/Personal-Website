@@ -6,6 +6,7 @@ const ludoRouter = require ('./routes/ludoGame');
 const logger = require('morgan');
 const path = require('path');
 const simpleGeneratorRouter = require('./routes/simpleGenerator');
+const log = require('./db/logging');
 
 
 // TO DEBUG: DEBUG=express:* node server.js
@@ -18,7 +19,8 @@ app.use(['/LudoGame', '/ludogame'], ludoRouter);
 app.use(['/SimpleGenerator', '/simplegen', '/simplegenerator'], simpleGeneratorRouter);
 app.use('/sendMail', sendMailRouter);
 
-app.get(['/workextension', '/WorkExt', '/workext'], (req, res) => res.redirect('https://github.com/moehaemad/WorkExtension'));
+app.get(['/workextension', '/WorkExt', '/workext', '/WorkExtension'], (req, res) => res.redirect('https://github.com/moehaemad/WorkExtension'));
+
 app.get(['/BudgetCalculator', '/budgetcalculator', '/budgetcalc', '/BudgetCalc'], (req, res) => res.redirect('https://github.com/moehaemad/Budget-Calc.'));
 
 app.get(['/cgr', '/CGR'], (req, res) => {
@@ -26,6 +28,7 @@ app.get(['/cgr', '/CGR'], (req, res) => {
     res.download(path.join('./dist/') + 'images/cgrgambling.pdf');
 });
 app.get('/', (req, res) =>{
+    log.logConnection(req.ip);
     res.sendFile(path.join('./dist/') + 'index.html');
 });
 
