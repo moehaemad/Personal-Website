@@ -12,9 +12,9 @@ pool.on('error', (err, client)=>{
 });
 
 const logConnection = (ip=1234) =>{
-    const date = new Date()
+    // const date = new Date()
     try{
-        pool.query(`insert into connections values ('${ip}', '${date.getUTCFullYear()}-${date.getUTCMonth()}-${date.getUTCDay()} ${date.getUTCHours()}:${date.getUTCMinutes()}:${date.getUTCSeconds()}')`, (err, res)=>{
+        pool.query(`insert into connections values ('${ip}')`, (err, res)=>{
             if (err) throw err;
         });
     }catch(err){
