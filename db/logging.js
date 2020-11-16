@@ -7,10 +7,6 @@ let client = new Client ({
     port: 5432
 });
 
-pool.on('error', (err, client)=>{
-    console.error('unexpected error on idle client', err);
-});
-
 const logConnection = (ip=1234) =>{
     // const date = new Date()
     try{
