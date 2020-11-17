@@ -82,7 +82,7 @@ const createUser = (req, res) => {
 
 const insertValue = (req, res) => {
     try{
-        pool.query(`insert into rand${req.body.type} values ('${req.body.value}', '${req.body.user}')`, (err) => {
+        pool.query(`insert into rand${req.body.type} values ('${req.body.user}', '${req.body.value}')`, (err) => {
             if (err){
                 res.status(200).json({didAccept: false});
             }else{
