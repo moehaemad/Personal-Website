@@ -2,5 +2,6 @@
 
 ---
 
-Hosting on AWS EC2 Elastic Beanstalk instance with a Relational Database Integration (AWS RDS PostGres).
->note: the main page is a static website itself but projects included within it require node.js and a database.
+Hosting on AWS EC2 Elastic Beanstalk instance with a Relational Database Integration (AWS RDS PostgreSQL) using an NGINX configured proxy server.
+
+>note: this page sends emails to and between one email in the configuration and will not go anywhere else.
