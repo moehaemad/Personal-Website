@@ -241,13 +241,13 @@
             <h2 class="contact-me-title">
                 Contact Me
             </h2>
-            <form class="contact-me-description" action="#contact">
-                <label for="contact-email">Email: </label>
-                <input atype="email" id="contact-email" placeholder="something-arbitrary@gmail.com" required>
-                <label>Name (& position): </label>
-                <input atype="text" id="contact-name" placeholder="something-meaningful, I am" required>
-                <label>Message: </label> 
-                <textarea class="email-message" id="contact-message" cols="30" rows="10" placeholder="You're hired!" required></textarea>
+            <form class="contact-me-description" action="/sendMail" method="post">
+                <label for="email">Email: </label>
+                <input atype="email" id="contact-email" placeholder="something-arbitrary@gmail.com" name="email" required>
+                <label for="name">Name (& position): </label>
+                <input atype="text" id="contact-name" placeholder="something-meaningful, I am" name="name" required>
+                <label for="message">Message: </label> 
+                <textarea class="email-message" id="contact-message" cols="30" rows="10" placeholder="You're hired!" name="message" required></textarea>
                 <input class="submit" id="contact-send" type="submit" value="Send Email">
             </form>
         </section>

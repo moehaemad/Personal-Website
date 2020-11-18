@@ -56,6 +56,7 @@ document.getElementById('front-page').addEventListener('click', toggleMenu);
 // document.querySelector('.menu-nav__link').addEventListener('click', toggleMenu);
 
 document.getElementById('contact-send').addEventListener('click', async e => {
+    e.preventDefault();
     let email = document.getElementById('contact-email').value;
     let name = document.getElementById('contact-name').value;
     let subject = document.getElementById('contact-message').value;

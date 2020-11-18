@@ -13,6 +13,9 @@ const simpleGeneratorRouter = require('./routes/simpleGenerator');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 app.use('/', express.static(path.join(__dirname, './dist/')));
 app.use('/css/', express.static(path.join(__dirname, './dist/css')));
 app.use(['/LudoGame', '/ludogame'], ludoRouter);
