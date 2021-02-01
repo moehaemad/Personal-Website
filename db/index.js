@@ -1,14 +1,5 @@
 const {Pool} = require('pg');
-const dbUser = {
-    dev: false,
-    localuser: process.env.DEVUSER,
-    localpass: process.env.DEVPASS,
-    localdb: process.env.DEVDB,
-    awsUser: process.env.PGUSER,
-    awsPass: process.env.PGPASSWORD,
-    awsDb: process.env.PGDATABASE,
-    awsHost: process.env.PGHOST
-}
+const dbUser = require('./dbconfig');
 let pool;
 if (dbUser.dev) {
     pool = new Pool({
