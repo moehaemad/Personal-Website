@@ -6,6 +6,7 @@ const ludoRouter = require ('./routes/ludoGame');
 const logger = require('morgan');
 const path = require('path');
 const simpleGeneratorRouter = require('./routes/simpleGenerator');
+const stfcRouter = require('./routes/structuredFlashCards');
 // const log = require('./db/logging');
 
 
@@ -21,6 +22,7 @@ app.use('/css/', express.static(path.join(__dirname, './dist/css')));
 app.use(['/LudoGame', '/ludogame'], ludoRouter);
 app.use(['/SimpleGenerator', '/simplegen', '/simplegenerator'], simpleGeneratorRouter);
 app.use('/sendMail', sendMailRouter);
+app.use('/structuredFlashCards', stfcRouter);
 
 app.get(['/workextension', '/WorkExt', '/workext', '/WorkExtension'], (req, res) => res.redirect('https://github.com/moehaemad/WorkExtension'));
 
