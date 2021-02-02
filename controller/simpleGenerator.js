@@ -1,7 +1,7 @@
 const express = require('express');
 const simpleGeneratorRouter = express.Router();
 const path = require('path');
-const Db = require('../db/index');
+const Db = require('../model/index');
 
 // This route is for /SimpleGenerator/
 
