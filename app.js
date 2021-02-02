@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express()
-const sendMailRouter = require('./routes/sendMail');
+const sendMailRouter = require('./controller/sendMail');
 const bodyParser = require('body-parser');
-const ludoRouter = require ('./routes/ludoGame');
+const ludoRouter = require ('./controller/ludoGame');
 const logger = require('morgan');
 const path = require('path');
-const simpleGeneratorRouter = require('./routes/simpleGenerator');
-const stfcRouter = require('./routes/structuredFlashCards');
+const simpleGeneratorRouter = require('./controller/simpleGenerator');
+const stfcRouter = require('./controller/structuredFlashCards');
 // const log = require('./db/logging');
 
 
