@@ -13,9 +13,9 @@ https://moehaemad.ca/structuredFlashCards/
 | ------------- |:-------------:|-------------:|-------------:|
 | *done*(C) Create  | /createUser | {username: String, pass: String}| `default`|
 | *done*(C) Create  | /createDeck | {id: String, username: String, description: String}| `default`      |
-| (C) Insert     | /insertCard      | {id: String, front: String, back: string}      | `default`      |
-| *done*(R) Validate  | /checkuser/:username/:pass | <-| {result: true, userId: `username`}       |
-| (R) Read  | /getDecks/:id/:username | <-| {result: true, userId: `username`}       |
+| *done*(C) Insert     | /insertCard      | {id: String, front: String, back: string}      | `default`      |
+| *done*(R) Validate  | /checkuser/:username/:pass | <-| `default`|
+| (R) Read  | /getDecks/:id/:username | <-| {result: true, ids: {id: Integer}[]}       |
 | (R) Read  | /getCards/:id | <-| {result: true, ids: Integer[], front: String[], back: String[]}       |
 | (U) Update | /setCard      | {column: String, id: String, front: String, back: String}      | `default`      |
 | (U) Update | /setDeckName      | {column: String, id: String, username: String, description: String}      | `default`      |
