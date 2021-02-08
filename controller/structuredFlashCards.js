@@ -24,12 +24,11 @@ stfcRouter.post('/createCard', Db.createCard);
 stfcRouter.get('/checkUser/:username/:pass', Db.checkUser);
 
 // TODO: if over certain amount, specify which range of ids
+// get ids for the decks of a user
 stfcRouter.get('/getDecks/:username', Db.getDecks);
 
-// TODO: get list of deck ids for given user
-stfcRouter.get('getDeckIds/:username', (req, res) => {
-    res.status(500);
-});
+// get cards for a given deck
+stfcRouter.get('/getCards/:id', Db.getCards);
 
 
 module.exports  = stfcRouter;

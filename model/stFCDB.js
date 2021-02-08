@@ -85,7 +85,7 @@ const checkUser = (req, res) => {
 const getDecks = (req, res) => {
     /* params: id: Integer, username: String */
     try{
-        let query = pool.query(`select id from stfc_deck where username='${req.params.username}'`);
+        let query = pool.query(`select id from stfc_deck where username='${req.params.username}';`);
         query.then((qRes) => {
             res.status(200).json({result: true, ids: qRes.rows});
         }).catch(() => {
@@ -98,11 +98,14 @@ const getDecks = (req, res) => {
 // TODO: finish query
 // TODO: create route for this
 const getCards = (req, res) => {
-    /* given a deck id get list of id's for the deck
-        params: 
-            id: Integer */
+    /* params: id: Integer */
     try{
-        res.status(200)
+        let query = pool.query(`select front, back from stfc_card_text where id=${req.params.id};`);
+        query.then((qRes) => {
+            res.status(200).json({result: true, cards: qRes.rows});
+        }).catch(() => {
+            res.status(200).json({result: false});
+        })
     }catch(err){
         res.status(500);
     }
@@ -131,4 +134,4 @@ const delDeck = (req, res) => {
 
 
 
-module.exports = {checkUser, createUser, createDeck, createCard, getDecks};
+module.exports = {checkUser, createUser, createDeck, createCard, getDecks, getCards};
