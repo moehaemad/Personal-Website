@@ -46,7 +46,7 @@ const createDeck = (req, res) => {
         pool.query(`insert into stfc_deck values (${req.body.id}, '${req.body.username}', '${req.body.description}' );`);
         res.status(200).json({result: true});
     }catch(err){
-        console.log('error in stFC creating user', err);
+        console.log('error in stFC creating deck', err);
     }
 }
 
@@ -59,7 +59,7 @@ const createCard = (req, res) =>{
         pool.query(`insert into stfc_card_text values (${req.body.id}, '${req.body.front}', '${req.body.back}' );`);
         res.status(200).json({result: true});
     }catch(err){
-        console.log('error in stFC creating user', err);
+        console.log('error in stFC creating card', err);
     }
 }
 
@@ -115,7 +115,21 @@ const getCards = (req, res) => {
 /* UPDATE */
 
 const setCard = (req, res) => {
-    res.status(200);
+    /* params: columns: columns: {columnName: String : value: String }[] */
+    try{
+
+        // general syntax example: Object.keys (arr[0]).map((key)=> `${key} = ${arr[0][key]}`);
+        // res.body.columns: Array of Object
+        let updateArg;
+        updateArg = req.body.columns.map(arrVal => Object.keys(arrVal).map(key => `${key} = '${arrVal[key]}'`)).join(', ');
+        let currentArg;
+        currentArg = req.body.specifyColumns.map(arrVal => Object.keys(arrVal).map(key => `${key} = '${arrVal[key]}'`)).join(' AND ');
+        pool.query(`update stfc_card_text set ${updateArg} where ${currentArg}`);
+        res.status(200).json({result: true});
+    }catch(err) {
+        res.status(500).send("error updating card in database");
+        console.log("error in databse", err);
+    }
 }
 
 const setDeckName = (req, res) => {
@@ -134,4 +148,10 @@ const delDeck = (req, res) => {
 
 
 
-module.exports = {checkUser, createUser, createDeck, createCard, getDecks, getCards};
+module.exports = {checkUser, 
+    createUser, 
+    createDeck, 
+    createCard, 
+    getDecks, 
+    getCards, 
+    setCard};

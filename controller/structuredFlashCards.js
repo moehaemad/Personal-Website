@@ -30,5 +30,9 @@ stfcRouter.get('/getDecks/:username', Db.getDecks);
 // get cards for a given deck
 stfcRouter.get('/getCards/:id', Db.getCards);
 
+/* UPDATE */
+
+stfcRouter.put('/setCard', Db.setCard)
+
 
 module.exports  = stfcRouter;

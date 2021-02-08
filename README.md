@@ -14,10 +14,10 @@ https://moehaemad.ca/structuredFlashCards/
 | *done*(C) Create  | /createUser | {username: String, pass: String}| `default`|
 | *done*(C) Create  | /createDeck | {id: String, username: String, description: String}| `default`      |
 | *done*(C) Insert     | /createCard      | {id: String, front: String, back: string}      | `default`      |
-| *done*(R) Validate  | /checkuser/:username/:pass | <-| `default`|
-| *done*(R) Read  | /getDecks/:id/:username | <-| {result: true, ids: {id: Integer}[]}       |
-| *done*(R) Read  | /getCards/:id | <-| {result: true, cards: {front: String, back: String}[]}       |
-| (U) Update | /setCard      | {column: String, id: String, front: String, back: String}      | `default`      |
+| *done*(R) Validate  | /checkuser/:username/:pass | <---| `default`|
+| *done*(R) Read  | /getDecks/:id/:username | <---| {result: true, ids: {id: Integer}[]}       |
+| *done*(R) Read  | /getCards/:id | <---| {result: true, cards: {front: String, back: String}[]}       |
+| (U) Update | /setCard      | {columns: {columnName: String **:** value: String }[], specifyColumns: {columnName: String **:** value: String }[]}      | `default`      |
 | (U) Update | /setDeckName      | {column: String, id: String, username: String, description: String}      | `default`      |
-| (D) Delete  | /delCard/:id      | <-| `default`      |
-| (D) Delete)  | /delDeck/:id/:username      | <-| `default`      |
+| (D) Delete  | /delCard/:id      | <---| `default`      |
+| (D) Delete)  | /delDeck/:id/:username      | <---| `default`      |
