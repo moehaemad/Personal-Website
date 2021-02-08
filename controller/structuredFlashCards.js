@@ -3,8 +3,11 @@ const stfcRouter = express.Router();
 const Db = require('../model/stFCDB');
 // The route if for /structuredFlashCards/
 
-// validate the user
-stfcRouter.get('/checkUser/:username/:pass', Db.checkUser);
+stfcRouter.get('/', (req, res)=>{
+    res.status(200).send("Wrong endpoint buckaroo");
+})
+
+/* CREATE */
 
 // create user in db
 stfcRouter.post('/createUser', Db.createUser);
@@ -12,10 +15,15 @@ stfcRouter.post('/createUser', Db.createUser);
 // create a list of flash cards for user
 stfcRouter.post('/createDeck', Db.createDeck);
 
-// TODO: insert card into deck for user
-stfcRouter.post('/insertCard',  (req, res) => {
-    res.status(500);
-})
+// create a card into stfc_card_text
+stfcRouter.post('/createCard', Db.createCard);
+
+/* READ */
+
+// validate the user
+stfcRouter.get('/checkUser/:username/:pass', Db.checkUser);
+
+
 
 // TODO: get the list of deck information
 // TODO: if over certain amount, specify which range of ids
@@ -26,7 +34,7 @@ stfcRouter.get('/getDeck/:username', (req, res) => {
 // TODO: get list of deck ids for given user
 stfcRouter.get('getDeckIds/:username', (req, res) => {
     res.status(500);
-});
+});7
 
 
 module.exports  = stfcRouter;
