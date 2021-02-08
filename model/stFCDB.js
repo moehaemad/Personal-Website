@@ -9,6 +9,8 @@ const dbConfig = require('./dbconfig');
 //     port: 5432
 // });
 
+// TODO: use pooled connections to the database so the server doesn't crash
+
 
 // TODO: return to AWS
 let pool = new Pool({
@@ -64,12 +66,13 @@ const createCard = (req, res) =>{
 /* READ */
 
 const checkUser = (req, res) => {
+    /* params: username: String, pass: String */
     try{
-        /* params: username: String, pass: String */
+
         let query = pool.query(`select * from stfc_user where username='${req.params.username}' and password='${req.params.pass}'`);
-        query.then(query_result => {
+        query.then(() => {
             res.status(200).json({result: true, userId: req.params.username})
-        }).catch(err => {
+        }).catch(() => {
             res.status(200).json({result: false});
         })
     }catch(err){
@@ -82,7 +85,12 @@ const checkUser = (req, res) => {
 const getDecks = (req, res) => {
     /* params: id: Integer, username: String */
     try{
-        res.status(200)
+        let query = pool.query(`select id from stfc_deck where username='${req.params.username}'`);
+        query.then((qRes) => {
+            res.status(200).json({result: true, ids: qRes.rows});
+        }).catch(() => {
+            res.status(200).json({result: false});
+        })
     }catch(err){
         res.status(500);
     }
@@ -123,4 +131,4 @@ const delDeck = (req, res) => {
 
 
 
-module.exports = {checkUser, createUser, createDeck, createCard};
+module.exports = {checkUser, createUser, createDeck, createCard, getDecks};
