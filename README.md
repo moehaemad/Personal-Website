@@ -19,5 +19,5 @@ https://moehaemad.ca/structuredFlashCards/
 | (R) Read  | /getCards/:id | <-| {result: true, ids: Integer[], front: String[], back: String[]}       |
 | (U) Update | /setCard      | {column: String, id: String, front: String, back: String}      | `default`      |
 | (U) Update | /setDeckName      | {column: String, id: String, username: String, description: String}      | `default`      |
-| Delete  | /delCard/:id      | <-| `default`      |
-| Delete  | /delDeck/:id/:username      | <-| `default`      |
+| (D) Delete  | /delCard/:id      | <-| `default`      |
+| (D) Delete)  | /delDeck/:id/:username      | <-| `default`      |
