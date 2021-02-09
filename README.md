@@ -11,13 +11,13 @@ https://moehaemad.ca/structuredFlashCards/
 
 | Operation       | Route           | Params           | Success={result: true}          |
 | ------------- |:-------------:|-------------:|-------------:|
-| *done*(C) Create  | /createUser | {username: String, pass: String}| `default`|
-| *done*(C) Create  | /createDeck | {id: String, username: String, description: String}| `default`      |
-| *done*(C) Insert     | /createCard      | {id: String, front: String, back: string}      | `default`      |
-| *done*(R) Validate  | /checkuser/:username/:pass | <---| `default`|
-| *done*(R) Read  | /getDecks/:id/:username | <---| {result: true, ids: {id: Integer}[]}       |
-| *done*(R) Read  | /getCards/:id | <---| {result: true, cards: {front: String, back: String}[]}       |
-| *done*(U) Update | /setCard      | {columns: {columnName: String **:** value: String }[], specifyColumns: {columnName: String **:** value: String }[]}      | `default`      |
-| *done*(U) Update | /setDeckName      | {column: String, id: String, username: String, description: String}      | `default`      |
-| *done*(D) Delete  | /delCard/:id/:front?/:back?      | <---| `default`      |
+| (C) Create  | /createUser | {username: String, pass: String}| `default`|
+| (C) Create  | /createDeck | {id: String, username: String, description: String}| `default`      |
+| (C) Insert     | /createCard      | {id: String, front: String, back: string}      | `default`      |
+| (R) Validate  | /checkuser/:username/:pass | <---| `default`|
+| (R) Read  | /getDecks/:id/:username | <---| {result: true, ids: {id: Integer}[]}       |
+| (R) Read  | /getCards/:id | <---| {result: true, cards: {front: String, back: String}[]}       |
+| (U) Update | /setCard      | {columns: {columnName: String **:** value: String }[], specifyColumns: {columnName: String **:** value: String }[]}      | `default`      |
+| (U) Update | /setDeckName      | {column: String, id: String, username: String, description: String}      | `default`      |
+| (D) Delete  | /delCard/:id/:front?/:back?      | <---| `default`      |
 | (D) Delete)  | /delDeck/:id/:username      | <---| `default`      |

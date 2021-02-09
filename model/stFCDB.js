@@ -1,24 +1,24 @@
 const {Pool} = require('pg');
 const dbConfig = require('./dbconfig');
 
-// let pool = new Pool({
-//     user: dbConfig.awsUser,
-//     databse: dbConfig.localdb,
-//     password: dbConfig.awsPass,
-//     host: dbConfig.PGHOST,
-//     port: 5432
-// });
+let pool = new Pool({
+    user: dbConfig.awsUser,
+    databse: dbConfig.localdb,
+    password: dbConfig.awsPass,
+    host: dbConfig.PGHOST,
+    port: 5432
+});
 
 // TODO: use pooled connections to the database so the server doesn't crash
 
 
 // TODO: return to AWS
-let pool = new Pool({
-    user: dbConfig.localuser,
-    database: dbConfig.localdb,
-    host: 'localhost',
-    password: dbConfig.localpass
-})
+// let pool = new Pool({
+//     user: dbConfig.localuser,
+//     database: dbConfig.localdb,
+//     host: 'localhost',
+//     password: dbConfig.localpass
+// })
 
 // has stfc_user (username text primary key, password text);
 // has stfc_deck_text (id integer primary key, username text references stfc_user(username), front text, back text);
@@ -145,20 +145,28 @@ const updateColumns = (table, req , res) => {
 const delCard = (req, res) =>{
         /* params: id, front, back */
         let result = req.params;
-        console.log(result);
         if (result.front == undefined && result.back == undefined) res.status(500).json({result: false});
         let specificParam = `${result.front === undefined ? `` : `AND front = '${result.front}'`} ${result.back === undefined ? `` : `AND back = '${result.back}'`}`;
         try{
-            pool.query(`delete from stfc_card_text where id = ${result.id} ${specificParam};;`);
-            console.log(`delete from stfc_card_text where id = ${result.id} ${specificParam};`);
+            pool.query(`delete from stfc_card_text where id = ${result.id} ${specificParam};`);
             res.status(200).json({result: true});
         }catch(err){
-            console.log('error in stFC creating deck', err);
+            console.log('error in stFC deleting card', err);
         }
 }
 
 const delDeck = (req, res) => {
-    res.status(200);
+    try{
+        // there's a foreign constraint on stfc_card_text deck to reference id to deck id
+        // delete all cards under a given deck id
+        pool.query(`delete from stfc_card_text where id = ${req.params.id}`);
+        // delete the deck
+        pool.query(`delete from stfc_deck where id = ${req.params.id} and username = '${req.params.username}';`);
+        console.log(`delete from stfc_deck where id = ${req.params.id} and username = '${req.params.username}';`);
+        res.status(200).json({result: true});
+    }catch(err){
+        console.log('error in stFC creating deck', err);
+    }
 }
 
 
@@ -171,4 +179,5 @@ module.exports = {checkUser,
     getCards, 
     setCard,
     setDeckName,
-    delCard};
+    delCard,
+    delDeck};

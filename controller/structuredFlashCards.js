@@ -43,5 +43,6 @@ stfcRouter.put('/setDeckName', Db.setDeckName);
 // delete card with providing optional parameter of front or back but not both
 stfcRouter.delete('/delCard/:id/:front?/:back?', Db.delCard);
 
-
+// delete deck given a deck id and username
+stfcRouter.delete('/delDeck/:id/:username', Db.delDeck);
 module.exports  = stfcRouter;
