@@ -119,13 +119,14 @@ const setCard = (req, res) => {
     updateColumns('stfc_card_text', req, res);
 }
 
-const setDeckName = (req, res) => {
+const setDeck = (req, res) => {
     /* params:  columns: {columnName: String : value: String }[], specifyColumns: {columnName: String : value: String }[]*/
     updateColumns('stfc_deck', req, res);
 }
 
 const updateColumns = (table, req , res) => {
         /* params:  columns: {columnName: String : value: String }[], specifyColumns: {columnName: String : value: String }[]*/
+        // TODO: make sure id is specified in columns
     try{
         let updateArg;
         updateArg = req.body.columns.map(arrVal => Object.keys(arrVal).map(key => `${key} = '${arrVal[key]}'`)).join(', ');
@@ -178,6 +179,6 @@ module.exports = {checkUser,
     getDecks, 
     getCards, 
     setCard,
-    setDeckName,
+    setDeck,
     delCard,
     delDeck};

@@ -36,7 +36,7 @@ stfcRouter.get('/getCards/:id', Db.getCards);
 stfcRouter.put('/setCard', Db.setCard);
 
 // update a deck given the columns to update and columns specified for
-stfcRouter.put('/setDeckName', Db.setDeckName);
+stfcRouter.put('/setDeck', Db.setDeck);
 
 /* DELETE */
 
