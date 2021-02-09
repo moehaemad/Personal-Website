@@ -25,8 +25,8 @@ let pool = new Pool({
 
 /* CREATE */
 const createUser = (req, res) => {
+    /*post body: {username: String, pass: String} */
     try{
-        /*post body: {username: String, pass: String} */
         pool.query(`insert into stfc_user values ('${req.body.username}', '${req.body.pass}');`);
         console.log(req.body.username);
         console.log(req.body);
@@ -38,9 +38,9 @@ const createUser = (req, res) => {
 }
 
 const createDeck = (req, res) => {
+    /*post body: {id: Number, username: String, description: String} */
     try{
-        /*post body: {id: Number, username: String,
-            description: String} */
+
         // TODO: make the id for the deck the aggregate + 1 associated with user
 
         pool.query(`insert into stfc_deck values (${req.body.id}, '${req.body.username}', '${req.body.description}' );`);
@@ -51,9 +51,9 @@ const createDeck = (req, res) => {
 }
 
 const createCard = (req, res) =>{
+    /*post body: {id: Number, username: String, description: String} */
     try{
-        /*post body: {id: Number, username: String,
-            description: String} */
+
         // TODO: make the id for the deck the aggregate + 1 associated with user
 
         pool.query(`insert into stfc_card_text values (${req.body.id}, '${req.body.front}', '${req.body.back}' );`);
@@ -126,7 +126,6 @@ const setDeckName = (req, res) => {
 
 const updateColumns = (table, req , res) => {
         /* params:  columns: {columnName: String : value: String }[], specifyColumns: {columnName: String : value: String }[]*/
-    // TODO: Use setCard or helper function because code is repeated
     try{
         let updateArg;
         updateArg = req.body.columns.map(arrVal => Object.keys(arrVal).map(key => `${key} = '${arrVal[key]}'`)).join(', ');
@@ -134,9 +133,6 @@ const updateColumns = (table, req , res) => {
         currentArg = req.body.specifyColumns.map(arrVal => Object.keys(arrVal).map(key => `${key} = '${arrVal[key]}'`)).join(' AND ');
         pool.query(`update ${table} set ${updateArg} where ${currentArg};`);
         console.log(`update ${table} set ${updateArg} where ${currentArg};`)
-        // console.log("req", req);
-        // console.log("req", res);
-
         res.status(200).json({result: true});
     }catch(err) {
         res.status(500).send("error updating card in database");
@@ -147,7 +143,18 @@ const updateColumns = (table, req , res) => {
 /* DELETE */
 
 const delCard = (req, res) =>{
-    res.status(200);
+        /* params: id, front, back */
+        let result = req.params;
+        console.log(result);
+        if (result.front == undefined && result.back == undefined) res.status(500).json({result: false});
+        let specificParam = `${result.front === undefined ? `` : `AND front = '${result.front}'`} ${result.back === undefined ? `` : `AND back = '${result.back}'`}`;
+        try{
+            pool.query(`delete from stfc_card_text where id = ${result.id} ${specificParam};;`);
+            console.log(`delete from stfc_card_text where id = ${result.id} ${specificParam};`);
+            res.status(200).json({result: true});
+        }catch(err){
+            console.log('error in stFC creating deck', err);
+        }
 }
 
 const delDeck = (req, res) => {
@@ -163,4 +170,5 @@ module.exports = {checkUser,
     getDecks, 
     getCards, 
     setCard,
-    setDeckName};
+    setDeckName,
+    delCard};

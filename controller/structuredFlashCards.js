@@ -38,5 +38,10 @@ stfcRouter.put('/setCard', Db.setCard);
 // update a deck given the columns to update and columns specified for
 stfcRouter.put('/setDeckName', Db.setDeckName);
 
+/* DELETE */
+
+// delete card with providing optional parameter of front or back but not both
+stfcRouter.delete('/delCard/:id/:front?/:back?', Db.delCard);
+
 
 module.exports  = stfcRouter;
