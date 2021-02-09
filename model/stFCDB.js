@@ -115,25 +115,33 @@ const getCards = (req, res) => {
 /* UPDATE */
 
 const setCard = (req, res) => {
-    /* params: columns: columns: {columnName: String : value: String }[] */
-    try{
+    /* params: columns: {columnName: String : value: String }[], specifyColumns: {columnName: String : value: String }[] */
+    updateColumns('stfc_card_text', req, res);
+}
 
-        // general syntax example: Object.keys (arr[0]).map((key)=> `${key} = ${arr[0][key]}`);
-        // res.body.columns: Array of Object
+const setDeckName = (req, res) => {
+    /* params:  columns: {columnName: String : value: String }[], specifyColumns: {columnName: String : value: String }[]*/
+    updateColumns('stfc_deck', req, res);
+}
+
+const updateColumns = (table, req , res) => {
+        /* params:  columns: {columnName: String : value: String }[], specifyColumns: {columnName: String : value: String }[]*/
+    // TODO: Use setCard or helper function because code is repeated
+    try{
         let updateArg;
         updateArg = req.body.columns.map(arrVal => Object.keys(arrVal).map(key => `${key} = '${arrVal[key]}'`)).join(', ');
         let currentArg;
         currentArg = req.body.specifyColumns.map(arrVal => Object.keys(arrVal).map(key => `${key} = '${arrVal[key]}'`)).join(' AND ');
-        pool.query(`update stfc_card_text set ${updateArg} where ${currentArg}`);
+        pool.query(`update ${table} set ${updateArg} where ${currentArg};`);
+        console.log(`update ${table} set ${updateArg} where ${currentArg};`)
+        // console.log("req", req);
+        // console.log("req", res);
+
         res.status(200).json({result: true});
     }catch(err) {
         res.status(500).send("error updating card in database");
-        console.log("error in databse", err);
+        console.log("error in database", err);
     }
-}
-
-const setDeckName = (req, res) => {
-    res.status(200);
 }
 
 /* DELETE */
@@ -154,4 +162,5 @@ module.exports = {checkUser,
     createCard, 
     getDecks, 
     getCards, 
-    setCard};
+    setCard,
+    setDeckName};

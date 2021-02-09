@@ -32,7 +32,11 @@ stfcRouter.get('/getCards/:id', Db.getCards);
 
 /* UPDATE */
 
-stfcRouter.put('/setCard', Db.setCard)
+// update a card given the columns to update and columns specified for
+stfcRouter.put('/setCard', Db.setCard);
+
+// update a deck given the columns to update and columns specified for
+stfcRouter.put('/setDeckName', Db.setDeckName);
 
 
 module.exports  = stfcRouter;
