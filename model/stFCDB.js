@@ -3,7 +3,7 @@ const dbConfig = require('./dbconfig');
 
 let pool = new Pool({
     user: dbConfig.awsUser,
-    databse: dbConfig.localdb,
+    database: dbConfig.awsDb,
     password: dbConfig.awsPass,
     host: dbConfig.PGHOST,
     port: 5432
@@ -87,6 +87,7 @@ const getDecks = (req, res) => {
     try{
         let query = pool.query(`select id from stfc_deck where username='${req.params.username}';`);
         query.then((qRes) => {
+            console.log(qRes);
             res.status(200).json({result: true, ids: qRes.rows});
         }).catch(() => {
             res.status(200).json({result: false});

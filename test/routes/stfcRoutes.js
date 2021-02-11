@@ -43,7 +43,7 @@ const createUser = async (user, password) => {
 
 const createUsersTest = async ()=>{
     for (const user of users){
-        createUser(user.usernamem, user.password);
+        createUser(user.username, user.password);
     }
 }
 
@@ -53,7 +53,7 @@ const createDeck = async (deckId, deckUser, deckDesc) => {
         username: deckUser,
         description: deckDesc
     }
-    let query = await axios.post(url + 'createUser', postData);
+    let query = await axios.post(url + 'createDeck', postData);
     // expect query.data.result === true
     return query.data;
 }
@@ -70,12 +70,12 @@ const createCard = async (deckId, deckFront, deckBack) => {
         front: deckFront,
         back: deckBack
     }
-    let query = await axios.post(url + 'createUser', postData);
+    let query = await axios.post(url + 'createCard', postData);
     // expect query.data.result === true
     return query.data;
 }
 
-const createCardsText = async () => {
+const createCardsTest = async () => {
     for (const card of cards){
         createCard(card.id, card.front, card.back);
     }
@@ -89,8 +89,8 @@ const checkUser = async (username, pass) => {
 
 // TODO: use jest to effectively check GET requests
 
-const getDeck = async (deckId, username) => {
-    let query = await axios.get(url + `getDecks/${deckId}/${username}`);
+const getDeck = async (username) => {
+    let query = await axios.get(url + `getDecks/${username}`);
     // expect query.data.result === true, Ex: query.data.ids == [{id: 1}]
     return query.data;
 }
@@ -102,11 +102,11 @@ const getCard = async (deckId) => {
 }
 
 const setCard = async (update, specify) => {
-    let update = {
+    let toPut = {
         columns: update,
         specifyColumns: specify
-    }
-    let query = await axios.put(url + 'setCard', update);
+    };
+    let query = await axios.put(url + 'setCard', toPut);
     return query.data;
 }
 
@@ -143,8 +143,8 @@ const setDeckTests = async () => {
         {update: [{username: "testUser1"}], specify: [{id: "8"},{username: "testUser2"},{description: "test deck"}]},
         // update description of deck 9
         {update: [{description: "updated deck 9 for testUser 1"}], specify: [{id: "9"},{username: "testUser1"},{description: "test deck"}]},
-        // unsafe update without id
-        {update: [{id: "11"},{username: "testUser1"},{description: "unsafe update for deck 10 -> 11 testUser1"}], specify: [{username: "testUser1"},{description: "test deck"}]}
+        // unsafe update without id violates some foreign constraint being referenced by cards
+        // {update: [{id: "11"},{username: "testUser1"},{description: "unsafe update for deck 10 -> 11 testUser1"}], specify: [{username: "testUser1"},{description: "test deck"}]}
     ];
     for (const updateParam of updateParams){
         setDeck(updateParam.update, updateParam.specify);
@@ -163,11 +163,8 @@ const delCardTests = async () =>{
         {id: "10", front: "updatedtest1", back: "test1"},
         {id: "10", front: "test2", back: "updatedtest2"},
         {id: "7", front: "very unsafe", back: "very unsafe"},
-        // rest of the cards that were not updated
-        {id: "9", front: "test", back: "test"},
         {id: "8", front: "test", back: "test"},
         {id: "7", front: "test", back: "test"},
-        {id: "7", front: "test", back: "test"}
 
     ];
     for (const deleteParam of deleteParams){
@@ -183,8 +180,9 @@ const delDeck = async (deckId, username) => {
 
 const deleteDeckTests = async () => {
     let deleteParams = [
-        // update
-        {id: "11", username: "testUser1", description: "unsafe update for deck 10 -> 11 testUser1"},
+        // update -- not updated because of foreign constraint violation
+        // {id: "11", username: "testUser1", description: "unsafe update for deck 10 -> 11 testUser1"},
+        {id: "10", username: "testUser1", description: "test deck"},
         // update
         {id: "9", username: "testUser1", description: "updated deck 9 for testUser 1"},
         // update
