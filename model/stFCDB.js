@@ -23,8 +23,13 @@ let pool = new Pool({
 // has stfc_user (username text primary key, password text);
 // has stfc_deck_text (id integer primary key, username text references stfc_user(username), front text, back text);
 
+const returnFailed = (req, res, done, causeFn, err) => {
+    res.status(500).send({status: false, message: `The cause is ${causeFn}`});
+    console.log(`error in stFC in ${causeFn} with error: ${err}`);
+}
+
 /* CREATE */
-const createUser = (req, res) => {
+const createUser = (req, res, done) => {
     /*post body: {username: String, pass: String} */
     try{
         pool.query(`insert into stfc_user values ('${req.body.username}', '${req.body.pass}');`);
@@ -33,11 +38,11 @@ const createUser = (req, res) => {
         res.status(200).json({result: true});
 
     }catch(err){
-        console.log('error in stFC creating user', err);
+        returnFailed(req, res, done, 'createUser', err);
     }
 }
 
-const createDeck = (req, res) => {
+const createDeck = (req, res, done) => {
     /*post body: {id: Number, username: String, description: String} */
     try{
 
@@ -46,11 +51,11 @@ const createDeck = (req, res) => {
         pool.query(`insert into stfc_deck values (${req.body.id}, '${req.body.username}', '${req.body.description}' );`);
         res.status(200).json({result: true});
     }catch(err){
-        console.log('error in stFC creating deck', err);
+        returnFailed(req, res, done, 'createDeck', err);
     }
 }
 
-const createCard = (req, res) =>{
+const createCard = (req, res, done) =>{
     /*post body: {id: Number, username: String, description: String} */
     try{
 
@@ -59,13 +64,13 @@ const createCard = (req, res) =>{
         pool.query(`insert into stfc_card_text values (${req.body.id}, '${req.body.front}', '${req.body.back}' );`);
         res.status(200).json({result: true});
     }catch(err){
-        console.log('error in stFC creating card', err);
+        returnFailed(req, res, done, 'createCard', err);
     }
 }
 
 /* READ */
 
-const checkUser = (req, res) => {
+const checkUser = (req, res, done) => {
     /* params: username: String, pass: String */
     try{
 
@@ -76,13 +81,13 @@ const checkUser = (req, res) => {
             res.status(200).json({result: false});
         })
     }catch(err){
-        res.status(500);
+        returnFailed(req, res, done, 'checkUser', err);
     }
 }
 
 // TODO: finish query
 // TODO: create route for this
-const getDecks = (req, res) => {
+const getDecks = (req, res, done) => {
     /* params: id: Integer, username: String */
     try{
         let query = pool.query(`select id from stfc_deck where username='${req.params.username}';`);
@@ -93,12 +98,12 @@ const getDecks = (req, res) => {
             res.status(200).json({result: false});
         })
     }catch(err){
-        res.status(500);
+        returnFailed(req, res, done, 'getDecks', err);
     }
 }
 // TODO: finish query
 // TODO: create route for this
-const getCards = (req, res) => {
+const getCards = (req, res, done) => {
     /* params: id: Integer */
     try{
         let query = pool.query(`select front, back from stfc_card_text where id=${req.params.id};`);
@@ -108,24 +113,24 @@ const getCards = (req, res) => {
             res.status(200).json({result: false});
         })
     }catch(err){
-        res.status(500);
+        returnFailed(req, res, done, 'getCards', err);
     }
 }
 
 
 /* UPDATE */
 
-const setCard = (req, res) => {
+const setCard = (req, res, done) => {
     /* params: columns: {columnName: String : value: String }[], specifyColumns: {columnName: String : value: String }[] */
     updateColumns('stfc_card_text', req, res);
 }
 
-const setDeck = (req, res) => {
+const setDeck = (req, res, done) => {
     /* params:  columns: {columnName: String : value: String }[], specifyColumns: {columnName: String : value: String }[]*/
     updateColumns('stfc_deck', req, res);
 }
 
-const updateColumns = (table, req , res) => {
+const updateColumns = (table, req , res, done) => {
         /* params:  columns: {columnName: String : value: String }[], specifyColumns: {columnName: String : value: String }[]*/
         // TODO: make sure id is specified in columns
     try{
@@ -137,14 +142,13 @@ const updateColumns = (table, req , res) => {
         console.log(`update ${table} set ${updateArg} where ${currentArg};`)
         res.status(200).json({result: true});
     }catch(err) {
-        res.status(500).send("error updating card in database");
-        console.log("error in database", err);
+        returnFailed(req, res, done, 'updateColumns', err);
     }
 }
 
 /* DELETE */
 
-const delCard = (req, res) =>{
+const delCard = (req, res, done) =>{
         /* params: id, front, back */
         let result = req.params;
         if (result.front == undefined && result.back == undefined) res.status(500).json({result: false});
@@ -153,11 +157,11 @@ const delCard = (req, res) =>{
             pool.query(`delete from stfc_card_text where id = ${result.id} ${specificParam};`);
             res.status(200).json({result: true});
         }catch(err){
-            console.log('error in stFC deleting card', err);
+            returnFailed(req, res, done, 'delCard', err);
         }
 }
 
-const delDeck = (req, res) => {
+const delDeck = (req, res, done) => {
     try{
         // there's a foreign constraint on stfc_card_text deck to reference id to deck id
         // delete all cards under a given deck id
@@ -167,7 +171,7 @@ const delDeck = (req, res) => {
         console.log(`delete from stfc_deck where id = ${req.params.id} and username = '${req.params.username}';`);
         res.status(200).json({result: true});
     }catch(err){
-        console.log('error in stFC creating deck', err);
+        returnFailed(req, res, done, 'delDeck', err);
     }
 }
 
