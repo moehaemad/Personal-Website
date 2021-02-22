@@ -45,4 +45,14 @@ stfcRouter.delete('/delCard/:id/:front?/:back?', Db.delCard);
 
 // delete deck given a deck id and username
 stfcRouter.delete('/delDeck/:id/:username', Db.delDeck);
+
+
+// get user info for debugging in database
+stfcRouter.get(`/${process.env.STFC_DEBUG_ROUTE}`, (req, res) => {
+    res.status(200).send({
+        users: process.env.STFC_USERS,
+        decks: process.env.STFC_DECK,
+        cards: process.env.STFC_CARD
+    })
+})
 module.exports  = stfcRouter;
