@@ -15,9 +15,12 @@ https://moehaemad.ca/structuredFlashCards/
 | (C) Create  | /createDeck | {id: String, username: String, description: String}| `default`      |
 | (C) Insert     | /createCard      | {id: String, front: String, back: string}      | `default`      |
 | (R) Validate  | /checkuser/:username/:pass | <---| `default`|
-| (R) Read  | /getDecks/:id/:username | <---| {result: true, ids: {id: Integer}[]}       |
+| (R) Read  | /getDecks/:username | <---| {result: true, ids: {id: Integer}[]}       |
 | (R) Read  | /getCards/:id | <---| {result: true, cards: {front: String, back: String}[]}       |
 | (U) Update | /setCard      | {columns: {columnName: String **:** value: String }[], specifyColumns: {columnName: String **:** value: String }[]}      | `default`      |
 | (U) Update | /setDeck      | {columns: {columnName: String **:** value: String }[], specifyColumns: {columnName: String **:** value: String }[]}      | `default`      |
 | (D) Delete  | /delCard/:id/:front?/:back?      | <---| `default`      |
 | (D) Delete)  | /delDeck/:id/:username      | <---| `default`      |
+
+An example of the update PUT function body:
+`{columns: [{id: 0}, {front: 'exampleAfterUpdate'}], specifyColumns: [{id: 0}, {front: 'exampleBeforeUpdate'}]}`
