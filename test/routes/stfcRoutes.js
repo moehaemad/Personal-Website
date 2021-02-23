@@ -128,7 +128,7 @@ const setCardTests = async () =>{
 }
 
 const setDeck = async (toUpdate, toSpecify) => {
-    let query = axios.put(url + '/setDeck', {columns: toUpdate, specifyColumns: toSpecify})
+    let query = axios.put(url + 'setDeck', {columns: toUpdate, specifyColumns: toSpecify})
 }
 
 const setDeckTests = async () => {
