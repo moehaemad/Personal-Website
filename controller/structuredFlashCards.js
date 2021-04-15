@@ -23,6 +23,9 @@ stfcRouter.post('/createCard', Db.createCard);
 // validate the user
 stfcRouter.get('/checkUser/:username/:pass', Db.checkUser);
 
+// validate user given only username
+stfcRouter.get('/userExists/:username', Db.userExists);
+
 // TODO: if over certain amount, specify which range of ids
 // get ids for the decks of a user
 stfcRouter.get('/getDecks/:username', Db.getDecks);
@@ -45,6 +48,9 @@ stfcRouter.delete('/delCard/:id/:front?/:back?', Db.delCard);
 
 // delete deck given a deck id and username
 stfcRouter.delete('/delDeck/:id/:username', Db.delDeck);
+
+//delete a whole username
+stfcRouter.delete('/delUser/:username', Db.delUser);
 
 
 // get user info for debugging in database

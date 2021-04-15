@@ -1,3 +1,4 @@
+const { query } = require('express');
 const {Pool} = require('pg');
 const dbConfig = require('./dbconfig');
 const {
@@ -7,24 +8,24 @@ const {
     standardResponse
 } = require('./standardResponse');
 
-let pool = new Pool({
-    user: dbConfig.awsUser,
-    database: dbConfig.awsDb,
-    password: dbConfig.awsPass,
-    host: dbConfig.PGHOST,
-    port: 5432
-});
+// let pool = new Pool({
+//     user: dbConfig.awsUser,
+//     database: dbConfig.awsDb,
+//     password: dbConfig.awsPass,
+//     host: dbConfig.PGHOST,
+//     port: 5432
+// });
 
 // TODO: use pooled connections to the database so the server doesn't crash
 
 
 // TODO: return to AWS
-// let pool = new Pool({
-//     user: dbConfig.localuser,
-//     database: dbConfig.localdb,
-//     host: 'localhost',
-//     password: dbConfig.localpass
-// })
+let pool = new Pool({
+    user: dbConfig.localuser,
+    database: dbConfig.localdb,
+    host: 'localhost',
+    password: dbConfig.localpass
+})
 
 // has stfc_user (username text primary key, password text);
 // has stfc_deck_text (id integer primary key, username text references stfc_user(username), front text, back text);
@@ -83,6 +84,20 @@ const checkUser = (req, res, done) => {
     }catch(err){
         returnFailed(req, res, done, 'checkUser', err);
     }
+}
+
+const userExists = (req, res, done) => {
+    /* params: username: String */
+    pool.connect((err, client, release) => {
+        if (err) throw err;
+        client.query(`select username from stfc_user where username = '${req.params.username}'`, undefined, (queryErr, queryRes)=>{
+            if (err){
+                returnFailed(req, res, done, 'userExists', err);
+            }else{
+                standardResponse(res, done);
+            }
+        } );
+    });
 }
 
 const getDecks = (req, res, done) => {
@@ -174,15 +189,50 @@ const delDeck = (req, res, done) => {
     }
 }
 
+/* Delete the user but following the constraints in database. */
+const gatherConstraints = async (req) =>{
+    const queryPool = await pool.connect();
+    try{
+        let ids = await queryPool.query(`select * from stfc_deck where username ='${req.params.username}';`);
+        //get the result of db query
+        ids = ids.rows;
+        //get only id information which will be needed
+        ids = ids.map(val => val.id);
+        //turn ids' into a string which need to be comma separated
+        let stringIds = ids.reduce((acc, val) => acc + ', ' + String(val));
+        //delete the cards from each associated deck
+        queryPool.query(`delete from stfc_card_text where id in (${stringIds})`);
+        //delete the decks associated with a user
+        queryPool.query(`delete from stfc_deck where id in (${stringIds})`);
+        //finally delete the user
+        queryPool.query(`delete from stfc_user where username = '${req.params.username}'`)
+
+
+    }finally{
+        queryPool.release();
+    }
+}
+
+/* request requires username */
+const delUser = (req, res, done) => {
+    try{
+        gatherConstraints(req);
+    }catch(err){
+        returnFailed(req, res, done, 'delUser', err);
+    }
+}
+
 
 
 module.exports = {checkUser, 
     createUser, 
     createDeck, 
-    createCard, 
+    createCard,
+    userExists, 
     getDecks, 
     getCards, 
     setCard,
     setDeck,
     delCard,
-    delDeck};
+    delDeck,
+    delUser};
