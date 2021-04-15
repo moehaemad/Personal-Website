@@ -30,6 +30,12 @@ let pool = new Pool({
 // has stfc_user (username text primary key, password text);
 // has stfc_deck_text (id integer primary key, username text references stfc_user(username), front text, back text);
 
+// the pool will emit an error on behalf of any idle clients
+// it contains if a backend error or network partition happens
+pool.on('error', (err, client) => {
+    console.error('Unexpected error on idle client', err)
+    process.exit(-1)
+  })
 
 /* CREATE */
 const createUser = (req, res, done) => {
@@ -88,15 +94,18 @@ const checkUser = (req, res, done) => {
 
 const userExists = (req, res, done) => {
     /* params: username: String */
-    pool.connect((err, client, release) => {
+    pool.connect((err, client, endpg) => {
         if (err) throw err;
         client.query(`select username from stfc_user where username = '${req.params.username}'`, undefined, (queryErr, queryRes)=>{
+            endpg();
             if (err){
-                returnFailed(req, res, done, 'userExists', err);
+                return returnFailed(req, res, done, 'userExists', err);
             }else{
-                standardResponse(res, done);
+                // return standardResponse(res, done);
+                res.status(200).json({result: true});
+                return done();
             }
-        } );
+        });
     });
 }
 
