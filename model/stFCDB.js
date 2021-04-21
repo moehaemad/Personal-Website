@@ -132,7 +132,7 @@ const maxDeckValue = (req, res, done) => {
         query.then(qRes =>{
             //qRes.rows[0] is used since only one value is returned
                 //.max is used since that's the property returned by postgres.
-            responseQuery(qRes, res, done, {max: qRes.rows[0].max});
+            responseQuery(qRes, res, done, {max: qRes.rows[0].max + 1});
         }).catch(err => {
             returnFailed(req, res, done, 'maxDeckValue', err)
         })
