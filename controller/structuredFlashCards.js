@@ -30,6 +30,9 @@ stfcRouter.get('/userExists/:username', Db.userExists);
 // get ids for the decks of a user
 stfcRouter.get('/getDecks/:username', Db.getDecks);
 
+//get the maximum id in table that can be used
+stfcRouter.get('/getId', Db.maxDeckValue)
+
 // get cards for a given deck
 stfcRouter.get('/getCards/:id', Db.getCards);
 

@@ -98,12 +98,15 @@ const userExists = (req, res, done) => {
         if (err) throw err;
         client.query(`select username from stfc_user where username = '${req.params.username}'`, undefined, (queryErr, queryRes)=>{
             endpg();
-            if (err){
-                return returnFailed(req, res, done, 'userExists', err);
+            if (queryErr){
+                returnFailed(req, res, done, 'userExists', queryErr);
             }else{
                 // return standardResponse(res, done);
-                res.status(200).json({result: true});
-                return done();
+                if (queryRes.rows.length === 0){
+                    returnFailed(req, res, done, 'userExists', 'no result in Db');   
+                }else{
+                    standardResponse(res, done);
+                }
             }
         });
     });
@@ -120,6 +123,21 @@ const getDecks = (req, res, done) => {
         })
     }catch(err){
         returnFailed(req, res, done, 'getDecks', err);
+    }
+}
+
+const maxDeckValue = (req, res, done) => {
+    try{
+        let query = pool.query(`select max(id) from stfc_deck;`)
+        query.then(qRes =>{
+            //qRes.rows[0] is used since only one value is returned
+                //.max is used since that's the property returned by postgres.
+            responseQuery(qRes, res, done, {max: qRes.rows[0].max});
+        }).catch(err => {
+            returnFailed(req, res, done, 'maxDeckValue', err)
+        })
+    }catch(err){
+        returnFailed(req, res, done, 'maxDeckValue async issue', err)
     }
 }
 
@@ -238,7 +256,8 @@ module.exports = {checkUser,
     createDeck, 
     createCard,
     userExists, 
-    getDecks, 
+    getDecks,
+    maxDeckValue, 
     getCards, 
     setCard,
     setDeck,
