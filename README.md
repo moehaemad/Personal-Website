@@ -16,6 +16,7 @@ https://moehaemad.ca/structuredFlashCards/
 | (**C**RUD) Insert     |POST |  /createCard      | {id: String, front: String, back: string}      |something |  `default`      |
 | (C**R**UD) Validate  |GET |  /checkuser/:username/:pass | <---| `default`|
 | (C**R**UD) Read  |GET |  /getDecks/:username | <---| {result: true, ids: {id: Integer}[]}       |
+| (C**R**UD) Read  |GET |  /getId/ | <---| {result: true, max: Integer}       |
 | (C**R**UD) Read  |GET |  /getCards/:id | <---| {result: true, cards: {front: String, back: String}[]}       |
 | (CR**U**D) Update |PUT |  /setCard      | {columns: {columnName: String **:** value: String }[], specifyColumns: {columnName: String **:** value: String }[]}      | `default`      |
 | (CR**U**D) Update |PUT |  /setDeck      | {columns: {columnName: String **:** value: String }[], specifyColumns: {columnName: String **:** value: String }[]}      | `default`      |
