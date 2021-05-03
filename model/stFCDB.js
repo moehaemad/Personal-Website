@@ -8,24 +8,24 @@ const {
     standardResponse
 } = require('./standardResponse');
 
-// let pool = new Pool({
-//     user: dbConfig.awsUser,
-//     database: dbConfig.awsDb,
-//     password: dbConfig.awsPass,
-//     host: dbConfig.PGHOST,
-//     port: 5432
-// });
+let pool = new Pool({
+    user: dbConfig.awsUser,
+    database: dbConfig.awsDb,
+    password: dbConfig.awsPass,
+    host: dbConfig.PGHOST,
+    port: 5432
+});
 
 // TODO: use pooled connections to the database so the server doesn't crash
 
 
 // TODO: return to AWS
-let pool = new Pool({
-    user: dbConfig.localuser,
-    database: dbConfig.localdb,
-    host: 'localhost',
-    password: dbConfig.localpass
-})
+// let pool = new Pool({
+//     user: dbConfig.localuser,
+//     database: dbConfig.localdb,
+//     host: 'localhost',
+//     password: dbConfig.localpass
+// })
 
 // has stfc_user (username text primary key, password text);
 // has stfc_deck_text (id integer primary key, username text references stfc_user(username), front text, back text);

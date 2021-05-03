@@ -24,6 +24,7 @@ app.use(['/SimpleGenerator', '/simplegen', '/simplegenerator'], simpleGeneratorR
 app.use('/sendMail', sendMailRouter);
 app.use('/structuredFlashCards', stfcRouter);
 
+app.get('/FlashCards', (req, res) => res.redirect('https://github.com/moehaemad/StructuredFlashCards'));
 app.get(['/workextension', '/WorkExt', '/workext', '/WorkExtension'], (req, res) => res.redirect('https://github.com/moehaemad/WorkExtension'));
 
 app.get(['/BudgetCalculator', '/budgetcalculator', '/budgetcalc', '/BudgetCalc'], (req, res) => res.redirect('https://github.com/moehaemad/Budget-Calc.'));

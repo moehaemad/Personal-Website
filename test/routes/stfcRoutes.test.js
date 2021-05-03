@@ -6,27 +6,29 @@ beforeAll(done =>{
 })
 
 describe('Sample Test', () => {
-    it ('should test that true =nn== true', ()=> {
+    test ('should test that true =nn== true', ()=> {
         expect(true).toBe(true)
     })
 })
 
 describe ('Testing api', () => {
-    it ('should return result: true', async (done)=>{
+    test ('should return result: true', async (done)=>{
         const result = await request(app)
-            .get('/structuredFlashCards/userExists/abc');
+            .get('/structuredFlashCards/userExists/something');
         expect(result.statusCode).toEqual(200);
         done();
     })
 })
-describe ('Testing api', () => {
-    it ('should return result: true', async (done)=>{
+describe ('Testing user', () => {
+    test ('should return result: false', async (done)=>{
         const result = await request(app)
-            .get('/structuredFlashCards/something');
-        expect(result.statusCode).toEqual(200);
+            .get('/structuredFlashCards/userExists/%20blank');
+        expect(result.body.result).toEqual(false);
         done();
     })
 })
+
+
 
 afterAll(done => {
     done();

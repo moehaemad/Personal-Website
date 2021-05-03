@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --forceExit",
+    "test": "jest --forceExit",
     "start": "node server.js",
     "build": "webpack --mode production",
     "quick": "webpack --mode production && npm run start",

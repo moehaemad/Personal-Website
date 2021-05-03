@@ -1,6 +1,6 @@
 const returnFailed = (req, res, done, causeFn, err) => {
     // TODO: refactor to remove passing in express request
-    res.status(100).json({result: false, message: `The cause is ${causeFn}`});
+    res.status(200).json({result: false, message: `The cause is ${causeFn}`});
     console.log(`error in stFC in ${causeFn} with error: ${err}`);
     done();
 }
