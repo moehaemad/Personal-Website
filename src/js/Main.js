@@ -39,7 +39,7 @@ var controller = (function(ui){
 })(UImodule);
 
 
-const menuBtn = document.querySelector('.menu-btn');
+/* const menuBtn = document.querySelector('.menu-btn');
 const menuItem = document.querySelector('.menu-nav__link');
 const hamburger = document.querySelector('.menu-btn__burger');
 const nav = document.querySelector('.nav');
@@ -52,7 +52,7 @@ function toggleMenu(){
 }
 
 menuBtn.addEventListener('click', toggleMenu);
-document.getElementById('front-page').addEventListener('click', toggleMenu);
+document.getElementById('front-page').addEventListener('click', toggleMenu); */
 // document.querySelector('.menu-nav__link').addEventListener('click', toggleMenu);
 
 document.getElementById('contact-send').addEventListener('click', async e => {
