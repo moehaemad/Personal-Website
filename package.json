@@ -12,7 +12,7 @@
     "install": "find ./node_modules/* -mtime +10950 -exec touch {} \\;"
   },
   "engines":{
-    "node": "v12.0.0"
+    "node": "12.13.0"
   },
   "repository": {
     "type": "git",
