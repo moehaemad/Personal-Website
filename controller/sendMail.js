@@ -1,6 +1,5 @@
 const express = require('express');
 const sendMailRouter = express.Router();
-const nodemailer = require('nodemailer');
 require('dotenv').config();
 const AWS = require('aws-sdk');
 
@@ -51,13 +50,10 @@ sendMailRouter.post('/', (req, res, next) => {
         },
         "Source": process.env.WORK_EMAIL,
     }
-    console.log(req.body)
     const sentEmail = ses.sendEmail(params).promise()
     sentEmail.then(data =>{
-        console.log(data);
         res.status(204).send('OK');
     }).catch(err => {
-        console.log(err);
         res.status(300).status('Error sending email');
     })
 });
